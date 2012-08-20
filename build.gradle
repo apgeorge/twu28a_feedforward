@@ -40,7 +40,7 @@ test {
 }
 
 task functionalTest(type: Test, dependsOn: "test") {
-   include '**/functional/com/thoughtworks/**/*.*'
+   include '**/functional/com/thoughtworks/**'
 }
 
 functionalTest.doFirst {
