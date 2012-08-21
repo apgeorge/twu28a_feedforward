@@ -19,7 +19,7 @@ public class HomeFunctionalTest {
 
     @Before
     public void setUp() {
-        webDriver = new InternetExplorerDriver();
+        webDriver = new FirefoxDriver();
     }
 
     @Test
