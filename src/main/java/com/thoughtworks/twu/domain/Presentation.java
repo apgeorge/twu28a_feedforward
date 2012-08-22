@@ -1,10 +1,11 @@
 package com.thoughtworks.twu.domain;
 
 
-public class Presentation {
+public class Presentation implements IPresentation {
     private String title;
     private String description;
     private String owner;
+    private int id;
 
     public Presentation(){}
 
@@ -34,5 +35,9 @@ public class Presentation {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (owner != null ? owner.hashCode() : 0);
         return result;
+    }
+
+    public int getId() {
+        return id;
     }
 }

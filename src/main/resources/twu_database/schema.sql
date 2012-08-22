@@ -7,7 +7,9 @@ create table user (
 create table presentation(
      id int NOT NULL IDENTITY,
      title varchar(50),
+     time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      description varchar(500),
      owner varchar(50),
-     PRIMARY KEY (id)
+     PRIMARY KEY (id),
+     CONSTRAINT uc_presentation UNIQUE (owner,title)
 );

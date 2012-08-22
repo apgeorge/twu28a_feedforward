@@ -16,7 +16,7 @@ public class PresentationService {
     }
 
     public Presentation getPresentation(String title){
-        return presentationMapper.getPresentation(title);
+        return presentationMapper.getPresentationByTitle(title);
     }
 
 
