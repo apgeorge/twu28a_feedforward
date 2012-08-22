@@ -32,11 +32,10 @@ public class PresentationMapperTest extends IntegrationTest {
         presentationMapper.insertPresentation(new Presentation("blah", "Today at 25", "Prateek"));
         presentationMapper.insertPresentation(new Presentation("bleh", "Yesterday at 26", "Manan"));
 
-        ArrayList<Presentation> expectedPresentationList=new ArrayList<>();
+        ArrayList<Presentation> expectedPresentationList=new ArrayList<Presentation>();
         expectedPresentationList.add(new Presentation("pechaKucha", "Today at 8", "Prateek"));
         expectedPresentationList.add(new Presentation("blah", "Today at 25", "Prateek"));
         String owner = "Prateek";
         assertThat(expectedPresentationList, is(presentationMapper.getPresentationsByOwner(owner)));
-
     }
 }
