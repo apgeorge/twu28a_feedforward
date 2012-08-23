@@ -6,6 +6,9 @@ import com.thoughtworks.twu.persistence.PresentationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PresentationService {
     private PresentationMapper presentationMapper;
@@ -20,4 +23,7 @@ public class PresentationService {
     }
 
 
+    public List<Presentation> getPresentationByOwner(String owner) {
+        return presentationMapper.getPresentationsByOwner(owner);
+    }
 }

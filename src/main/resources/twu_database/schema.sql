@@ -13,3 +13,12 @@ create table presentation(
      PRIMARY KEY (id),
      CONSTRAINT uc_presentation UNIQUE (owner,title)
 );
+
+create table event(
+    event_id int not null IDENTITY,
+    presentation_id int,
+    venue varchar(50),
+    date_time varchar(50),
+    constraint pk_event primary key (event_id)
+
+)
