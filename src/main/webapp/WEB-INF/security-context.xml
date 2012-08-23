@@ -64,7 +64,7 @@
             <b:bean
                     class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"
                     p:acceptAnyProxy="true"
-                    p:proxyCallbackUrl="https://${cas.service.host}/twu/j_spring_cas_security_proxyreceptor"
+                    p:proxyCallbackUrl="http://${cas.service.host}/twu/j_spring_cas_security_proxyreceptor"
                     p:proxyGrantingTicketStorage-ref="pgtStorage">
                 <b:constructor-arg value="https://castest.thoughtworks.com/cas" />
             </b:bean>
