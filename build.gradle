@@ -20,7 +20,13 @@ dependencies {
             'org.freemarker:freemarker:2.3.19',
             'ch.qos.logback:logback-classic:1.0.0',
             'commons-lang:commons-lang:2.6',
-            'hsqldb:hsqldb:1.8.0.10'
+            'hsqldb:hsqldb:1.8.0.10',
+            'org.springframework.security:spring-security-core:3.1.1.RELEASE',
+            'org.springframework.security:spring-security-web:3.1.1.RELEASE',
+            'org.springframework.security:spring-security-config:3.1.1.RELEASE',
+            'org.springframework.security:spring-security-cas:3.1.1.RELEASE',
+            'net.sf.ehcache:ehcache-core:2.6.0',
+            fileTree(dir: 'lib', include: '*.jar')
 
 
     testCompile 'junit:junit:4.10',
@@ -40,7 +46,7 @@ test {
 }
 
 task functionalTest(type: Test, dependsOn: "test") {
-   include '**/functional/com/thoughtworks/**/*.*'
+    include '**/functional/com/thoughtworks/**/*.*'
 }
 
 functionalTest.doFirst {
