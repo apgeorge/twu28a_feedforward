@@ -1,7 +1,7 @@
 package com.thoughtworks.twu.domain;
 
 
-public class Presentation implements IPresentation {
+public class Presentation {
     private String title;
     private String description;
     private String owner;

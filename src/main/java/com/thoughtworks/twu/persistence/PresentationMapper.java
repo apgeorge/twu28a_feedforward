@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PresentationMapper {
 
-   @Select("SELECT title,description,owner,id FROM presentation where title = #{title}")
+    @Select("SELECT title,description,owner,id FROM presentation where title = #{title}")
     Presentation getPresentationByTitle(String title);
 
     @Insert("INSERT INTO presentation (title, description, owner) VALUES(#{title}, #{description}, #{owner})")
@@ -16,7 +16,5 @@ public interface PresentationMapper {
 
     @Select("SELECT title,description,owner FROM presentation where owner = #{owner} ORDER BY time_stamp DESC")
     List<Presentation> getPresentationsByOwner(String owner);
-
-
 
 }
