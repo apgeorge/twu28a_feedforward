@@ -19,9 +19,9 @@ public class EventService {
             this.presentationMapper=presentationMapper;
         }
 
-    public void createEventWithNewPresentation(Presentation presentation, String venue, String when) {
+    public void createEventWithNewPresentation(Presentation presentation, String venue, String date,String time) {
          presentationMapper.insertPresentation(presentation);
-         presentationMapper.getPresentationByTitle(presentation.getTitle());
-         eventMapper.insertEvent(new Event(presentation,venue,when));
+         presentation=presentationMapper.getPresentationByTitle(presentation.getTitle());
+        eventMapper.insertEvent(new Event(presentation,venue,date,time));
     }
 }

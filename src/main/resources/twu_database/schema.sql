@@ -18,7 +18,17 @@ create table event(
     event_id int not null IDENTITY,
     presentation_id int,
     venue varchar(50),
-    date_time varchar(50),
+    date_ varchar(20),
+    time_ varchar(20),
     constraint pk_event primary key (event_id)
 
+)
+
+create table feedback(
+    feedback_id int not null IDENTITY,
+    feedback_comment varchar(500),
+    e_id int,
+    attendee varchar(50),
+    attendee_mail varchar(100),
+    constraint pk_feedback primary key(feedback_id)
 )
