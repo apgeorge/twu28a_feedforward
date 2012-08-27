@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 public class HomeController {
     private UserService userService;
@@ -21,9 +19,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView homepage(@RequestParam(value = "username", defaultValue = "") String username, HttpServletRequest request) {
+    public ModelAndView homepage(@RequestParam(value = "username", defaultValue = "") String username) {
         ModelAndView modelAndView = new ModelAndView("example/home");
-        modelAndView.addObject("request", request);
         if (!username.isEmpty()) {
             User user = userService.getUser(username);
             modelAndView.addObject("user", user)

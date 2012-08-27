@@ -31,12 +31,12 @@ dependencies {
             'org.seleniumhq.selenium:selenium-firefox-driver:2.23.0'
 }
 
-test {
-    exclude '**/functional/com/thoughtworks/**/*.*'
-}
-
 jettyRun {
     contextPath = 'twu'
+}
+
+test {
+    exclude '**/functional/com/thoughtworks/**/*.*'
 }
 
 task functionalTest(type: Test, dependsOn: "test") {

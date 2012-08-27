@@ -7,10 +7,6 @@
 
 <body>
 
-<p>Your principal object is....: ${request.userPrincipal.name}</p>
-
-
-
 <#if user??>
         <h1>Hallo ${user.name}</a>
     <#else>
