@@ -32,4 +32,76 @@
         <param-value>classpath:/applicationContext.xml</param-value>
     </context-param>
 
+    <filter>
+        <filter-name>CAS Authentication Filter</filter-name>
+        <filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>casServerLoginUrl</param-name>
+            <param-value>https://castest.thoughtworks.com/cas/login</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://127.0.0.1:8080</param-value>
+        </init-param>
+    </filter>
+    <!--<filter>-->
+        <!--<filter-name>CAS Validation Filter</filter-name>-->
+        <!--<filter-class>org.jasig.cas.client.validation.Saml11TicketValidationFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>casServerUrlPrefix</param-name>-->
+            <!--<param-value>https://castest.thoughtworks.com/cas</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>serverName</param-name>-->
+            <!--<param-value>http://127.0.0.1:8080</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>redirectAfterValidation</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--&lt;!&ndash;-->
+              <!--Adjust to accommodate clock drift between client/server.-->
+              <!--Increasing tolerance has security consequences, so it is preferable to-->
+              <!--correct the source of clock drift instead.-->
+            <!--&ndash;&gt;-->
+            <!--<param-name>tolerance</param-name>-->
+            <!--<param-value>5000</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter>-->
+        <!--<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>-->
+        <!--<filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>-->
+    <!--</filter>-->
+    <!--&lt;!&ndash; Other filters as needed &ndash;&gt;-->
+
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>CAS Authentication Filter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>CAS Validation Filter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <!--&lt;!&ndash;-->
+      <!--Other filter mappings as needed.-->
+      <!--Ordering of filter mappings is vitally important to proper CAS function.-->
+    <!--&ndash;&gt;-->
+
+    <!--<session-config>-->
+        <!--<session-timeout>-->
+            <!--30-->
+        <!--</session-timeout>-->
+    <!--</session-config>-->
+    <!--<welcome-file-list>-->
+        <!--<welcome-file>-->
+            <!--index.jsp-->
+        <!--</welcome-file>-->
+    <!--</welcome-file-list>-->
+
 </web-app>
