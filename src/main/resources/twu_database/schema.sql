@@ -27,5 +27,8 @@ create table event(
 create table feedback(
     feedback_id int not null IDENTITY,
     feedback_comment varchar(500),
+    e_id int,
+    attendee varchar(50),
+    attendee_mail varchar(100),
     constraint pk_feedback primary key(feedback_id)
 )

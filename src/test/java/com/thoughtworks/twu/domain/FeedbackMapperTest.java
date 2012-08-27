@@ -15,10 +15,13 @@ public class FeedbackMapperTest extends IntegrationTest {
     @Test
     public void shouldInsertFeedbackIntoDatabase() {
         //Given
-        String feedback = "Fantastic";
+        int event=9;
+        Feedback feedback = new Feedback("feedbackComment",event, "attendee", "attendeeMail");
         //When
-        int result = feedbackMapper.insertFeedback(feedback);
+        feedbackMapper.insertFeedback(feedback);
+        Feedback result=feedbackMapper.getLastEnteredFeedback();
         //Then
-        assertThat(result, is(1));
+        assertThat(result, is(feedback));
     }
+
 }

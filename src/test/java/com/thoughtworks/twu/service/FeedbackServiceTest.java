@@ -1,5 +1,7 @@
 package com.thoughtworks.twu.service;
 
+import com.thoughtworks.twu.domain.Event;
+import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.persistence.FeedbackMapper;
 import org.junit.Test;
 
@@ -14,10 +16,10 @@ public class FeedbackServiceTest {
         FeedbackService feedbackService = new FeedbackService(mockFeedback);
 
         //When
-        String feedbackComment = "Sample Feedback";
-        feedbackService.enterFeedback(feedbackComment);
+        Feedback feedback = new Feedback("Great", 9, "bleh", "test@test.com");
+        feedbackService.enterFeedback(feedback);
 
         //Then
-        verify(mockFeedback).insertFeedback(feedbackComment);
+        verify(mockFeedback).insertFeedback(feedback);
     }
 }

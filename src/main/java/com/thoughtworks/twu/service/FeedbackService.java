@@ -1,5 +1,6 @@
 package com.thoughtworks.twu.service;
 
+import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.persistence.FeedbackMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ public class FeedbackService {
         this.feedbackMapper = feedbackMapper;
     }
 
-    public void enterFeedback(String feedbackComment) {
-        feedbackMapper.insertFeedback(feedbackComment);
+    public void enterFeedback(Feedback feedback) {
+        feedbackMapper.insertFeedback(feedback);
 
     }
 }
