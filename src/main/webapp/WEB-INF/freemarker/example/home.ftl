@@ -1,4 +1,3 @@
-<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
 <html>
 
@@ -8,12 +7,7 @@
 
 <body>
 
-<#--<p>Your principal object is....: ${request.userPrincipal}</p>-->
-<p>Your principal object is....: <@security.authentication property = "principal.nickname">
-
-</@security.authentication></p>
-
-<#--<p>Welcome back <sec:authentication property="principal.nickname"/>.</p>-->
+<p>Your principal object is....: ${request.userPrincipal.name}</p>
 
 
 
