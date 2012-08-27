@@ -20,11 +20,11 @@ public class EventServiceTest {
 
         EventService eventService=new EventService(mockEventMapper,mockPresentationMapper);
         Presentation presentation = new Presentation("blah", "blah-blah", "Manali");
-        eventService.createEventWithNewPresentation(presentation,"venue","when");
+        eventService.createEventWithNewPresentation(presentation,"venue","date","time");
 
         verify(mockPresentationMapper).insertPresentation(presentation);
         verify(mockPresentationMapper).getPresentationByTitle("blah");
-        verify(mockEventMapper).insertEvent(new Event(presentation,"venue","when"));
+        verify(mockEventMapper).insertEvent(new Event(presentation,"venue","date","time"));
 
 }
 }

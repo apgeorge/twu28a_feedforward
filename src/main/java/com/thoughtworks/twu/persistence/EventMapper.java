@@ -8,6 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public interface EventMapper {
 
-    @Insert("INSERT INTO event (presentation_id, venue, date_time) VALUES(#{event.presentation.id}, #{event.venue}, #{event.when})")
+    @Insert("INSERT INTO event (presentation_id, venue, date_,time_) VALUES(#{event.presentation.id}, #{event.venue}, #{event.date_}, #{event.time_})")
     int insertEvent(@Param("event")Event event);
 }

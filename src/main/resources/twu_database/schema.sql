@@ -18,7 +18,8 @@ create table event(
     event_id int not null IDENTITY,
     presentation_id int,
     venue varchar(50),
-    date_time varchar(50),
+    date_ varchar(20),
+    time_ varchar(20),
     constraint pk_event primary key (event_id)
 
 )
