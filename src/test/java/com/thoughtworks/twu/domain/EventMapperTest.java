@@ -28,7 +28,7 @@ public class EventMapperTest extends IntegrationTest {
         Event event=new Event(actualPresentation,venue,when);
         Event secondEvent=new Event(actualPresentation,"sjafh","kxcvn");
         assertThat(eventMapper.insertEvent(event),is(1));
-        assertThat(eventMapper.insertEvent(secondEvent),not(2));
+        assertThat(eventMapper.insertEvent(secondEvent),not(0));
 
     }
 

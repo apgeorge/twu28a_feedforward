@@ -20,12 +20,12 @@ public class FeedbackControllerTest {
         feedbackController = new FeedbackController(feedbackService);
 
         // When
-        ModelAndView result = feedbackController.enterFeedback("Feedback comment", "Type");
+        ModelAndView result = feedbackController.enterFeedback("Feedback comment");
 
         // Then
         String resultMessage = (String) result.getModel().get("result-message");
         assertThat(resultMessage, is("Thank you for the feedback"));
-        verify(feedbackService).enterFeedback("Feedback comment", "Type");
+        verify(feedbackService).enterFeedback("Feedback comment");
     }
 
 

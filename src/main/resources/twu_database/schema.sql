@@ -22,3 +22,9 @@ create table event(
     constraint pk_event primary key (event_id)
 
 )
+
+create table feedback(
+    feedback_id int not null IDENTITY,
+    feedback_comment varchar(500),
+    constraint pk_feedback primary key(feedback_id)
+)
