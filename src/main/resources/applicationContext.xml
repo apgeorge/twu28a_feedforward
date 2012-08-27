@@ -36,4 +36,22 @@
         <property name="basePackage" value="com.thoughtworks.twu.persistence"/>
     </bean>
 
+    <bean
+            name="authenticationFilter"
+            class="org.jasig.cas.client.authentication.AuthenticationFilter">
+        <property name="casServerLoginUrl" value="https://castest.thoughtworks.com/cas/login" />
+        <property name="serverName" value="http://127.0.0.1:8080"/>
+    </bean>
+
+    <bean
+            name="ticketValidationFilter"
+            class="org.jasig.cas.client.validation.Saml11TicketValidationFilter">
+        <property name="serverName" value="http://127.0.0.1:8080"/>
+        <property name="ticketValidator">
+            <bean class="org.jasig.cas.client.validation.Saml11TicketValidator">
+                <constructor-arg index="0" value="https://castest.thoughtworks.com/cas" />
+            </bean>
+        </property>
+    </bean>
+
 </beans>

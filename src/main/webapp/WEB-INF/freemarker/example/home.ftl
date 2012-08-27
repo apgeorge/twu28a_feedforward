@@ -1,11 +1,23 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>TWU Demo</title>
 </head>
 
 <body>
-    <#if user??>
+
+<#--<p>Your principal object is....: ${request.userPrincipal}</p>-->
+<p>Your principal object is....: <@security.authentication property = "principal.nickname">
+
+</@security.authentication></p>
+
+<#--<p>Welcome back <sec:authentication property="principal.nickname"/>.</p>-->
+
+
+
+<#if user??>
         <h1>Hallo ${user.name}</a>
     <#else>
         <#if username??>
