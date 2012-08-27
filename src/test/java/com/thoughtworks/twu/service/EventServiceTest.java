@@ -24,7 +24,7 @@ public class EventServiceTest {
 
         verify(mockPresentationMapper).insertPresentation(presentation);
         verify(mockPresentationMapper).getPresentationByTitle("blah");
-        verify(mockEventMapper).insertEvent(new Event(presentation,"venue","date","time"));
+        verify(mockEventMapper).insertEvent(new Event(any(Presentation.class),"venue","date","time"));
 
 }
 }
