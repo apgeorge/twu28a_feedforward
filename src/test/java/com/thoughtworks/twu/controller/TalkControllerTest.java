@@ -1,5 +1,6 @@
 package com.thoughtworks.twu.controller;
 
+import com.thoughtworks.twu.domain.Talk;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,13 +13,15 @@ public class TalkControllerTest {
     private TalkController talkController;
 
     @Test
-    public void shouldReturnEventDetailsViewForAnId() {
-        int eventId = 42;
+    public void shouldReturnTalkDetailsViewForAnId() {
+        int talkId = 42;
+        Talk talk = new Talk();
         talkController = new TalkController();
 
-        ModelAndView result = talkController.getEvent(eventId);
+        ModelAndView result = talkController.getTalk(talkId);
 
         assertThat(result.getViewName(), is("talk_details"));
+        //assertThat((Talk)result.getModel().get("talk"), is(talk));
     }
 
 }

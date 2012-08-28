@@ -1,6 +1,5 @@
 package com.thoughtworks.twu.service;
 
-import com.thoughtworks.twu.domain.Event;
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.persistence.FeedbackMapper;
 import org.junit.Test;

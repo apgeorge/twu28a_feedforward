@@ -15,8 +15,8 @@ public class FeedbackMapperTest extends IntegrationTest {
     @Test
     public void shouldInsertFeedbackIntoDatabase() {
         //Given
-        int event=9;
-        Feedback feedback = new Feedback("feedbackComment",event, "attendee", "attendeeMail");
+        int talkId=9;
+        Feedback feedback = new Feedback("feedbackComment",talkId, "attendee", "attendeeMail");
         //When
         feedbackMapper.insertFeedback(feedback);
         Feedback result=feedbackMapper.getLastEnteredFeedback();

@@ -1,6 +1,5 @@
 package com.thoughtworks.twu.controller;
 
-import com.thoughtworks.twu.domain.Event;
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,8 @@ public class FeedbackController {
     }
 
         @RequestMapping(value = "enterFeedback", method = RequestMethod.GET)
-        public ModelAndView enterFeedback(String feedbackComment, String owner, int event, String attendeeMail) {
-            Feedback feedback = new Feedback(feedbackComment, event, owner, attendeeMail);
+        public ModelAndView enterFeedback(String feedbackComment, String owner, int talk, String attendeeMail) {
+            Feedback feedback = new Feedback(feedbackComment, talk, owner, attendeeMail);
             feedbackService.enterFeedback(feedback);
         ModelAndView modelAndView= new ModelAndView();
         modelAndView.addObject("result-message","Thank you for the feedback");
