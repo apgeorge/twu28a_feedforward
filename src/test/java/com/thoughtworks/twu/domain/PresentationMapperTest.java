@@ -58,7 +58,8 @@ public class PresentationMapperTest extends IntegrationTest {
         expectedPresentationList.add(new Presentation("pechaKucha", "Today at 8", "Prateek"));
 
     String owner = "Prateek";
-    assertThat(expectedPresentationList, is(presentationMapper.getPresentationsByOwner(owner)));
+        for(Presentation p:expectedPresentationList)
+    assertTrue(presentationMapper.getPresentationsByOwner(owner).contains(p));
 }
 
 

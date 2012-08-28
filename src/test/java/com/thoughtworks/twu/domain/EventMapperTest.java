@@ -32,26 +32,11 @@ public class EventMapperTest extends IntegrationTest {
 
     }
 
-
-
-
-    /* @Test
-public void shouldCheckCreationOfEvent() throws Exception {
-String venue="Pune Office";
-String date_="23-08-2012 10:05 am";
-String title="XConf";
-String description="Ruby Conference";
-
-String owner="Aman King";
-
-
-Event xConfPune=new Event(title,description,venue,date_);
-
-presentationMapper.insertPresentation(new Presentation(title,description,owner));
-int presentationId=presentationMapper.getPresentationByTitle(title).getId();
-eventMapper.insertEvent(presentationId,venue,date_);
-
-Event expectedEvent=eventMapper.getEventByName("XConf Pune");
-assertThat(expectedEvent,is(xConfPune));
-}        */
 }
+
+
+
+
+
+
+
