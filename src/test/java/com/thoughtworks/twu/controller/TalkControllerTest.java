@@ -6,19 +6,19 @@ import org.springframework.web.servlet.ModelAndView;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class EventControllerTest {
+public class TalkControllerTest {
 
 
-    private EventController eventController;
+    private TalkController talkController;
 
     @Test
     public void shouldReturnEventDetailsViewForAnId() {
         int eventId = 42;
-        eventController = new EventController();
+        talkController = new TalkController();
 
-        ModelAndView result = eventController.getEvent(eventId);
+        ModelAndView result = talkController.getEvent(eventId);
 
-        assertThat(result.getViewName(), is("event_details"));
+        assertThat(result.getViewName(), is("talk_details"));
     }
 
 }

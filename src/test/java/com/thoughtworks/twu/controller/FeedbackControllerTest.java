@@ -1,6 +1,5 @@
 package com.thoughtworks.twu.controller;
 
-import com.thoughtworks.twu.domain.Event;
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.service.FeedbackService;
 import org.junit.Test;
