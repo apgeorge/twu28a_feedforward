@@ -26,6 +26,6 @@ public class TalkService {
     }
 
     public Talk getTalk(int talkId) {
-         return  null;
+        return talkMapper.getTalk(talkId);
     }
 }

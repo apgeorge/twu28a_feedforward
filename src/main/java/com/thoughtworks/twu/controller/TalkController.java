@@ -13,8 +13,8 @@ public class TalkController {
     }
 
     public ModelAndView getTalk(int talkId) {
-        ModelAndView modelAndView = new ModelAndView("talk_details");
         Talk talk = talkService.getTalk(talkId);
+        ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk",talk);
         return modelAndView;
     }
