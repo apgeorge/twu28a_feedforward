@@ -10,18 +10,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class TalkService {
 
-        private PresentationMapper presentationMapper;
-        private TalkMapper talkMapper;
+    private PresentationMapper presentationMapper;
+    private TalkMapper talkMapper;
 
-        @Autowired
-        public TalkService(TalkMapper talkMapper, PresentationMapper presentationMapper) {
-            this.talkMapper = talkMapper;
-            this.presentationMapper=presentationMapper;
-        }
+    @Autowired
+    public TalkService(TalkMapper talkMapper, PresentationMapper presentationMapper) {
+        this.talkMapper = talkMapper;
+        this.presentationMapper = presentationMapper;
+    }
 
     public void createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
-         presentationMapper.insertPresentation(presentation);
-         presentation=presentationMapper.getPresentationByTitle(presentation.getTitle());
+        presentationMapper.insertPresentation(presentation);
+        presentation = presentationMapper.getPresentationByTitle(presentation.getTitle());
         talkMapper.insert(new Talk(presentation, venue, date, time));
+    }
+
+    public Talk getTalk(int talkId) {
+         return  null;
     }
 }
