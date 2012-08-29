@@ -19,8 +19,8 @@ public class FeedbackController {
     }
 
     @RequestMapping(value = "feedback", method = RequestMethod.POST)
-    public ModelAndView enterFeedback(String feedbackComment, String owner, int talk, String attendeeMail) {
-        Feedback feedback = new Feedback(feedbackComment, talk, owner, attendeeMail);
+    public ModelAndView enterFeedback(int talk, String feedbackComment) {
+        Feedback feedback = new Feedback(talk, feedbackComment, "feedback giver name", "caroline@example.com");
         feedbackService.enterFeedback(feedback);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("result-message", "Thank you for the feedback");

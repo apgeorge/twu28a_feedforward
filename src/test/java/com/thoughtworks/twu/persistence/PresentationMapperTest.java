@@ -1,6 +1,6 @@
-package com.thoughtworks.twu.domain;
+package com.thoughtworks.twu.persistence;
 
-import com.thoughtworks.twu.persistence.PresentationMapper;
+import com.thoughtworks.twu.domain.Presentation;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

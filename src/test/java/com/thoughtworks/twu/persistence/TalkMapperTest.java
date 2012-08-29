@@ -1,7 +1,7 @@
-package com.thoughtworks.twu.domain;
+package com.thoughtworks.twu.persistence;
 
-import com.thoughtworks.twu.persistence.PresentationMapper;
-import com.thoughtworks.twu.persistence.TalkMapper;
+import com.thoughtworks.twu.domain.Presentation;
+import com.thoughtworks.twu.domain.Talk;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

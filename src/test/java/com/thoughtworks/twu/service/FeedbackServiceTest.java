@@ -15,7 +15,7 @@ public class FeedbackServiceTest {
         FeedbackService feedbackService = new FeedbackService(mockFeedback);
 
         //When
-        Feedback feedback = new Feedback("Great", 9, "bleh", "test@test.com");
+        Feedback feedback = new Feedback(9, "Great", "bleh", "test@test.com");
         feedbackService.enterFeedback(feedback);
 
         //Then

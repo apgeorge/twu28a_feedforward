@@ -1,6 +1,6 @@
-package com.thoughtworks.twu.domain;
+package com.thoughtworks.twu.persistence;
 
-import com.thoughtworks.twu.persistence.FeedbackMapper;
+import com.thoughtworks.twu.domain.Feedback;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,7 +16,7 @@ public class FeedbackMapperTest extends IntegrationTest {
     public void shouldInsertFeedbackIntoDatabase() {
         //Given
         int talkId=9;
-        Feedback feedback = new Feedback("feedbackComment",talkId, "attendee", "attendeeMail");
+        Feedback feedback = new Feedback(talkId, "feedbackComment", "attendee", "attendeeMail");
         //When
         feedbackMapper.insertFeedback(feedback);
         Feedback result=feedbackMapper.getLastEnteredFeedback();
