@@ -4,6 +4,9 @@ import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.persistence.FeedbackMapper;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -20,5 +23,30 @@ public class FeedbackServiceTest {
 
         //Then
         verify(mockFeedback).insertFeedback(feedback);
+    }
+
+    @Test
+    public void shouldRetrieveFeedbackListByTalkId() {
+        //Given
+        FeedbackMapper mockFeedbackMapper = mock(FeedbackMapper.class);
+        FeedbackService feedbackService = new FeedbackService(mockFeedbackMapper);
+        int talk_id = 1;
+        Feedback feedback1 = new Feedback(talk_id, "feedbackComment1", "attendee1", "attendeeMail 1");
+        Feedback feedback2 = new Feedback(talk_id, "feedbackComment2", "attendee2", "attendeeMail 2");
+        Feedback feedback3 = new Feedback(talk_id, "feedbackComment3", "attendee3", "attendeeMail 3");
+        Feedback feedback = new Feedback(2, "feedbackComment1", "attendee1", "attendeeMail 1");
+        feedbackService.enterFeedback(feedback1);
+        feedbackService.enterFeedback(feedback2);
+        feedbackService.enterFeedback(feedback3);
+        feedbackService.enterFeedback(feedback);
+        ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
+        feedbackList.add(feedback3);
+        feedbackList.add(feedback2);
+        feedbackList.add(feedback1);
+        //When
+        List<Feedback> result = feedbackService.retrieveFeedbackByTalkId(talk_id);
+        //Then
+        verify(mockFeedbackMapper).getFeedbackByTalkId(talk_id);
+
     }
 }
