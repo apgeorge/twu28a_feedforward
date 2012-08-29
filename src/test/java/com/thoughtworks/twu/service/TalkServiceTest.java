@@ -34,7 +34,7 @@ public class TalkServiceTest {
         talkService.createTalkWithNewPresentation(presentation, "venue", "date", "time");
 
         verify(mockPresentationMapper).insertPresentation(presentation);
-        verify(mockPresentationMapper).getPresentationByTitle("test title");
+        verify(mockPresentationMapper).getPresentation("test title", "test presenter");
         verify(mockTalkMapper).insert(new Talk(any(Presentation.class), "venue", "date", "time"));
     }
 

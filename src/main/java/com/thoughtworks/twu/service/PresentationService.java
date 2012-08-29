@@ -6,7 +6,6 @@ import com.thoughtworks.twu.persistence.PresentationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +18,7 @@ public class PresentationService {
     }
 
     public Presentation getPresentation(String title){
-        return presentationMapper.getPresentationByTitle(title);
+        return presentationMapper.getPresentation(title, null);
     }
 
 

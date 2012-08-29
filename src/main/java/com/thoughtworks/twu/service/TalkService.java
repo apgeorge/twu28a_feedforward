@@ -21,7 +21,7 @@ public class TalkService {
 
     public int createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
         presentationMapper.insertPresentation(presentation);
-        presentation = presentationMapper.getPresentationByTitle(presentation.getTitle());
+        presentation = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
         return talkMapper.insert(new Talk(presentation, venue, date, time));
     }
 

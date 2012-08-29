@@ -15,15 +15,15 @@ public class FeedbackController {
 
     @Autowired
     public FeedbackController(FeedbackService feedbackService) {
-       this.feedbackService=feedbackService;
+        this.feedbackService = feedbackService;
     }
 
-        @RequestMapping(value = "enterFeedback", method = RequestMethod.GET)
-        public ModelAndView enterFeedback(String feedbackComment, String owner, int talk, String attendeeMail) {
-            Feedback feedback = new Feedback(feedbackComment, talk, owner, attendeeMail);
-            feedbackService.enterFeedback(feedback);
-        ModelAndView modelAndView= new ModelAndView();
-        modelAndView.addObject("result-message","Thank you for the feedback");
+    @RequestMapping(value = "feedback", method = RequestMethod.POST)
+    public ModelAndView enterFeedback(String feedbackComment, String owner, int talk, String attendeeMail) {
+        Feedback feedback = new Feedback(feedbackComment, talk, owner, attendeeMail);
+        feedbackService.enterFeedback(feedback);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("result-message", "Thank you for the feedback");
         return modelAndView;
     }
 }
