@@ -1,7 +1,8 @@
 package com.thoughtworks.twu.controller;
 
 import com.thoughtworks.twu.domain.Presentation;
-import com.thoughtworks.twu.service.EventService;
+import com.thoughtworks.twu.domain.Talk;
+import com.thoughtworks.twu.service.TalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +11,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class EventController {
-    private EventService eventService;
+public class TalkController {
+    private TalkService talkService;
 
     @Autowired
-    public EventController(EventService eventService) {
-         this.eventService = eventService;
+    public TalkController(TalkService talkService) {
+         this.talkService = talkService;
+    }
+
+    public ModelAndView getTalk(int talkId) {
+        Talk talk = talkService.getTalk(talkId);
+        ModelAndView modelAndView = new ModelAndView("talk_details");
+        modelAndView.addObject("talk",talk);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/talks.htm*", method = RequestMethod.GET)
@@ -37,11 +45,11 @@ public class EventController {
                                      @RequestParam(value = "date", defaultValue = "") String date,
                                      @RequestParam(value = "time", defaultValue = "") String time) {
         ModelAndView modelAndView;
-        if(!eventService.validate(title,description,venue,date,time)){
+        if(!talkService.validate(title,description,venue,date,time)){
             return new ModelAndView("new_talk");
         }
         Presentation presentation = new Presentation(title,description,"owner");
-        eventService.createEventWithNewPresentation(presentation,venue,date,time);
+        talkService.createTalkWithNewPresentation(presentation, venue, date, time);
 
         modelAndView = new ModelAndView("talk_tab");
         modelAndView.addObject("message","New Talk Created");

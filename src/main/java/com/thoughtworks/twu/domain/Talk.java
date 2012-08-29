@@ -3,7 +3,7 @@ package com.thoughtworks.twu.domain;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class Event {
+public class Talk {
 
 
    Presentation presentation;
@@ -15,10 +15,10 @@ public class Event {
     private PresentationMapper presentationMapper;
 
 
-    public Event() {
+    public Talk() {
     }
 
-    public Event(Presentation presentation, String venue, String date_, String time_) {
+    public Talk(Presentation presentation, String venue, String date_, String time_) {
         this.presentation=presentation;
         this.venue=venue;
         this.date_ = date_;
@@ -32,14 +32,14 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Event event = (Event) o;
+        Talk talk = (Talk) o;
 
-        if (date_ != null ? !date_.equals(event.date_) : event.date_ != null) return false;
-        if (presentation != null ? !presentation.equals(event.presentation) : event.presentation != null) return false;
-        if (presentationMapper != null ? !presentationMapper.equals(event.presentationMapper) : event.presentationMapper != null)
+        if (date_ != null ? !date_.equals(talk.date_) : talk.date_ != null) return false;
+        if (presentation != null ? !presentation.equals(talk.presentation) : talk.presentation != null) return false;
+        if (presentationMapper != null ? !presentationMapper.equals(talk.presentationMapper) : talk.presentationMapper != null)
             return false;
-        if (time_ != null ? !time_.equals(event.time_) : event.time_ != null) return false;
-        if (venue != null ? !venue.equals(event.venue) : event.venue != null) return false;
+        if (time_ != null ? !time_.equals(talk.time_) : talk.time_ != null) return false;
+        if (venue != null ? !venue.equals(talk.venue) : talk.venue != null) return false;
 
         return true;
     }

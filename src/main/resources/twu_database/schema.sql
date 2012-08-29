@@ -14,12 +14,21 @@ create table presentation(
      CONSTRAINT uc_presentation UNIQUE (owner,title)
 );
 
-create table event(
-    event_id int not null IDENTITY,
+create table talk(
+    talk_id int not null IDENTITY,
     presentation_id int,
     venue varchar(50),
     date_ varchar(20),
     time_ varchar(20),
-    constraint pk_event primary key (event_id)
+    constraint pk_talk primary key (talk_id)
 
+)
+
+create table feedback(
+    feedback_id int not null IDENTITY,
+    feedback_comment varchar(500),
+    talk_id int,
+    attendee varchar(50),
+    attendee_mail varchar(100),
+    constraint pk_feedback primary key(feedback_id)
 )

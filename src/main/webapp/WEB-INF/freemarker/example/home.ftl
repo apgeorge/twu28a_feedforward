@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>TWU Demo</title>
 </head>
 
 <body>
-    <#if user??>
+
+
+<#if user??>
         <h1>Hallo ${user.name}</a>
     <#else>
         <#if username??>
