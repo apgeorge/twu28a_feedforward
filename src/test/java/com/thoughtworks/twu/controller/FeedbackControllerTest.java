@@ -19,12 +19,9 @@ public class FeedbackControllerTest {
         FeedbackService feedbackService = mock(FeedbackService.class);
         feedbackController = new FeedbackController(feedbackService);
         int talkId = 9;
-        String feedbackComment = "Feedback comment";
-        String attendee = "owner";
-        String attendeeMail = "caroline";
-        Feedback feedback = new Feedback(feedbackComment, talkId, attendee, attendeeMail);
+        Feedback feedback = new Feedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
         // When
-        ModelAndView result = feedbackController.enterFeedback(feedbackComment, attendee, talkId, attendeeMail);
+        ModelAndView result = feedbackController.enterFeedback(talkId, "Feedback comment");
         // Then
         String resultMessage = (String) result.getModel().get("result-message");
         assertThat(resultMessage, is("Thank you for the feedback"));
