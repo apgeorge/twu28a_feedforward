@@ -13,9 +13,9 @@ public class FeedbackServiceTest {
         //Given
         FeedbackMapper mockFeedback = mock(FeedbackMapper.class);
         FeedbackService feedbackService = new FeedbackService(mockFeedback);
+        Feedback feedback = new Feedback();
 
         //When
-        Feedback feedback = new Feedback(9, "Great", "bleh", "test@test.com");
         feedbackService.enterFeedback(feedback);
 
         //Then

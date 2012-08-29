@@ -27,5 +27,6 @@ create table feedback(
     feedback_comment varchar(500),
     talk_id int,
     attendee varchar(50),
-    attendee_mail varchar(100)
+    attendee_mail varchar(100),
+    time_at_creation DATE
 )
