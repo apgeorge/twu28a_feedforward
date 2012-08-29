@@ -23,7 +23,7 @@ public class FeedbackControllerTest {
         int talkId = 9;
         Feedback feedback = new Feedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com", testClock.now());
         // When
-        ModelAndView result = feedbackController.enterFeedback(talkId, "Feedback comment");
+        ModelAndView result = feedbackController.enterFeedback(talkId,"Feedback comment");
         // Then
         String resultMessage = (String) result.getModel().get("result-message");
         assertThat(resultMessage, is("Thank you for the feedback"));

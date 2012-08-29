@@ -45,4 +45,8 @@ public class Presentation {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getOwner() {
+        return owner;
+    }
 }

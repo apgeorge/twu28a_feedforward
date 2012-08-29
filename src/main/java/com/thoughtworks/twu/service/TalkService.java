@@ -19,13 +19,17 @@ public class TalkService {
         this.presentationMapper = presentationMapper;
     }
 
-    public void createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
+    public int createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
         presentationMapper.insertPresentation(presentation);
-        presentation = presentationMapper.getPresentationByTitle(presentation.getTitle());
-        talkMapper.insert(new Talk(presentation, venue, date, time));
+        presentation = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        return talkMapper.insert(new Talk(presentation, venue, date, time));
     }
 
     public Talk getTalk(int talkId) {
         return talkMapper.getTalk(talkId);
+    }
+
+    public boolean validate(String title, String description, String venue, String date, String time) {
+        return !(title.isEmpty()||description.isEmpty()||venue.isEmpty()||date.isEmpty()||time.isEmpty());
     }
 }
