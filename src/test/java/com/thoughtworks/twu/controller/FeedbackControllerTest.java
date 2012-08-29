@@ -1,8 +1,6 @@
 package com.thoughtworks.twu.controller;
 
-import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.service.FeedbackService;
-import com.thoughtworks.twu.utils.TestClock;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,16 +16,14 @@ public class FeedbackControllerTest {
     public void shouldEnterAFeedback() {
         // Given
         FeedbackService feedbackService = mock(FeedbackService.class);
-        TestClock testClock = new TestClock();
-        feedbackController = new FeedbackController(feedbackService, testClock);
+        feedbackController = new FeedbackController(feedbackService);
         int talkId = 9;
-        Feedback feedback = new Feedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com", testClock.now());
         // When
         ModelAndView result = feedbackController.enterFeedback(talkId,"Feedback comment");
         // Then
         String resultMessage = (String) result.getModel().get("result-message");
         assertThat(resultMessage, is("Thank you for the feedback"));
-        verify(feedbackService).enterFeedback(feedback);
+        verify(feedbackService).enterFeedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
     }
 
 }
