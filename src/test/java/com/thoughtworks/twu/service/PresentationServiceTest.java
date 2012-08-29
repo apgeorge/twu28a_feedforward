@@ -17,7 +17,7 @@ public class PresentationServiceTest {
         String title = "jgik";
         presentationService.getPresentation(title);
 
-        verify(mockPresentationMapper).getPresentationByTitle(title);
+        verify(mockPresentationMapper).getPresentation(title, null);
     }
 
     @Test

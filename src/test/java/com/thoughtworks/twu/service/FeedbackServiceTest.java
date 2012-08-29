@@ -2,6 +2,8 @@ package com.thoughtworks.twu.service;
 
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.persistence.FeedbackMapper;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,9 +18,9 @@ public class FeedbackServiceTest {
         //Given
         FeedbackMapper mockFeedback = mock(FeedbackMapper.class);
         FeedbackService feedbackService = new FeedbackService(mockFeedback);
+        Feedback feedback = new Feedback();
 
         //When
-        Feedback feedback = new Feedback(9, "Great", "bleh", "test@test.com");
         feedbackService.enterFeedback(feedback);
 
         //Then
@@ -31,10 +33,10 @@ public class FeedbackServiceTest {
         FeedbackMapper mockFeedbackMapper = mock(FeedbackMapper.class);
         FeedbackService feedbackService = new FeedbackService(mockFeedbackMapper);
         int talk_id = 1;
-        Feedback feedback1 = new Feedback(talk_id, "feedbackComment1", "attendee1", "attendeeMail 1");
-        Feedback feedback2 = new Feedback(talk_id, "feedbackComment2", "attendee2", "attendeeMail 2");
-        Feedback feedback3 = new Feedback(talk_id, "feedbackComment3", "attendee3", "attendeeMail 3");
-        Feedback feedback = new Feedback(2, "feedbackComment1", "attendee1", "attendeeMail 1");
+        Feedback feedback1 = new Feedback(talk_id, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(DateTimeZone.UTC));
+        Feedback feedback2 = new Feedback(talk_id, "feedbackComment2", "attendee2", "attendeeMail 2",new DateTime(DateTimeZone.UTC));
+        Feedback feedback3 = new Feedback(talk_id, "feedbackComment3", "attendee3", "attendeeMail 3",new DateTime(DateTimeZone.UTC));
+        Feedback feedback = new Feedback(2, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(DateTimeZone.UTC));
         feedbackService.enterFeedback(feedback1);
         feedbackService.enterFeedback(feedback2);
         feedbackService.enterFeedback(feedback3);

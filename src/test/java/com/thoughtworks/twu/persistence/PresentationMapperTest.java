@@ -7,7 +7,6 @@ import org.springframework.dao.DuplicateKeyException;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
@@ -19,22 +18,12 @@ public class PresentationMapperTest extends IntegrationTest {
 
 
     @Test
-    public void shouldChoosePresentationByTitle() {
-        String pechaKucha = "pechaKucha";
-        String description = "pecha Kucha description";
-        String owner = "Teddy";
-        presentationMapper.insertPresentation(new Presentation(pechaKucha, description, owner));
-        Presentation presentation = presentationMapper.getPresentationByTitle(pechaKucha);
-        assertEquals(presentation, (new Presentation("pechaKucha", "pecha Kucha description", "Teddy")));
-    }
-
-    @Test
     public void shouldCheckThatDifferentPresentationsHaveDifferentId() throws Exception {
         presentationMapper.insertPresentation(new Presentation("blah", "Today at 25", "Prateek"));
-        presentationMapper.insertPresentation(new Presentation("bleh", "Yesterday at 26", "Manan"));
+        presentationMapper.insertPresentation(new Presentation("blah", "Yesterday at 26", "Manan"));
 
-        Presentation prateeksPresentation=presentationMapper.getPresentationByTitle("blah");
-        Presentation manansPresentation=presentationMapper.getPresentationByTitle("bleh");
+        Presentation prateeksPresentation=presentationMapper.getPresentation("blah", "Prateek");
+        Presentation manansPresentation=presentationMapper.getPresentation("blah", "Manan");
 
         assertFalse(prateeksPresentation.getId() == manansPresentation.getId());
     }
@@ -59,18 +48,20 @@ public class PresentationMapperTest extends IntegrationTest {
         expectedPresentationList.add(new Presentation("pechaKucha", "Today at 8", "Prateek"));
 
     String owner = "Prateek";
-    assertThat(expectedPresentationList, is(presentationMapper.getPresentationsByOwner(owner)));
-    }
+        for(Presentation p:expectedPresentationList)
+    assertTrue(presentationMapper.getPresentationsByOwner(owner).contains(p));
+}
 
-    @Test
-    public void shouldInsertPresentationAndReflectItInTheObject(){
+    /*
+@Test
+public void shouldInsertPresentationAndReflectItInTheObject(){
 
-        Presentation presentation = new Presentation("pechaKucha", "Today at 8", "Prateek");
-        presentation.setId(100);
-        presentationMapper.insertPresentation(presentation);
+   Presentation presentation = new Presentation("pechaKucha", "Today at 8", "Prateek");
+   presentation.setId(100);
+   presentationMapper.insertPresentation(presentation);
 
-        assertThat(presentation.getId(), not(100));
-    }
+   assertThat(presentation.getId(), not(100));
+}     */
 
 
 }

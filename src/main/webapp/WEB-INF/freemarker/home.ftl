@@ -81,6 +81,25 @@
         
         
         <script>
+
+
+            var feedback_button_fn = function (){
+                $('a[role="talk"]').click(function(){
+                    $.mobile.showPageLoadingMsg();
+                    $.ajax({
+                        method: "GET",
+                        url: "add_feedback.html",
+                        cache: false,
+                        dataType: "html",
+                        async: true
+                    })
+                            .done(function(data){
+                                $('#data_container').html(data).trigger('create');
+                            });
+                    $.mobile.hidePageLoadingMsg();
+
+                });
+            };
         
               $(function(){
                 $('#talks_button').click(function(){
@@ -181,23 +200,7 @@
                 });
 
 
-                var feedback_button_fn = function (){
-                      $('a[role="talk"]').click(function(){
-                          $.mobile.showPageLoadingMsg();
-                        $.ajax({
-                          method: "GET",
-                          url: "enter_feedback.html",
-                          cache: false,
-                          dataType: "html",
-                          async: true
-                        })
-                        .done(function(data){
-                             $('#data_container').html(data).trigger('create');
-                        });
-                        $.mobile.hidePageLoadingMsg();
 
-                  });
-                };
 
 
 

@@ -6,8 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class TalkMapperTest extends IntegrationTest {
@@ -33,18 +32,17 @@ public class TalkMapperTest extends IntegrationTest {
         assertThat(talkMapper.insert(secondTalk),not(0));
 
     }
-/*
-    //Use mapper. Not service..
+
+
     @Test
     public void shouldGetTalkWhenTalkIdIsGiven(){
-        TalkService talkService = new TalkService(talkMapper, presentationMapper);
-        talkService.createTalkWithNewPresentation(presentation,talk.venue, talk.date, talk.time);
+        presentationMapper.insertPresentation(presentation);
+        presentation= presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk secondTalk=new Talk(presentation,"venue", "date", "time");
+        talkMapper.insert(secondTalk);
 
-        //talkMapper.insert(talk);
-
-        Talk talkQueried = talkMapper.getTalk(talk.getId());
-
-        assertThat(talkQueried, is(talk));
-    }*/
+        Talk talkQueried = talkMapper.getTalk(talkMapper.getLastId());
+        assertThat(talkQueried, is(secondTalk));
+    }
 
 }
