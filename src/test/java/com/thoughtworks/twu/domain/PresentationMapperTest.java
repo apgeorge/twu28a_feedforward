@@ -5,16 +5,17 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
 public class PresentationMapperTest extends IntegrationTest {
 
     @Autowired
     private PresentationMapper presentationMapper;
+
 
 
     @Test
@@ -59,7 +60,17 @@ public class PresentationMapperTest extends IntegrationTest {
 
     String owner = "Prateek";
     assertThat(expectedPresentationList, is(presentationMapper.getPresentationsByOwner(owner)));
-}
+    }
+
+    @Test
+    public void shouldInsertPresentationAndReflectItInTheObject(){
+
+        Presentation presentation = new Presentation("pechaKucha", "Today at 8", "Prateek");
+        presentation.setId(100);
+        presentationMapper.insertPresentation(presentation);
+
+        assertThat(presentation.getId(), not(100));
+    }
 
 
 }

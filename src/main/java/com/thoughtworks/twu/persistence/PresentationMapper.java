@@ -2,6 +2,7 @@ package com.thoughtworks.twu.persistence;
 
 import com.thoughtworks.twu.domain.Presentation;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface PresentationMapper {
     Presentation getPresentationByTitle(String title);
 
     @Insert("INSERT INTO presentation (title, description, owner) VALUES(#{title}, #{description}, #{owner})")
+    @Options(useGeneratedKeys = true)
     void insertPresentation(Presentation presentation);
 
     @Select("SELECT title,description,owner FROM presentation where owner = #{owner} ORDER BY time_stamp DESC")
