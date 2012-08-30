@@ -3,6 +3,7 @@
 
 
     <div data-role="fieldcontain">
+        <center>
         <fieldset data-role="controlgroup" style="text-align: center; width: 100%;">
             <label for="feedback_text">
             </label>
@@ -12,6 +13,7 @@
             <input type="submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"
                        data-mini="true">
         </fieldset>
+        </center>
     </div>
 
 
