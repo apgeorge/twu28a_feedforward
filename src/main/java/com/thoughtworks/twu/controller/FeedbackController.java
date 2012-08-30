@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class FeedbackController {
@@ -31,7 +30,7 @@ public class FeedbackController {
     }
 
     @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.GET)
-    public ModelAndView getAddFeedbackPage(@RequestParam(value = "talkId", defaultValue = "") int talkId) {
+    public ModelAndView getAddFeedbackPage(@RequestParam(value = "talkId", defaultValue = "-1") int talkId) {
         ArrayList<Feedback> feedbackArrayList=new ArrayList<Feedback>();
         feedbackArrayList=feedbackService.retrieveFeedbackByTalkId(talkId);
         ModelAndView modelAndView= new ModelAndView("add_feedback");
