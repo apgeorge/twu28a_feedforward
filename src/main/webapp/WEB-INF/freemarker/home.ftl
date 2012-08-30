@@ -88,13 +88,26 @@
                     $.mobile.showPageLoadingMsg();
                     $.ajax({
                         method: "GET",
-                        url: "add_feedback.html",
+                        url: "talk_details.html?talk_id=1",
                         cache: false,
                         dataType: "html",
                         async: true
                     })
                             .done(function(data){
                                 $('#data_container').html(data).trigger('create');
+
+
+                                $.ajax({
+                                        method: "GET",
+                                        url: "add_feedback.html?talk_id="+this.id,
+                                        cache: false,
+                                        dataType: "html",
+                                        async: true
+                                      })
+                                           .done(function(data){
+                                                  $('#feedback_container').html(data).trigger('create');
+                                                  $.mobile.hidePageLoadingMsg();
+                                            });
                             });
                     $.mobile.hidePageLoadingMsg();
 
