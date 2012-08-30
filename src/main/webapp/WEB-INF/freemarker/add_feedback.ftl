@@ -56,7 +56,9 @@
         <#--  <#list ListName as feedback>
         <li>
             <a data-transition="slide">
-               ${feedback.feedbackComment}  - ${feedback.attendee}(${feedback.attendeeMail})
+               ${feedback.feedbackComment}  -
+               <a href="mailto:gohan@dragon.ball">Email Gohan</a>
+               ${feedback.attendee}(${feedback.attendeeMail})
             </a>
         </li>
         </#list>-->
