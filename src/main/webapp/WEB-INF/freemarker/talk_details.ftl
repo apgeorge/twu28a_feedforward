@@ -33,7 +33,7 @@
                 </div>
             <#else>
                 <h3>
-                    Failed to load event.
+                    There are no talks for this presentation at this moment.
                 <h3>
 
             </#if>

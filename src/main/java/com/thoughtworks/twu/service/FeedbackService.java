@@ -20,9 +20,10 @@ public class FeedbackService {
         this.clock = clock;
     }
 
-    public void enterFeedback(int talkId, String feedbackComment, String feedbackGiver, String feedbackGiverEmail) {
+    public int enterFeedback(int talkId, String feedbackComment, String feedbackGiver, String feedbackGiverEmail) {
         Feedback feedback = new Feedback( talkId, feedbackComment, feedbackGiver, feedbackGiverEmail, clock.now());
-        feedbackMapper.insertFeedback(feedback);
+        return feedbackMapper.insertFeedback(feedback);
+
     }
 
     public ArrayList<Feedback> retrieveFeedbackByTalkId(int talkId) {

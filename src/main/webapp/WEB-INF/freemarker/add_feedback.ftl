@@ -1,6 +1,10 @@
 <!-- A presentation -->
 
 
+    <div id = "add_feedback_container">
+    <h4 id="feedback_status_message">
+    </h4>
+
 
     <div data-role="fieldcontain">
         <center>
@@ -15,6 +19,8 @@
         </fieldset>
         </center>
     </div>
+    <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit"
+           data-mini="true">
 
 
     <div data-role="collapsible" data-collapsed="false">
@@ -50,11 +56,11 @@
 
         </ul>
     </div>
+    </div>
 
 
 
 
 <script>
 
-
-</script>
+            </script>
