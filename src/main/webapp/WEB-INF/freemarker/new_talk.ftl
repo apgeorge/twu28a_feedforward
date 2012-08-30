@@ -55,7 +55,7 @@
                                dataType: "html",
                                async: true
                                })
-                         .done(function(data){
+                         0.done(function(data){
                               $('#data_container').html(data).trigger('create');
                                 $.ajax({
                                               method: "GET",

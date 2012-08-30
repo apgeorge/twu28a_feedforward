@@ -1,16 +1,20 @@
 <!-- A presentation -->
 
 
+    <div id = "add_feedback_container">
+    <h4 id="feedback_status_message">
+    </h4>
+
 
     <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
-            <label for="textinput9">
+            <label for="feedback_text">
             </label>
-            <input name="feedback" id="textinput9" placeholder="add feedback" value=""
+            <input name="feedback" id="feedback_text" placeholder="add feedback" value=""
                    type="text">
         </fieldset>
     </div>
-    <input type="submit" data-inline="true" data-theme="b" value="Submit"
+    <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit"
            data-mini="true">
 
     <div data-role="collapsible" data-collapsed="false">
@@ -46,11 +50,26 @@
 
         </ul>
     </div>
-
+    </div>
 
 
 
 <script>
+                $('#add_feedback_container').ready(function(){
+                 $('#add_feedback_submit').click(function(){
 
+                    $.ajax({
+                               method: "POST",
+                               url: "add_feedback.html",
+                               cache: false,
+                               dataType: "html",
+                               async: true,
+                               data: { talkId: "1", feedbackComment: $('#feedback_text').val() }
+                               })
+                         .done(function(data){
+                             $('#feedback_status_message').html(data).trigger('create');
+                             $('#feedback_text').val('');
+                 });
+                });
 
-</script>
+            </script>
