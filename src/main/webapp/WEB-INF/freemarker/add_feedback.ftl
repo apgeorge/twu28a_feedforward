@@ -3,15 +3,17 @@
 
 
     <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
-            <label for="textinput9">
+        <fieldset data-role="controlgroup" style="text-align: center; width: 100%;">
+            <label for="feedback_text">
             </label>
-            <input name="feedback" id="textinput9" placeholder="add feedback" value=""
-                   type="text">
+            <textarea name="feedback" id="feedback_text" placeholder="add feedback" value="" style="width: 80%; height: 20%;"
+                   type="textArea" rows="9" cols="200"></textarea>
+            <br/>
+            <input type="submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"
+                       data-mini="true">
         </fieldset>
     </div>
-    <input type="submit" data-inline="true" data-theme="b" value="Submit"
-           data-mini="true">
+
 
     <div data-role="collapsible" data-collapsed="false">
         <h3>

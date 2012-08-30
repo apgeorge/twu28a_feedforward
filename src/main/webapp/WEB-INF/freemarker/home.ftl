@@ -99,7 +99,7 @@
 
                                 $.ajax({
                                         method: "GET",
-                                        url: "add_feedback.html?talk_id="+this.id,
+                                        url: "add_feedback.html?talk_id=0",
                                         cache: false,
                                         dataType: "html",
                                         async: true
