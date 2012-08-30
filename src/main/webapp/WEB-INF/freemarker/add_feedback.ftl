@@ -7,7 +7,7 @@
         <fieldset data-role="controlgroup" style="text-align: center; width: 100%;">
             <label for="feedback_text">
             </label>
-            <textarea name="feedback" id="feedback_text" placeholder="add feedback" value="" style="width: 80%; height: 20%;"
+            <textarea name="feedback" id="feedback_text" placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
             <br/>
             <input type="submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"

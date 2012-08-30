@@ -18,14 +18,14 @@
                     <fieldset data-role="controlgroup">
                         <label for="datepicker">
                         </label>
-                        <input name="date" id="datepicker" placeholder="date" value="" type="text" data-role="datebox" data-options='{"mode":"slidebox", "useNewStyle":true}'>
+                        <input name="date" id="datepicker" placeholder="date" value="" type="text" >
                     </fieldset>
                 </div>
                  <div data-role="fieldcontain" style="width: 100%;padding: 1%;">
                     <fieldset data-role="controlgroup">
                         <label for="timepicker">
                         </label>
-                        <input name="time" id="timepicker" placeholder="time" value="" type="text" data-role="datebox" data-options='{"mode":"timeflipbox", "useNewStyle":true}'>
+                        <input name="time" id="timepicker" placeholder="time" value="" type="text" >
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain" style="width: 100%;padding: 1%;">
@@ -70,6 +70,10 @@
                                    });
 
                  });
+
+
+                 $("#datepicker").scroller({ preset: 'date' });
+                 $("#timepicker").scroller({ preset: 'time' });
                 });
 
             </script>

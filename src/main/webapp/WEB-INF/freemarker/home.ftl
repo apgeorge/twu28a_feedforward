@@ -24,12 +24,10 @@
         <script src="static/js/my.js">
         </script>
 
+        <script type="text/javascript" src="static/js/mobiscroll-2.0.2.full.min.js"></script>
+        <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"
+                />
 
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.mode.slidebox.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
 
 
     </head>
