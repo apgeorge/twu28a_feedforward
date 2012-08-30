@@ -17,16 +17,16 @@ public class FeedbackServiceTest {
     @Test
     public void shouldInsertFeedback() {
         //Given
-        FeedbackMapper mockFeedback = mock(FeedbackMapper.class);
+        FeedbackMapper mockFeedbackMapper = mock(FeedbackMapper.class);
         TestClock testClock = new TestClock();
-        FeedbackService feedbackService = new FeedbackService(mockFeedback, testClock);
-        Feedback feedback = new Feedback();
+        FeedbackService feedbackService = new FeedbackService(mockFeedbackMapper, testClock);
+        Feedback feedback = new Feedback(1,"Goku's feedback", "Goku", "goku@dragon.ball",testClock.now());
 
         //When
-        feedbackService.enterFeedback(feedback);
+        feedbackService.enterFeedback(1,"Goku's feedback", "Goku", "goku@dragon.ball");
 
         //Then
-        verify(mockFeedback).insertFeedback(feedback);
+        verify(mockFeedbackMapper).insertFeedback(feedback);
     }
 
     @Test
@@ -40,10 +40,10 @@ public class FeedbackServiceTest {
         Feedback feedback2 = new Feedback(talk_id, "feedbackComment2", "attendee2", "attendeeMail 2",new DateTime(DateTimeZone.UTC));
         Feedback feedback3 = new Feedback(talk_id, "feedbackComment3", "attendee3", "attendeeMail 3",new DateTime(DateTimeZone.UTC));
         Feedback feedback = new Feedback(2, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(DateTimeZone.UTC));
-        feedbackService.enterFeedback(feedback1);
-        feedbackService.enterFeedback(feedback2);
-        feedbackService.enterFeedback(feedback3);
-        feedbackService.enterFeedback(feedback);
+        feedbackService.enterFeedback(1,feedback1.toString(), "Goku", "goku@dragon.ball");
+        feedbackService.enterFeedback(1,feedback2.toString(), "Goku", "goku@dragon.ball");
+        feedbackService.enterFeedback(1,feedback3.toString(), "Goku", "goku@dragon.ball");
+        feedbackService.enterFeedback(1,feedback.toString(), "Goku", "goku@dragon.ball");
         ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
         feedbackList.add(feedback3);
         feedbackList.add(feedback2);
