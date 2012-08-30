@@ -4,7 +4,7 @@
                     </li>
                     <li data-theme="c">
                         <a id="1" role="talk" data-transition="slide">
-                            Australian Football
+                            Test Talk
                         </a>
                     </li>
                     <li data-theme="c">

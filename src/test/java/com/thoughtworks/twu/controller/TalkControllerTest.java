@@ -60,10 +60,6 @@ public class TalkControllerTest {
         assertThat(talkController.getTalkTabPage().getViewName(),is("talk_tab"));
     }
 
-    @Test
-    public void shouldLoadAddFeedbackPage() throws Exception {
-        assertThat(talkController.getAddFeedbackPage().getViewName(),is("add_feedback"));
-    }
 
     @Test
     public void shouldAddTalkCreationSuccessfulMessageUponCreationOfTalkOnMyTalksPage() throws Exception {

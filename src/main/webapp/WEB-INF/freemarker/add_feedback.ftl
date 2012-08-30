@@ -7,15 +7,21 @@
 
 
     <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
+        <center>
+        <fieldset data-role="controlgroup" style="text-align: center; width: 100%;">
             <label for="feedback_text">
             </label>
-            <input name="feedback" id="feedback_text" placeholder="add feedback" value=""
-                   type="text">
+            <textarea name="feedback" id="feedback_text" placeholder="add feedback" value="" style="width: 80%; height: 20%;"
+                   type="textArea" rows="9" cols="200"></textarea>
+            <br/>
+            <input type="submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"
+                       data-mini="true">
         </fieldset>
+        </center>
     </div>
     <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit"
            data-mini="true">
+
 
     <div data-role="collapsible" data-collapsed="false">
         <h3>
@@ -24,15 +30,15 @@
         <ul data-role="listview" data-divider-theme="b" data-inset="true">
 
 
-        <#--  <#list ListName as feedback>
-        <li>
-            <a data-transition="slide">
-               ${feedback.feedbackComment}  -
-               <a href="mailto:gohan@dragon.ball">Email Gohan</a>
-               ${feedback.attendee}(${feedback.attendeeMail})
-            </a>
-        </li>
-        </#list>-->
+        <#--<#list ${retrieved_feedback_list} as feedback>-->
+        <#--<li>-->
+            <#--<a data-transition="slide">-->
+               <#--${feedback.feedbackComment}  --->
+               <#--<a href="mailto:gohan@dragon.ball">Email Gohan</a>-->
+               <#--${feedback.attendee}(${feedback.attendeeMail})-->
+            <#--</a>-->
+        <#--</li>-->
+        <#--</#list>-->
 
 
             <li data-theme="c">
@@ -54,22 +60,7 @@
 
 
 
-<script>
-                $('#add_feedback_container').ready(function(){
-                 $('#add_feedback_submit').click(function(){
 
-                    $.ajax({
-                               method: "POST",
-                               url: "add_feedback.html",
-                               cache: false,
-                               dataType: "html",
-                               async: true,
-                               data: { talkId: "1", feedbackComment: $('#feedback_text').val() }
-                               })
-                         .done(function(data){
-                             $('#feedback_status_message').html(data).trigger('create');
-                             $('#feedback_text').val('');
-                 });
-                });
+<script>
 
             </script>
