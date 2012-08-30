@@ -181,6 +181,7 @@
                                                     .done(function(data){
                                                         $('#data_container').html(data).trigger('create');
                                                         $('#message_box').html();
+                                                        feedback_button_fn();
                                                         $.mobile.hidePageLoadingMsg();
                                                     });
 
@@ -200,8 +201,8 @@
                                                                 })
                                                                         .done(function(data){
                                                                             $('#talk_container').html(data);
-                                                                            feedback_button_fn();
                                                                             $('#data_container').trigger('create');
+                                                                            feedback_button_fn();
                                                                             $.mobile.hidePageLoadingMsg();
 
                                                                         });
