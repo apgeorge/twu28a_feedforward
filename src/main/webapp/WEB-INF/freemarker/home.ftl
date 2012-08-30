@@ -35,7 +35,7 @@
     </head>
 
         <body lang="en">
-        <!-- Home -->
+        <!--- Home --->
         <div data-role="page" id="page3">
             <div class="row-fluid">
                 <div class="span12" data-theme="d" data-role="header">
