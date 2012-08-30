@@ -88,7 +88,7 @@
                     $.mobile.showPageLoadingMsg();
                     $.ajax({
                         method: "GET",
-                        url: "talk_details.html?talk_id=1",
+                        url: "talk_details.html?talk_id=0",
                         cache: false,
                         dataType: "html",
                         async: true

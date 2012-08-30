@@ -49,4 +49,8 @@ public class Presentation {
     public String getOwner() {
         return owner;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
