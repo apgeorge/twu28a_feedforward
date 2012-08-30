@@ -6,6 +6,7 @@ import com.thoughtworks.twu.utils.ApplicationClock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,7 +25,7 @@ public class FeedbackService {
         feedbackMapper.insertFeedback(feedback);
     }
 
-    public List<Feedback> retrieveFeedbackByTalkId(int talkId) {
+    public ArrayList<Feedback> retrieveFeedbackByTalkId(int talkId) {
         return feedbackMapper.getFeedbackByTalkId(talkId);
     }
 }

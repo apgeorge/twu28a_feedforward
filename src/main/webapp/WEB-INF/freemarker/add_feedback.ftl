@@ -20,15 +20,15 @@
         <ul data-role="listview" data-divider-theme="b" data-inset="true">
 
 
-        <#--  <#list ListName as feedback>
-        <li>
-            <a data-transition="slide">
-               ${feedback.feedbackComment}  -
-               <a href="mailto:gohan@dragon.ball">Email Gohan</a>
-               ${feedback.attendee}(${feedback.attendeeMail})
-            </a>
-        </li>
-        </#list>-->
+        <#--<#list ${retrieved_feedback_list} as feedback>-->
+        <#--<li>-->
+            <#--<a data-transition="slide">-->
+               <#--${feedback.feedbackComment}  --->
+               <#--<a href="mailto:gohan@dragon.ball">Email Gohan</a>-->
+               <#--${feedback.attendee}(${feedback.attendeeMail})-->
+            <#--</a>-->
+        <#--</li>-->
+        <#--</#list>-->
 
 
             <li data-theme="c">
