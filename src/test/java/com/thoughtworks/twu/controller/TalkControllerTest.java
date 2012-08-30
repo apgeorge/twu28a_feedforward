@@ -60,6 +60,7 @@ public class TalkControllerTest {
         assertThat(talkController.getTalkTabPage().getViewName(),is("talk_tab"));
     }
 
+
     @Test
     public void shouldAddTalkCreationSuccessfulMessageUponCreationOfTalkOnMyTalksPage() throws Exception {
         String message="New Talk Created";

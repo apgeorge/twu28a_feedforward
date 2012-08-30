@@ -19,7 +19,9 @@ public class TalkController {
          this.talkService = talkService;
     }
 
-    public ModelAndView getTalk(int talkId) {
+
+    @RequestMapping(value = "/talk_details.htm*", method = RequestMethod.GET)
+    public ModelAndView getTalk(@RequestParam(value = "talk_id", defaultValue = "-1") int talkId) {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk",talk);
@@ -66,4 +68,6 @@ public class TalkController {
     public ModelAndView getTalkTabPage() {
         return new ModelAndView("talk_tab");
     }
+
+
 }

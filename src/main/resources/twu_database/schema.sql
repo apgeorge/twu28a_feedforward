@@ -29,4 +29,4 @@ create table feedback(
     attendee varchar(50),
     attendee_mail varchar(100),
     time_at_creation  TIMESTAMP
-)
+);

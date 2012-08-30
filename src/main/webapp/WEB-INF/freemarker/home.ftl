@@ -35,7 +35,7 @@
     </head>
 
         <body lang="en">
-        <!-- Home -->
+        <!--- Home --->
         <div data-role="page" id="page3">
             <div class="row-fluid">
                 <div class="span12" data-theme="d" data-role="header">
@@ -81,6 +81,38 @@
         
         
         <script>
+
+
+            var feedback_button_fn = function (){
+                $('a[role="talk"]').click(function(){
+                    $.mobile.showPageLoadingMsg();
+                    $.ajax({
+                        method: "GET",
+                        url: "talk_details.html?talk_id=0",
+                        cache: false,
+                        dataType: "html",
+                        async: true
+                    })
+                            .done(function(data){
+                                $('#data_container').html(data).trigger('create');
+
+
+                                $.ajax({
+                                        method: "GET",
+                                        url: "add_feedback.html?talk_id=0",
+                                        cache: false,
+                                        dataType: "html",
+                                        async: true
+                                      })
+                                           .done(function(data){
+                                                  $('#feedback_container').html(data).trigger('create');
+                                                  $.mobile.hidePageLoadingMsg();
+                                            });
+                            });
+                    $.mobile.hidePageLoadingMsg();
+
+                });
+            };
         
               $(function(){
                 $('#talks_button').click(function(){
@@ -181,23 +213,7 @@
                 });
 
 
-                var feedback_button_fn = function (){
-                      $('a[role="talk"]').click(function(){
-                          $.mobile.showPageLoadingMsg();
-                        $.ajax({
-                          method: "GET",
-                          url: "enter_feedback.html",
-                          cache: false,
-                          dataType: "html",
-                          async: true
-                        })
-                        .done(function(data){
-                             $('#data_container').html(data).trigger('create');
-                        });
-                        $.mobile.hidePageLoadingMsg();
 
-                  });
-                };
 
 
 

@@ -5,17 +5,17 @@
         <li data-role="list-divider" role="heading">
         </li>
         <li data-theme="c">
-            <a role="talk"  data-transition="slide">
+            <a id="1" role="talk"  data-transition="slide">
                 Ruby on Rails
             </a>
         </li>
         <li data-theme="c">
-            <a role="talk" data-transition="slide">
+            <a id="1" role="talk" data-transition="slide">
                 AJAX and JSON
             </a>
         </li>
         <li data-theme="c">
-            <a role="talk"  data-transition="slide">
+            <a id="1" role="talk"  data-transition="slide">
                 Cats and Dogs
             </a>
         </li>
