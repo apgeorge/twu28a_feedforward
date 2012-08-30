@@ -13,6 +13,6 @@
  </div>
  <div>
  <#if message??>
-                 <h1>${message}</h1>
+                 <h1 id="reply" >${message}</h1>
                  </#if>
  </div>

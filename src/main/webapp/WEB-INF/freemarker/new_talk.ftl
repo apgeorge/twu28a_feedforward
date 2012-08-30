@@ -36,13 +36,13 @@
                     </fieldset>
                 </div>
                 <div style="margin-left: 13%; margin-right: 50%;">
-                    <input type="submit" id="new_talk"  data-theme="b" value="Submit" data-mini="true">
+                    <input type="submit" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="true">
                 </div>
               </div>
 
             <script>
                 $('#new_talk_container').ready(function(){
-                 $('#new_talk').click(function(){
+                 $('#new_talk_submit').click(function(){
                  var url = "new_talk.html"+"?title="+$('#textinput1').val()+
                            "&description="+$('#textinput2').val()+
                            "&venue="+$('#textinput5').val()+
