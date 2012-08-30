@@ -19,9 +19,6 @@
         </fieldset>
         </center>
     </div>
-    <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit"
-           data-mini="true">
-
 
     <div data-role="collapsible" data-collapsed="false">
         <h3>

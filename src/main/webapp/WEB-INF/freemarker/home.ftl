@@ -154,58 +154,66 @@
 
                   $('#my_talks_button').click(function(){
 
-                       $('my_talks_button').click();
+
 
                       $.mobile.showPageLoadingMsg();
-                    $.ajax({
-                        method: "GET",
-                        url: "talk_tab.html",
-                        cache: false,
-                        dataType: "html",
-                        async: true
-                    })
-                            .done(function(data){
-                                $('#data_container').html(data);
-                                feedback_button_fn();
-                                $('#data_container').trigger('create');
+                        $.ajax({
+                            method: "GET",
+                            url: "talk_tab.html",
+                            cache: false,
+                            dataType: "html",
+                            async: true
+                        })
+                                .done(function(data){
+                                    $('#data_container').html(data).trigger('create');;
+                                    feedback_button_fn();
 
-                                $('#new_talk').click(function(){
-                                    $.mobile.showPageLoadingMsg();
-                                    $.ajax({
-                                        method: "GET",
-                                        url: "new_talk.html",
-                                        cache: false,
-                                        dataType: "html",
-                                        async: true
-                                    })
-                                            .done(function(data){
-                                                $('#talk_tab').empty();
-                                                $('#talk_container').html(data).trigger('create');
+                                    $('#new_talk').ready( function() {
+                                        $('#new_talk').click(function(){
+                                            $.mobile.showPageLoadingMsg();
+                                            $.ajax({
+                                                method: "GET",
+                                                url: "new_talk.html",
+                                                cache: false,
+                                                dataType: "html",
+                                                async: true
+                                            })
+                                                    .done(function(data){
+                                                        $('#data_container').html(data).trigger('create');
+                                                        $('#message_box').html();
+                                                        $.mobile.hidePageLoadingMsg();
+                                                    });
+
+                                        });
+
+                                        $.mobile.hidePageLoadingMsg();
+
+                                        })  ;
 
 
-                                            });
-                                    $.mobile.hidePageLoadingMsg();
+                                         $.ajax({
+                                                                    method: "GET",
+                                                                    url: "my_talks.html",
+                                                                    cache: false,
+                                                                    dataType: "html",
+                                                                    async: true
+                                                                })
+                                                                        .done(function(data){
+                                                                            $('#talk_container').html(data);
+                                                                            feedback_button_fn();
+                                                                            $('#data_container').trigger('create');
+                                                                            $.mobile.hidePageLoadingMsg();
+
+                                                                        });
+
+                                         $.mobile.hidePageLoadingMsg();
+
                                 });
 
 
 
-                            });
 
-
-                    $.ajax({
-                        method: "GET",
-                        url: "my_talks.html",
-                        cache: false,
-                        dataType: "html",
-                        async: true
-                    })
-                            .done(function(data){
-                                $('#talk_container').html(data);
-                                feedback_button_fn();
-                                $('#data_container').trigger('create');
-                            });
-
-                      $.mobile.hidePageLoadingMsg();
+                          $.mobile.hidePageLoadingMsg();
 
 
                 });
