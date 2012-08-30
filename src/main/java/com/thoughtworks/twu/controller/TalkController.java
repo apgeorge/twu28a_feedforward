@@ -69,8 +69,5 @@ public class TalkController {
         return new ModelAndView("talk_tab");
     }
 
-    @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.GET)
-    public ModelAndView getAddFeedbackPage() {
-        return new ModelAndView("add_feedback");
-    }
+
 }

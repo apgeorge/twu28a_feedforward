@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface FeedbackMapper {
     @Insert("INSERT INTO feedback (feedback_comment,talk_id,attendee,attendee_mail,time_at_creation) VALUES(#{feedbackComment},#{talkId},#{attendee},#{attendeeMail},#{timeAtCreation})")
@@ -30,6 +30,6 @@ public interface FeedbackMapper {
             @Result(property = "attendeeMail", column = "attendee_mail"),
             @Result(property = "timeAtCreation",column ="time_at_creation", typeHandler = DateTimeTypeHandler.class)
 })
-    List<Feedback> getFeedbackByTalkId(int talk_id);
+    ArrayList<Feedback> getFeedbackByTalkId(int talk_id);
 
 }
