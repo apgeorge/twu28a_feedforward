@@ -33,11 +33,12 @@ public class FeedbackMapperTest extends IntegrationTest {
     @Test
     public void shouldRetrieveFeedbackListByTalkId() throws Exception {
         //Given
-        Feedback feedback1 = new Feedback(1, "feedbackComment1", "attendee1", "attendeeMail 1,",new DateTime(2008,DateTimeZone.UTC));
-        Feedback feedback2 = new Feedback(1, "feedbackComment2", "attendee2", "attendeeMail 2",new DateTime(2009,DateTimeZone.UTC));
-        Feedback feedback = new Feedback(2, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(2010, DateTimeZone.UTC));
-        Feedback feedback3 = new Feedback(1, "feedbackComment3", "attendee3", "attendeeMail 3",new DateTime(2011,DateTimeZone.UTC));
-        Feedback feedback4 = new Feedback(1, "feedbackComment4", "attendee4", "attendeeMail 4",new DateTime(2012,DateTimeZone.UTC));
+        int talk_id = 42;
+        Feedback feedback1 = new Feedback(talk_id, "feedbackComment1", "attendee1", "attendeeMail 1,",new DateTime(2008,DateTimeZone.UTC));
+        Feedback feedback2 = new Feedback(talk_id, "feedbackComment2", "attendee2", "attendeeMail 2",new DateTime(2009,DateTimeZone.UTC));
+        Feedback feedback = new Feedback(talk_id + 1, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(2010, DateTimeZone.UTC));
+        Feedback feedback3 = new Feedback(talk_id, "feedbackComment3", "attendee3", "attendeeMail 3",new DateTime(2011,DateTimeZone.UTC));
+        Feedback feedback4 = new Feedback(talk_id, "feedbackComment4", "attendee4", "attendeeMail 4",new DateTime(2012,DateTimeZone.UTC));
         feedbackMapper.insertFeedback(feedback1);
         feedbackMapper.insertFeedback(feedback2);
         feedbackMapper.insertFeedback(feedback3);
@@ -49,7 +50,7 @@ public class FeedbackMapperTest extends IntegrationTest {
         feedbackList.add(feedback2);
         feedbackList.add(feedback1);
         //When
-        List<Feedback> result = feedbackMapper.getFeedbackByTalkId(1);
+        List<Feedback> result = feedbackMapper.getFeedbackByTalkId(talk_id);
         //Then
         Assert.assertEquals(feedbackList, result);
 

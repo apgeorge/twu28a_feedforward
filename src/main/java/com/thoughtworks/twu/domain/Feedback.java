@@ -25,8 +25,20 @@ public class Feedback {
         this.timeAtCreation = dateTime;
     }
 
+    public String getAttendee() {
+        return attendee;
+    }
+
+    public String getAttendeeMail() {
+        return attendeeMail;
+    }
+
     public DateTime getTimeAtCreation() {
         return timeAtCreation;
+    }
+
+    public String getFeedbackComment() {
+        return feedbackComment;
     }
 
     @Override
