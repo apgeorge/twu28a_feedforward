@@ -40,6 +40,7 @@ dependencies {
 }
 
 jettyRun {
+    jettyRun.httpPort = 9091
     contextPath = 'twu'
 }
 
@@ -52,12 +53,12 @@ task functionalTest(type: Test, dependsOn: "test") {
 }
 
 functionalTest.doFirst {
-    jettyRun.httpPort = 9876
+    jettyRun.httpPort = 9191
     jettyRun.daemon = true
     jettyRun.execute()
 }
 
-[jettyRunWar, jettyStop]*.stopPort = 8081
+[jettyRunWar, jettyStop]*.stopPort = 9291
 [jettyRunWar, jettyStop]*.stopKey = 'stopKey'
 
 functionalTest.doLast {

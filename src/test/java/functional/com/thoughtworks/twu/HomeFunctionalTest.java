@@ -7,13 +7,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class HomeFunctionalTest {
 
+    public static final int HTTP_PORT = 9191;
+    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu";
     private WebDriver webDriver;
 
     @Before
@@ -23,11 +24,11 @@ public class HomeFunctionalTest {
 
     @Test
     public void shouldShowTryMeLink() {
-        webDriver.get("http://localhost:9876/twu");
+        webDriver.get(HTTP_BASE_URL);
         WebElement link = webDriver.findElement(By.tagName("a"));
 
         assertThat(link.getText(), is("Try me"));
-        assertThat(link.getAttribute("href"), is("http://localhost:9876/twu/?username=bill"));
+        assertThat(link.getAttribute("href"), is(HTTP_BASE_URL + "/?username=bill"));
 
         webDriver.get(link.getAttribute("href"));
         WebElement h1 = webDriver.findElement(By.tagName("h1"));

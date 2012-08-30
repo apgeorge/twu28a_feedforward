@@ -2,6 +2,7 @@ package com.thoughtworks.twu.service;
 
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.persistence.FeedbackMapper;
+import com.thoughtworks.twu.utils.TestClock;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
@@ -17,7 +18,8 @@ public class FeedbackServiceTest {
     public void shouldInsertFeedback() {
         //Given
         FeedbackMapper mockFeedback = mock(FeedbackMapper.class);
-        FeedbackService feedbackService = new FeedbackService(mockFeedback);
+        TestClock testClock = new TestClock();
+        FeedbackService feedbackService = new FeedbackService(mockFeedback, testClock);
         Feedback feedback = new Feedback();
 
         //When
@@ -31,7 +33,8 @@ public class FeedbackServiceTest {
     public void shouldRetrieveFeedbackListByTalkId() {
         //Given
         FeedbackMapper mockFeedbackMapper = mock(FeedbackMapper.class);
-        FeedbackService feedbackService = new FeedbackService(mockFeedbackMapper);
+        TestClock testClock = new TestClock();
+        FeedbackService feedbackService = new FeedbackService(mockFeedbackMapper, testClock);
         int talk_id = 1;
         Feedback feedback1 = new Feedback(talk_id, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(DateTimeZone.UTC));
         Feedback feedback2 = new Feedback(talk_id, "feedbackComment2", "attendee2", "attendeeMail 2",new DateTime(DateTimeZone.UTC));
