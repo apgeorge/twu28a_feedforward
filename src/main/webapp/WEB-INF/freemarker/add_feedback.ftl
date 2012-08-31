@@ -25,7 +25,14 @@
 
     <#list retrieved_feedback_list as feedback>
         <li class="ui-li ui-li-static ui-body-c">
-        ${feedback.attendee} (${feedback.attendeeMail})<br>
+        ${feedback.attendee} (
+
+             <span>
+                <a href="mailto:${feedback.attendeeMail}">
+                ${feedback.attendeeMail}
+                </a>
+             </span>
+                )<br>
         ${feedback.timeAtCreation} <br>
         ${feedback.feedbackComment}
         </li>
