@@ -1,4 +1,6 @@
 <!-- New Talk -->
+    <h4 id="message_box">
+    </h4>
                 <div id = "new_talk_container">
                 <div data-role="fieldcontain" style="width: 100%;padding: 1%;">
                     <fieldset data-role="controlgroup">
@@ -7,7 +9,7 @@
                         <input name="title" id="title" placeholder="title" value="" type="text">
                     </fieldset>
                 </div>
-                <div data-role="fieldcontain"style="width: 100%;padding: 1%;">
+                <div data-role="fieldcontain"style="padding: 1%;">
                     <fieldset data-role="controlgroup">
                         <label for="description">
                         </label>
@@ -36,14 +38,14 @@
                     </fieldset>
                 </div>
                 <div style="margin-left: 13%; margin-right: 50%;">
-                    <input type="submit" id="new_talk"  data-theme="b" value="Submit" data-mini="true">
+                    <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="true">
                 </div>
               </div>
 
             <script>
-                $('#new_talk_container').ready(function(){
-                 $('#new_talk').click(function(){
-                 var url = "new_talk.html"+"?title="+$('#title').val()+
+                $('#new_talk_submit').ready(function(){
+                 $('#new_talk_submit').click(function(){
+                 var url = "new_talk_submit.html"+"?title="+$('#title').val()+
                            "&description="+$('#description').val()+
                            "&venue="+$('#venue').val()+
                            "&date="+ $('#datepicker').val()+
@@ -56,18 +58,13 @@
                                async: true
                                })
                          .done(function(data){
-                              $('#data_container').html(data).trigger('create');
-                                $.ajax({
-                                              type: "GET",
-                                              url: "my_talks.html",
-                                              cache: false,
-                                              dataType: "html",
-                                               async: true
-                                            }).done(function(data){
-                                            $('#talk_container').html(data).trigger('create');
-                                            })
 
-                                   });
+                                        if(data.indexOf("true") != -1) {
+                                            $('#my_talks_button').click();
+                                        }else{
+                                           $('#message_box').html("failed.");
+                                        }
+                              });
 
                  });
 

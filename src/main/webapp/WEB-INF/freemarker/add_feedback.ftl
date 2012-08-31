@@ -14,10 +14,9 @@
             <textarea name="feedback" id="feedback_text" placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
             <br/>
-            <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit"
+            <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"
                        data-mini="true">
-
-        </fieldset>
+           </fieldset>
         </center>
     </div>
 
@@ -54,17 +53,12 @@
 
 
         </ul>
-        </div>
-
     </div>
      <div id="result">
                     <#if result_message??>
                         <h1>${result_message}</h1>
                         </#if>
                 </div>
-
-
-
 
 
 
