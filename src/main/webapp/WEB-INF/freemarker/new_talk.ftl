@@ -46,8 +46,62 @@
               </div>
 
             <script>
+
+                function validate_new_talk_form(){
+                      var date_pattern=new RegExp("[0-3][0-9]\/[0-1][0-9]\/[0-9]{4}");
+                      var time_pattern=new RegExp("[0-1][0-9]:[0-6][0-9] ((AM)|(PM))");
+                      if($('#title').val() == '') return 'title';
+                      if(!date_pattern.test($('#datepicker').val()))  return 'date';
+                      if(!time_pattern.test($('#timepicker').val()))  return 'time';
+                      if($('#venue').val() == '')  return 'venue';
+
+                      return 'valid';
+                }
+
+                function resetTextBox(element){
+                    element.css('-moz-box-shadow',' none');
+                    element.css('-webkit-box-shadow', 'none');
+                    element.css('box-shadow',' none');
+                }
+
+
+
                 $('#new_talk_submit').ready(function(){
                  $('#new_talk_submit').click(function(){
+
+                    switch(validate_new_talk_form())
+                    {
+                        case "title":   $('#title').css('-webkit-box-shadow', '0 0 12px red');
+                                        $('#title').css('box-shadow', '0 0 12px red');
+                                        return false;
+                                        break;
+
+                        case 'date':
+                                        resetTextBox($('#title'));
+                                        $('#datepicker').css('-webkit-box-shadow', '0 0 12px red');
+                                        $('#datepicker').css('box-shadow', '0 0 12px red');
+                                        return false;
+                                        break;
+                        case 'time':    resetTextBox($('#title'));
+                                        resetTextBox($('#datepicker'));
+                                        $('#timepicker').css('-webkit-box-shadow', '0 0 12px red');
+                                        $('#timepicker').css('box-shadow', '0 0 12px red');
+                                        return false;
+                                        break;
+                        case "venue":   resetTextBox($('#title'));
+                                        resetTextBox($('#datepicker'));
+                                        resetTextBox($('#timepicker'));
+                                        $('#venue').css('-webkit-box-shadow', '0 0 12px red');
+                                        $('#venue').css('box-shadow', '0 0 12px red');
+                                        return false;
+                                        break;
+                        case 'valid': break;
+                    }
+
+
+
+
+
                  var url = "new_talk_submit.html"+"?title="+$('#title').val()+
                            "&description="+$('#description').val()+
                            "&venue="+$('#venue').val()+
@@ -71,7 +125,7 @@
 
                  });
 
-                 $("#datepicker").scroller({ preset: 'date' , dateOrder: 'ddmmyy', minDate: new Date()});
+                 $("#datepicker").scroller({ preset: 'date' , dateOrder: 'ddmmyy', minDate: new Date() , dateFormat: 'dd/mm/yyyy'});
                  $("#timepicker").scroller({ preset: 'time' });
                 });
 
