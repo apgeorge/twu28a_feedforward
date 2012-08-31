@@ -20,36 +20,29 @@
         </center>
     </div>
 
+<div data-role="collapsible" data-collapsed="false">
+    <h3>
+        Past Feedback
+    </h3>
 
-    <div data-role="collapsible" data-collapsed="false">
-        <h3>
-            Past Feedback
-        </h3>
-        <ul data-role="listview" data-divider-theme="b" data-inset="true">
+    <ul data-role="listview" class="ui-listview">
 
+    <#list retrieved_feedback_list as feedback>
+        <li class="ui-li ui-li-static ui-body-c">
+        ${feedback.attendee} (
 
-        <#--<#list ${retrieved_feedback_list} as feedback>-->
-        <#--<li>-->
-            <#--<a data-transition="slide">-->
-               <#--${feedback.feedbackComment}  --->
-               <#--<a href="mailto:gohan@dragon.ball">Email Gohan</a>-->
-               <#--${feedback.attendee}(${feedback.attendeeMail})-->
-            <#--</a>-->
-        <#--</li>-->
-        <#--</#list>-->
-
-
-            <li data-theme="c">
-                <a href="#page3" data-transition="slide">
-                    I like this presentation because it is awesome
+             <span>
+                <a href="mailto:${feedback.attendeeMail}">
+                ${feedback.attendeeMail}
                 </a>
-            </li>
+             </span>
+                )<br>
+        ${feedback.timeAtCreation} <br>
+        ${feedback.feedbackComment}
+        </li>
+    </#list>
 
-            <li data-theme="c">
-                <a href="#page3" data-transition="slide">
-                    The presentation needs more pictures
-                </a>
-            </li>
+    </ul>
 
 
         </ul>

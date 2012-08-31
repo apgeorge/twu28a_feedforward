@@ -33,16 +33,6 @@ public class FeedbackFunctionalTest {
         webDriver.get(HTTP_BASE_URL);
 
     }
-     @Test
-
-    public void shouldBeAbleToEnterFeedbackOnTalk()
-     {
-         WebElement talkLink = webDriver.findElement(By.linkText("Test Talk"));
-         talkLink.click();
-//         assertTrue(webDriver.getPageSource().contains("Past Feedback"));
-         WebElement feedbackTextBox = webDriver.findElement(By.id("feedback_text"));
-         feedbackTextBox.sendKeys("skjdhfkusgfsdg");
-     }
 
     @After
     public void tearDown() {

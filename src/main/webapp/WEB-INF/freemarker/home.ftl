@@ -14,7 +14,9 @@
         <link rel="stylesheet" href="static/css/my.css" />
         <link rel="stylesheet" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" />
 
-
+        <style>
+        /* App custom styles */
+        </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
         </script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.js">
@@ -23,7 +25,8 @@
         </script>
 
         <script type="text/javascript" src="static/js/mobiscroll-2.0.2.full.min.js"></script>
-        <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css" />
+        <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"
+                />
 
 
 
@@ -54,15 +57,16 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a  id="my_talks_button" data-theme="" data-icon="">
-                                        My Talks
-                                    </a>
-                                </li>
-                                <li>
                                     <a  id="upcoming_talks_button" data-theme="" data-icon="">
                                         Upcoming Talks
                                     </a>
                                 </li>
+                                <li>
+                                    <a  id="my_talks_button" data-theme="" data-icon="">
+                                        My Talks
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -93,8 +97,8 @@
 
 
                                 $.ajax({
-                                        method: "POST",
-                                        url: "add_feedback.html?talk_id=0",
+                                        method: "GET",
+                                        url: "add_feedback.html?talk_id=1",
                                         cache: false,
                                         dataType: "html",
                                         async: true

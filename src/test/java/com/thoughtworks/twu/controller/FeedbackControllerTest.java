@@ -59,11 +59,10 @@ public class FeedbackControllerTest {
         feedbackArrayList.add(feedback2);
         feedbackArrayList.add(feedback3);
         feedbackArrayList.add(feedback4);
-
         when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
-
+        //When
         ModelAndView result = feedbackController.getAddFeedbackPage(talkId);
-
+        //Then
         assertThat(result.getViewName(), CoreMatchers.is("add_feedback"));
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
         verify(feedbackService).retrieveFeedbackByTalkId(talkId);

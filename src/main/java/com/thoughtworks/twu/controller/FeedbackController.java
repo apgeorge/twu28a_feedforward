@@ -31,10 +31,10 @@ public class FeedbackController {
     }
 
     @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.GET)
-    public ModelAndView getAddFeedbackPage(@RequestParam(value = "talkId", defaultValue = "-1") int talkId) {
-        ArrayList<Feedback> feedbackArrayList=new ArrayList<Feedback>();
-        feedbackArrayList=feedbackService.retrieveFeedbackByTalkId(talkId);
-        ModelAndView modelAndView= new ModelAndView("add_feedback");
+    public ModelAndView getAddFeedbackPage(@RequestParam(value = "talk_id", defaultValue = "1") int talkId) {
+        ArrayList<Feedback> feedbackArrayList = new ArrayList<Feedback>();
+        feedbackArrayList = feedbackService.retrieveFeedbackByTalkId(talkId);
+        ModelAndView modelAndView = new ModelAndView("add_feedback");
         modelAndView.addObject("retrieved_feedback_list", feedbackArrayList);
         return modelAndView;
     }
