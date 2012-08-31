@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class FeedbackControllerTest {
     private FeedbackController feedbackController;
@@ -23,7 +25,6 @@ public class FeedbackControllerTest {
     public void setUp() throws Exception {
         feedbackService = mock(FeedbackService.class);
         feedbackController = new FeedbackController(feedbackService);
-
     }
 
     @Test
@@ -39,10 +40,11 @@ public class FeedbackControllerTest {
         // When
         ModelAndView result = feedbackController.enterFeedback(talkId,"Feedback comment");
         // Then
-        String resultMessage = (String) result.getModel().get("result-message");
+        String resultMessage = (String) result.getModel().get("result_message");
         assertThat(resultMessage, is("Thank you for the feedback"));
         verify(feedbackService).enterFeedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
     }
+
 
     @Test
     public void shouldShowListOfPreviousFeedbackByTalkIdOrderedByMostRecent() throws Exception {
@@ -65,5 +67,5 @@ public class FeedbackControllerTest {
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
 
-    }        
+    }
 }
