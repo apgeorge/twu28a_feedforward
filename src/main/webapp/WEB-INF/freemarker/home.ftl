@@ -50,7 +50,7 @@
 
                         <h2 style="text-align:center; padding-left: 2%; font-size: 18px;">
                             Welcome ${username}!
-                            <a href="http://castest.thoughtworks.com/cas/logout" class="ui-link" style="float: right; padding-right: 2%; font-size: 15px;">
+                            <a href="http://castest.thoughtworks.com/cas/logout" class="ui-link" id="logout" style="float: right; padding-right: 2%; font-size: 15px;">
                                 Logout
                             </a>
                         </h2>

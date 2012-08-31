@@ -1,5 +1,6 @@
 package functional.com.thoughtworks.twu;
 
+import com.thoughtworks.twu.utils.CasLoginLogout;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
@@ -32,6 +33,7 @@ public class TalksHomePage {
         webDriver.get(HTTP_BASE_URL);
         failMessage = "Please Supply Valid Entries For All Fields";
         successMessage="New Talk Successfully Created";
+        CasLoginLogout.login(webDriver);
 
 
     }
@@ -118,6 +120,7 @@ public class TalksHomePage {
 
     @After
     public void tearDown() {
+        CasLoginLogout.logout(webDriver);
         webDriver.close();
     }
 }
