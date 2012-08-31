@@ -16,3 +16,5 @@ insert into feedback (feedback_id, feedback_comment, talk_id, attendee, attendee
               values (3, 'feedback comment test 3', 1, 'Attendee Name', 'attendee_mail@example.com', '2012-04-12 13:23:34.45');
 
 
+
+
