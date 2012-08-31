@@ -6,9 +6,12 @@
 </div>
 
 <div id="talk_tab"  >
-    <ul style="list-style: none;height: 40px;">
-        <li style="text-align: right; padding-right: 2%;">
-            <input id="new_talk" data-icon="plus" data-inline="true" data-theme="b" value="New" data-mini="false"
+    <ul style="list-style: none;height: 40px;
+               margin-left: 10%;
+               margin-right: 10%;
+               padding: 0;">
+        <li>
+            <input id="new_talk" data-icon="plus"  data-theme="b" value="New" data-mini="false"
                    type="button">
         </li>
     </ul>

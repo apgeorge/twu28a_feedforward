@@ -15,7 +15,7 @@
                    type="textArea" rows="9" cols="200"></textarea>
             <br/>
             <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"
-                       data-mini="true">
+                       data-mini="false">
            </fieldset>
         </center>
     </div>
