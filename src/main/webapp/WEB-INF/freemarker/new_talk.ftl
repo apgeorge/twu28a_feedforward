@@ -1,43 +1,43 @@
 <!-- New Talk -->
     <h4 id="message_box">
     </h4>
-                <div id = "new_talk_container">
-                <div data-role="fieldcontain" style="width: 100%;padding: 1%;">
+                <div id = "new_talk_container"  style=" padding:  10%;">
+                <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="title">
                         </label>
-                        <input name="title" id="title" placeholder="title" value="" type="text">
+                        <input name="title" id="title" placeholder="title" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
-                <div data-role="fieldcontain"style="padding: 1%;">
+                <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="description">
                         </label>
-                        <input name="description" id="description" placeholder="details" value="" type="text">
+                        <input name="description" id="description" placeholder="details" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
-                <div data-role="fieldcontain"style="width: 100%;padding: 1%;">
+                <div data-role="fieldcontain"style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="datepicker">
                         </label>
-                        <input name="date" id="datepicker" placeholder="date" value="" type="text" >
+                        <input name="date" id="datepicker" placeholder="date" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
-                 <div data-role="fieldcontain" style="width: 100%;padding: 1%;">
+                 <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="timepicker">
                         </label>
-                        <input name="time" id="timepicker" placeholder="time" value="" type="text" >
+                        <input name="time" id="timepicker" placeholder="time" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
-                <div data-role="fieldcontain" style="width: 100%;padding: 1%;">
+                <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="venue">
                         </label>
-                        <input name="venue" id="venue" placeholder="where" value="" type="text">
+                        <input name="venue" id="venue" placeholder="where" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
-                <div style="margin-left: 13%; margin-right: 50%;">
+                <div style="margin-top: 10%;">
                     <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="true">
                 </div>
               </div>
