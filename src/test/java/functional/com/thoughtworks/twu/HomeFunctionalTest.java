@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 
 public class HomeFunctionalTest {
 
-    public static final int HTTP_PORT = 9191;
+    public static final int HTTP_PORT = 9091;
     public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu";
     private WebDriver webDriver;
 
