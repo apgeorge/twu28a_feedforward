@@ -57,15 +57,16 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a  id="my_talks_button" data-theme="" data-icon="">
-                                        My Talks
-                                    </a>
-                                </li>
-                                <li>
                                     <a  id="upcoming_talks_button" data-theme="" data-icon="">
                                         Upcoming Talks
                                     </a>
                                 </li>
+                                <li>
+                                    <a  id="my_talks_button" data-theme="" data-icon="">
+                                        My Talks
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
