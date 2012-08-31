@@ -37,12 +37,15 @@ public class FeedbackControllerTest {
     public void shouldEnterAFeedback() {
         // Given
         int talkId = 9;
+        ArrayList<Feedback> feedbackArrayList=new ArrayList<Feedback>();
+        when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
         // When
         ModelAndView result = feedbackController.enterFeedback(talkId,"Feedback comment");
         // Then
-        String resultMessage = (String) result.getModel().get("result_message");
-        assertThat(resultMessage, is("Thank you for the feedback"));
-        verify(feedbackService).enterFeedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
+
+         verify(feedbackService).enterFeedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
+         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
+         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
     }
 
 
