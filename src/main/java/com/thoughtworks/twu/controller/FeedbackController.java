@@ -21,10 +21,11 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
 
-    @RequestMapping(value = "feedback", method = RequestMethod.POST)
-    public ModelAndView enterFeedback(int talkId, String feedbackComment) {
+    @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.POST)
+    public ModelAndView enterFeedback(@RequestParam(value = "talkId", defaultValue = "") int talkId,
+                                      @RequestParam(value = "feedbackComment", defaultValue = "") String feedbackComment) {
         feedbackService.enterFeedback(talkId, feedbackComment, "feedback giver name", "caroline@example.com");
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("add_feedback");
         modelAndView.addObject("result-message", "Thank you for the feedback");
         return modelAndView;
     }
@@ -37,4 +38,6 @@ public class FeedbackController {
         modelAndView.addObject("retrieved_feedback_list", feedbackArrayList);
         return modelAndView;
     }
+
 }
+

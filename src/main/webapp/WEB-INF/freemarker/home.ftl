@@ -24,12 +24,10 @@
         <script src="static/js/my.js">
         </script>
 
+        <script type="text/javascript" src="static/js/mobiscroll-2.0.2.full.min.js"></script>
+        <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"
+                />
 
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/1.1.0/jqm-datebox-1.1.0.mode.slidebox.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.flipbox.min.js"></script>
 
 
     </head>
@@ -156,58 +154,67 @@
 
                   $('#my_talks_button').click(function(){
 
-                       $('my_talks_button').click();
+
 
                       $.mobile.showPageLoadingMsg();
-                    $.ajax({
-                        method: "GET",
-                        url: "talk_tab.html",
-                        cache: false,
-                        dataType: "html",
-                        async: true
-                    })
-                            .done(function(data){
-                                $('#data_container').html(data);
-                                feedback_button_fn();
-                                $('#data_container').trigger('create');
+                        $.ajax({
+                            method: "GET",
+                            url: "talk_tab.html",
+                            cache: false,
+                            dataType: "html",
+                            async: true
+                        })
+                                .done(function(data){
+                                    $('#data_container').html(data).trigger('create');;
+                                    feedback_button_fn();
 
-                                $('#new_talk').click(function(){
-                                    $.mobile.showPageLoadingMsg();
-                                    $.ajax({
-                                        method: "GET",
-                                        url: "new_talk.html",
-                                        cache: false,
-                                        dataType: "html",
-                                        async: true
-                                    })
-                                            .done(function(data){
-                                                $('#talk_tab').empty();
-                                                $('#talk_container').html(data).trigger('create');
+                                    $('#new_talk').ready( function() {
+                                        $('#new_talk').click(function(){
+                                            $.mobile.showPageLoadingMsg();
+                                            $.ajax({
+                                                method: "GET",
+                                                url: "new_talk.html",
+                                                cache: false,
+                                                dataType: "html",
+                                                async: true
+                                            })
+                                                    .done(function(data){
+                                                        $('#data_container').html(data).trigger('create');
+                                                        $('#message_box').html();
+                                                        feedback_button_fn();
+                                                        $.mobile.hidePageLoadingMsg();
+                                                    });
+
+                                        });
+
+                                        $.mobile.hidePageLoadingMsg();
+
+                                        })  ;
 
 
-                                            });
-                                    $.mobile.hidePageLoadingMsg();
+                                         $.ajax({
+                                                                    method: "GET",
+                                                                    url: "my_talks.html",
+                                                                    cache: false,
+                                                                    dataType: "html",
+                                                                    async: true
+                                                                })
+                                                                        .done(function(data){
+                                                                            $('#talk_container').html(data);
+                                                                            $('#data_container').trigger('create');
+                                                                            feedback_button_fn();
+                                                                            $.mobile.hidePageLoadingMsg();
+
+                                                                        });
+
+                                         $.mobile.hidePageLoadingMsg();
+
                                 });
 
 
 
-                            });
 
-
-                    $.ajax({
-                        method: "GET",
-                        url: "my_talks.html",
-                        cache: false,
-                        dataType: "html",
-                        async: true
-                    })
-                            .done(function(data){
-                                $('#talk_container').html(data);
-                                feedback_button_fn();
-                                $('#data_container').trigger('create');
-                            });
-
-                      $.mobile.hidePageLoadingMsg();
+                          $.mobile.hidePageLoadingMsg();
 
 
                 });

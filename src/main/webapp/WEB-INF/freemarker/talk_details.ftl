@@ -33,7 +33,7 @@
                 </div>
             <#else>
                 <h3>
-                    Failed to load event.
+                    <p id="noeventmessage">There are no talks at this moment.</p>
                 <h3>
 
             </#if>

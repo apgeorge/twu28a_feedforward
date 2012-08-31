@@ -16,8 +16,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 public class FeedbackControllerTest {
-    private FeedbackService feedbackService;
     private FeedbackController feedbackController;
+    private FeedbackService feedbackService;
 
     @Before
     public void setUp() throws Exception {
@@ -27,16 +27,22 @@ public class FeedbackControllerTest {
     }
 
     @Test
+    public void shouldLoadAddFeedbackWhenClickedATalk()
+    {
+        assertThat(feedbackController.enterFeedback(0,"").getViewName(),is("add_feedback"));
+    }
+
+    @Test
     public void shouldEnterAFeedback() {
-        // When
+        // Given
         int talkId = 9;
+        // When
         ModelAndView result = feedbackController.enterFeedback(talkId,"Feedback comment");
         // Then
         String resultMessage = (String) result.getModel().get("result-message");
         assertThat(resultMessage, is("Thank you for the feedback"));
         verify(feedbackService).enterFeedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
     }
-
 
     @Test
     public void shouldLoadAddFeedbackPage() throws Exception {
@@ -59,5 +65,5 @@ public class FeedbackControllerTest {
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
 
-    }
+    }        
 }
