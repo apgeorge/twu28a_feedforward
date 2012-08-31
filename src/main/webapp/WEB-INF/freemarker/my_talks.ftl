@@ -5,18 +5,8 @@
         <li data-role="list-divider" role="heading">
         </li>
         <li data-theme="c">
-            <a id="1" role="talk"  data-transition="slide">
-                Ruby on Rails
-            </a>
-        </li>
-        <li data-theme="c">
-            <a id="1" role="talk" data-transition="slide">
-                AJAX and JSON
-            </a>
-        </li>
-        <li data-theme="c">
-            <a id="1" role="talk"  data-transition="slide">
-                Cats and Dogs
+            <a id="test_talk" role="talk"  data-transition="slide">
+                New Test Talk
             </a>
         </li>
     </ul>

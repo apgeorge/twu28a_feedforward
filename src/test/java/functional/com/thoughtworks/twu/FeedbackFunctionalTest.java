@@ -42,7 +42,8 @@ public class FeedbackFunctionalTest {
 
     @Test
     public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
-        WebElement talkLink = webDriver.findElement(By.linkText("Test Talk"));
+
+        WebElement talkLink = webDriver.findElement(By.id("test_talk"));
         talkLink.click();
         WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains("Past Feedback"));
