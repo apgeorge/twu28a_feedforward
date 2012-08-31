@@ -94,7 +94,7 @@
 
 
      <!--Other filters as needed-->
-<!--
+
     <filter-mapping>
         <filter-name>CAS Single Sign Out Filter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -119,7 +119,7 @@
     <listener>
         <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
     </listener>
--->
+
 
 
     <!--

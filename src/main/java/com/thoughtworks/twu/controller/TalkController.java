@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class TalkController {
     private TalkService talkService;
@@ -35,8 +37,13 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/home.htm*", method = RequestMethod.GET)
-    public ModelAndView getHomePage() {
-        return new ModelAndView("home");
+    public ModelAndView getHomePage(HttpServletRequest httpServletRequest) {
+        ModelAndView modelAndView = new ModelAndView("home");
+        String username = httpServletRequest.getUserPrincipal().getName();
+
+        modelAndView.addObject("username", username);
+        return modelAndView;
+
     }
 
 
