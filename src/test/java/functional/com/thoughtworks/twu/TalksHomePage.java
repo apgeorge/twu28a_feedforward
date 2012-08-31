@@ -13,21 +13,26 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.joda.time.DateTime.*;
+import static org.joda.time.DateTime.now;
 import static org.junit.Assert.assertThat;
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class TalksHomePage {
     public static final int HTTP_PORT = 9191;
     public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
     private WebDriver webDriver;
+    private String failMessage;
+    private String successMessage;
+
 
     @Before
     public void setUp() {
         webDriver = new FirefoxDriver();
         webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         webDriver.get(HTTP_BASE_URL);
+        failMessage = "Please Supply Valid Entries For All Fields";
+        successMessage="New Talk Successfully Created";
+
 
     }
 
@@ -63,7 +68,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
-        assertTrue(webDriver.getPageSource().contains("true"));
+        assertTrue(webDriver.getPageSource().contains(successMessage));
     }
 
     @Test
@@ -78,8 +83,8 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
-        WebElement text = webDriver.findElement(By.id("message_box"));
-        assertThat(text.getText(), is("failed."));
+        WebElement text = webDriver.findElement(By.id("message_box_error"));
+        assertThat(text.getText(), is(failMessage));
     }
     @Test
     public void shouldNotBeAbleToCreateNewTalkWithoutVenue() throws Exception {
@@ -93,8 +98,8 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
-        WebElement text = webDriver.findElement(By.id("message_box"));
-        assertThat(text.getText(), is("failed."));
+        WebElement text = webDriver.findElement(By.id("message_box_error"));
+        assertThat(text.getText(), is(failMessage));
     }
     @Test
     public void shouldNotBeAbleToCreateNewTalkWithoutDate() throws Exception {
@@ -108,8 +113,8 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
-        WebElement text = webDriver.findElement(By.id("message_box"));
-        assertThat(text.getText(), is("failed."));
+        WebElement text = webDriver.findElement(By.id("message_box_error"));
+        assertThat(text.getText(), is(failMessage));
     }
     @Test
     public void shouldNotBeAbleToCreateNewTalkWithoutTime() throws Exception {
@@ -123,8 +128,8 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#datepicker').val('9/28/2012')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
-        WebElement text = webDriver.findElement(By.id("message_box"));
-        assertThat(text.getText(), is("failed."));
+        WebElement text = webDriver.findElement(By.id("message_box_error"));
+        assertThat(text.getText(), is(failMessage));
     }
 
     @Test
