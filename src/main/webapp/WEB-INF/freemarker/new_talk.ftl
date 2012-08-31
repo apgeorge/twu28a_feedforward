@@ -1,6 +1,9 @@
 <!-- New Talk -->
-    <h4 id="message_box">
-    </h4>
+    <div style="font-weight: bold;
+                color: red;
+                text-align: center;">
+    	<p id="message_box_error"><p>
+    </div>
                 <div id = "new_talk_container"  style=" padding:  10%;">
                 <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
@@ -60,16 +63,15 @@
                          .done(function(data){
 
                                         if(data.indexOf("true") != -1) {
-                                            $('#my_talks_button').click();
+                                            $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
                                         }else{
-                                           $('#message_box').html("failed.");
+                                           $('#message_box_error').html("Please Supply Valid Entries For All Fields");
                                         }
                               });
 
                  });
 
-
-                 $("#datepicker").scroller({ preset: 'date' });
+                 $("#datepicker").scroller({ preset: 'date' , dateOrder: 'ddmmyy', minDate: new Date()});
                  $("#timepicker").scroller({ preset: 'time' });
                 });
 
