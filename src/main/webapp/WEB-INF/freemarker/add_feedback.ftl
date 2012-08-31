@@ -11,12 +11,19 @@
         <fieldset data-role="controlgroup" style="text-align: center; width: 100%;">
             <label for="feedback_text">
             </label>
-            <textarea name="feedback" id="feedback_text" placeholder="add feedback" value="" style="width: 100%; height: 20%;"
+            <textarea name="feedback" id="feedback_text" onkeypress="textCounter(this,document.getElementById('counter'),500);" placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
+
+            <br>
+            <p style="float: right; font-weight: bold;">  <span id="counter" style="color:green;">500</span> Characters remaining.
+            </p>
+
             <br/>
-            <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"
-                       data-mini="true">
+            <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
+                       data-mini="false">
            </fieldset>
+
+
         </center>
     </div>
 
@@ -54,6 +61,20 @@
 
 
 <script>
+
+                        function textCounter( field, countfield, maxlimit ) {
+                          if ( field.value.length > maxlimit )
+                          {
+                            field.value = field.value.substring( 0, maxlimit );
+                            $('#counter').css('color','red');
+                            return false;
+                          }
+                          else
+                          {
+                             $('#counter').css('color','green');
+                            document.getElementById('counter').innerHTML = maxlimit - field.value.length;
+                          }
+                        }
                 $('#add_feedback_container').ready(function(){
 
                  $('#add_feedback_submit').click(function(){
