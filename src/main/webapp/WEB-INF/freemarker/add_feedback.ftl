@@ -25,10 +25,10 @@
         Past Feedback
     </h3>
 
-    <ul data-role="listview" class="ui-listview">
+    <ul data-role="listview" class="ui-listview" id="feedback-list">
 
     <#list retrieved_feedback_list as feedback>
-        <li class="ui-li ui-li-static ui-body-c">
+        <li class="ui-li ui-li-static ui-body-c feedback-item">
         ${feedback.attendee} (
 
              <span>
