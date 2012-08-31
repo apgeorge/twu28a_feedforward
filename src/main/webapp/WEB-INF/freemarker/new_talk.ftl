@@ -65,7 +65,7 @@
                                         if(data.indexOf("true") != -1) {
                                             $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
                                         }else{
-                                           $('#message_box_error').html("Please Supply Valid Entries For All Fields");
+                                           $('#message_box_error').html('Please Supply Valid Entries For All Fields');
                                         }
                               });
 
