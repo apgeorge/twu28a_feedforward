@@ -6,17 +6,7 @@
         </li>
         <li data-theme="c">
             <a id="1" role="talk"  data-transition="slide">
-                Ruby on Rails
-            </a>
-        </li>
-        <li data-theme="c">
-            <a id="1" role="talk" data-transition="slide">
-                AJAX and JSON
-            </a>
-        </li>
-        <li data-theme="c">
-            <a id="1" role="talk"  data-transition="slide">
-                Cats and Dogs
+                New Test Talk
             </a>
         </li>
     </ul>

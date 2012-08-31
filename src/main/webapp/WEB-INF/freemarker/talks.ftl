@@ -3,11 +3,6 @@
                     <li data-role="list-divider" role="heading">
                     </li>
                     <li data-theme="c">
-                        <a id="1" role="talk" data-transition="slide">
-                            Test Talk
-                        </a>
-                    </li>
-                    <li data-theme="c">
                         <a id="1" role="talk"  data-transition="slide">
                             Android Programming
                         </a>

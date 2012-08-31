@@ -6,35 +6,35 @@
                     <fieldset data-role="controlgroup">
                         <label for="title">
                         </label>
-                        <input name="title" id="title" placeholder="title" value="" type="text" style="width: 100%;">
+                        <input name="title" id="title" placeholder="title" maxlength="50"  value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="description">
                         </label>
-                        <input name="description" id="description" placeholder="details" value="" type="text" style="width: 100%;">
+                        <input name="description" id="description" maxlength="500" placeholder="description" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain"style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="datepicker">
                         </label>
-                        <input name="date" id="datepicker" placeholder="date" value="" type="text" style="width: 100%;">
+                        <input name="date" id="datepicker" placeholder="date" maxlength="50" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
                  <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="timepicker">
                         </label>
-                        <input name="time" id="timepicker" placeholder="time" value="" type="text" style="width: 100%;">
+                        <input name="time" id="timepicker" placeholder="time" maxlength="50" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="venue">
                         </label>
-                        <input name="venue" id="venue" placeholder="where" value="" type="text" style="width: 100%;">
+                        <input name="venue" id="venue" placeholder="venue" maxlength="50" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
                 <div style="margin-top: 10%;">

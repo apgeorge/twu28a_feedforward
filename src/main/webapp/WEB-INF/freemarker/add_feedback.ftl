@@ -42,16 +42,13 @@
         </li>
     </#list>
 
-    </ul>
 
-
-        </ul>
     </div>
      <div id="result">
                     <#if result_message??>
                         <h1>${result_message}</h1>
                         </#if>
-                </div>
+      </div>
 
 
 
@@ -67,7 +64,7 @@
                                cache: false,
                                dataType: "html",
                                async: true,
-                               data: { talkId: "1", feedbackComment: $('#feedback_text').val() }
+                               data: { talkId: "0", feedbackComment: $('#feedback_text').val() }
                                })
                          .done(function(data){
                                 $('#feedback_text').val('');
