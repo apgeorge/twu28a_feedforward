@@ -58,7 +58,7 @@
                          .done(function(data){
                               $('#data_container').html(data).trigger('create');
                                 $.ajax({
-                                              method: "GET",
+                                              type: "GET",
                                               url: "my_talks.html",
                                               cache: false,
                                               dataType: "html",

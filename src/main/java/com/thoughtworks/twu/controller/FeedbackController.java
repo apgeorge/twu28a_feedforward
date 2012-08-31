@@ -26,7 +26,7 @@ public class FeedbackController {
                                       @RequestParam(value = "feedbackComment", defaultValue = "") String feedbackComment) {
         feedbackService.enterFeedback(talkId, feedbackComment, "feedback giver name", "caroline@example.com");
         ModelAndView modelAndView = new ModelAndView("add_feedback");
-        modelAndView.addObject("result-message", "Thank you for the feedback");
+        modelAndView.addObject("result_message", "Thank you for the feedback");
         return modelAndView;
     }
 

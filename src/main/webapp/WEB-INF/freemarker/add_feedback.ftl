@@ -54,13 +54,45 @@
 
 
         </ul>
+        </div>
+
     </div>
-    </div>
+     <div id="result">
+                    <#if result_message??>
+                        <h1>${result_message}</h1>
+                        </#if>
+                </div>
+
+
+
 
 
 
 
 <script>
+                $('#add_feedback_container').ready(function(){
 
+                 $('#add_feedback_submit').click(function(){
+
+                    $.ajax({
+                               type: "POST",
+                               url: "add_feedback.html",
+                               cache: false,
+                               dataType: "html",
+                               async: true,
+                               data: { talkId: "1", feedbackComment: $('#feedback_text').val() }
+                               })
+                         .done(function(data){
+                                $('#feedback_text').val('');
+                                $('#add_feedback_container').html(data).trigger('create');
+
+
+
+                                   });
+
+                 });
+
+
+                });
 
             </script>
