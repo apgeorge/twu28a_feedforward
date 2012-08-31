@@ -32,22 +32,5 @@ public class ViewEventDetailsFunctionalTest {
         wait = new WebDriverWait(driver, 20);
     }
 
-    @Test
-    public void shouldDisplayMessageIfNoEventIsPresent() {
-        //Given
-        driver.get(HTTP_BASE_URL);
-        //When
-        WebElement myTalksButton = driver.findElement(By.id("my_talks_button"));
-        myTalksButton.click();
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("1")));
-        WebElement talksButton = driver.findElement(By.id("1"));
-        talksButton.click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("noeventmessage")));
-        WebElement text = driver.findElement(By.id("noeventmessage"));
-        //Then
-        assertThat(text.getText(), is("There are no talks at this moment."));
-    }
-
 
 }
