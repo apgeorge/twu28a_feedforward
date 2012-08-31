@@ -42,7 +42,24 @@ public class TalksHomePage {
         webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
         webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('8/28/2012')");
+        javascriptExecutor.executeScript("$('#datepicker').val('9/28/2012')");
+        javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
+        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        WaitForAjax.WaitForAjax(webDriver);
+        assertTrue(webDriver.getPageSource().contains("true"));
+    }
+
+    @Test
+    public void shouldBeAbleToCreateNewTalkWithoutDescription() throws Exception {
+        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
+        myTalksButton.click();
+        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
+        webDriver.findElement(By.id("new_talk")).click();
+        assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
+        webDriver.findElement(By.id("title")).sendKeys(now().toString());
+        webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
+        javascriptExecutor.executeScript("$('#datepicker').val('9/28/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
@@ -57,7 +74,7 @@ public class TalksHomePage {
         webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
         webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('8/28/2012')");
+        javascriptExecutor.executeScript("$('#datepicker').val('9/28/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
@@ -72,7 +89,7 @@ public class TalksHomePage {
         webDriver.findElement(By.id("title")).sendKeys(now().toString());
         webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('8/28/2012')");
+        javascriptExecutor.executeScript("$('#datepicker').val('9/28/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
@@ -103,11 +120,29 @@ public class TalksHomePage {
         webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
         webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('8/28/2012')");
+        javascriptExecutor.executeScript("$('#datepicker').val('9/28/2012')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box"));
         assertThat(text.getText(), is("failed."));
+    }
+
+    @Test
+    public void shouldNotBeAbleToCreateNewTalkWhenDateIsInPast() throws Exception {
+        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
+        myTalksButton.click();
+        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
+        webDriver.findElement(By.id("new_talk")).click();
+        assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
+        webDriver.findElement(By.id("title")).sendKeys(now().toString());
+        webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
+        webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
+        javascriptExecutor.executeScript("$('#datepicker').val('8/28/2012')");
+        javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
+        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        WaitForAjax.WaitForAjax(webDriver);
+        assertTrue(webDriver.getPageSource().contains("true"));
     }
 
 
