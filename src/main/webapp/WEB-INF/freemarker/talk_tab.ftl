@@ -1,4 +1,10 @@
 
+<div style="font-weight: bold;
+            color: green;
+            text-align: center;">
+    	<p id="message_box_success"><p>
+</div>
+
 <div id="talk_tab"  >
     <ul style="list-style: none;height: 40px;">
         <li style="text-align: right; padding-right: 2%;">
@@ -12,8 +18,3 @@
  <div id="talk_container">
 
  </div>
- <div>
-        <#if message??>
-                        <h1>${message}</h1>
-                        </#if>
-        </div>

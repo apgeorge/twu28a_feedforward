@@ -153,8 +153,7 @@
                   });
 
 
-                  $('#my_talks_button').click(function(){
-
+                  $('#my_talks_button').bind("click",  function(event, message){
 
 
                       $.mobile.showPageLoadingMsg();
@@ -166,7 +165,8 @@
                             async: true
                         })
                                 .done(function(data){
-                                    $('#data_container').html(data).trigger('create');;
+                                    $('#data_container').html(data).trigger('create');
+                                    $('#message_box_success').html(message);
                                     feedback_button_fn();
 
                                     $('#new_talk').ready( function() {
@@ -181,7 +181,6 @@
                                             })
                                                     .done(function(data){
                                                         $('#data_container').html(data).trigger('create');
-                                                        $('#message_box').html();
                                                         feedback_button_fn();
                                                         $.mobile.hidePageLoadingMsg();
                                                     });
