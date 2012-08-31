@@ -54,7 +54,7 @@ public class TalkController {
                                            @RequestParam(value = "date", defaultValue = "") String date,
                                            @RequestParam(value = "time", defaultValue = "") String time) {
         ModelAndView modelAndView = new ModelAndView("message");
-        if(!talkService.validate(title, venue,date,time)){
+        if(!talkService.validate(title,venue,date,time)){
             return addFailuireMessageToModelAndView(modelAndView);
         }
         Presentation presentation = new Presentation(title,description,"owner");
