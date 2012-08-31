@@ -30,7 +30,7 @@ public class FeedbackControllerTest {
     @Test
     public void shouldLoadAddFeedbackWhenClickedATalk()
     {
-        assertThat(feedbackController.enterFeedback(0,"").getViewName(),is("add_feedback"));
+        assertThat(feedbackController.enterFeedback(0, "").getViewName(), is("add_feedback"));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class FeedbackControllerTest {
 
 
     @Test
-    public void shouldLoadAddFeedbackPage() throws Exception {
+    public void shouldShowListOfPreviousFeedbackByTalkIdOrderedByMostRecent() throws Exception {
         //Given
         int talkId=1;
         Feedback feedback = new Feedback(talkId, "comment1", "Vegeta", "vegeta@dragon.ball", new DateTime(2008, DateTimeZone.UTC));
@@ -64,7 +64,7 @@ public class FeedbackControllerTest {
         feedbackArrayList.add(feedback4);
         when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
         //When
-        ModelAndView result = feedbackController.getAddFeedbackPage(talkId);
+        ModelAndView result = feedbackController.getListOfPastFeedback(talkId);
         //Then
         assertThat(result.getViewName(), CoreMatchers.is("add_feedback"));
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));

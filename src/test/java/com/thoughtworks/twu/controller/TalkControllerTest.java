@@ -71,7 +71,7 @@ public class TalkControllerTest {
 
         Presentation presentation = new Presentation("title", "description", "owner");
         when(talkService.createTalkWithNewPresentation(presentation,"venue","date","time")).thenReturn(1);
-        when(talkService.validate("title","description","venue","date","time")).thenReturn(true);
+        when(talkService.validate("title", "venue","date","time")).thenReturn(true);
 
         ModelAndView modelAndView= talkController.newTalksFormSubmit("title", "description", "venue", "date", "time");
 
@@ -89,9 +89,9 @@ public class TalkControllerTest {
     public void shouldCreateNewTalkWithEnteredDetails() throws Exception {
         String title = "title";
         String description = "description";
-        when(talkService.validate(title, description, "venue", "date", "time")).thenReturn(true);
+        when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
         talkController.newTalksFormSubmit(title, description, "venue", "date", "time");
-        verify(talkService).validate(title,description,"venue","date","time");
+        verify(talkService).validate(title, "venue","date","time");
         verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"owner"),"venue","date","time");
     }
 }
