@@ -13,7 +13,7 @@
 
  </div>
  <div>
- <#if message??>
-                 <h1>${message}</h1>
-                 </#if>
- </div>
+        <#if message??>
+                        <h1>${message}</h1>
+                        </#if>
+        </div>
