@@ -19,7 +19,7 @@
             </p>
 
             <br/>
-            <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
+            <input type="submit" id="add_feedback_submit" talk-id="${talk_id}" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
                        data-mini="false">
            </fieldset>
 
@@ -85,7 +85,7 @@
                                cache: false,
                                dataType: "html",
                                async: true,
-                               data: { talkId: "0", feedbackComment: $('#feedback_text').val() }
+                               data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val() }
                                })
                          .done(function(data){
                                 $('#feedback_text').val('');
