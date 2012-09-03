@@ -107,7 +107,7 @@
 
                                 $.ajax({
                                         method: "GET",
-                                        url: "add_feedback.html?talk_id=0",
+                                        url: "add_feedback.html?talk_id=0&username=${username}",
                                         cache: false,
                                         dataType: "html",
                                         async: true
