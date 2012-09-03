@@ -1,5 +1,6 @@
 package com.thoughtworks.twu.controller;
 
+import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.service.FeedbackService;
 import org.hamcrest.CoreMatchers;
@@ -7,30 +8,33 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class FeedbackControllerTest {
     private FeedbackController feedbackController;
     private FeedbackService feedbackService;
+    private MockHttpServletRequest request;
 
     @Before
     public void setUp() throws Exception {
         feedbackService = mock(FeedbackService.class);
         feedbackController = new FeedbackController(feedbackService);
+        UserPrincipal userPrincipal = new UserPrincipal("test.twu");
+        request = new MockHttpServletRequest();
+        request.setUserPrincipal(userPrincipal);
     }
 
     @Test
     public void shouldLoadAddFeedbackWhenClickedATalk()
     {
-        assertThat(feedbackController.enterFeedback(0, "").getViewName(), is("add_feedback"));
+        assertThat(feedbackController.enterFeedback(request, 0, "").getViewName(), is("add_feedback"));
     }
 
     @SuppressWarnings("unchecked")
@@ -41,10 +45,10 @@ public class FeedbackControllerTest {
         ArrayList<Feedback> feedbackArrayList=new ArrayList<Feedback>();
         when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
         // When
-        ModelAndView result = feedbackController.enterFeedback(talkId,"Feedback comment");
+        ModelAndView result = feedbackController.enterFeedback(request, talkId,"Feedback comment");
         // Then
 
-         verify(feedbackService).enterFeedback(talkId, "Feedback comment", "anonymous", "anonymous@thoughtworks.com");
+         verify(feedbackService).enterFeedback(talkId, "Feedback comment", "test.twu", "test.twu@thoughtworks.com");
          verify(feedbackService).retrieveFeedbackByTalkId(talkId);
          assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
     }
@@ -65,7 +69,7 @@ public class FeedbackControllerTest {
         feedbackArrayList.add(feedback4);
         when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
         //When
-        ModelAndView result = feedbackController.getListOfPastFeedback(talkId,"");
+        ModelAndView result = feedbackController.getListOfPastFeedback(talkId);
         //Then
         assertThat(result.getViewName(), CoreMatchers.is("add_feedback"));
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
