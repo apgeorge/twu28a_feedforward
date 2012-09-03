@@ -44,7 +44,7 @@
                 </span>
             </p>
 
-            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  K:m a")}</strong></p>
+            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  KK:mm a")}</strong></p>
 
         </li>
     </#list>
@@ -70,7 +70,9 @@
                           else
                           {
                              $('#counter').css('color','green');
-                            document.getElementById('counter').innerHTML = field.value.length;
+                             var enters = field.value.match(/\n/g);
+                             var entersLength =  (enters == null)? 0 : enters.length;
+                            document.getElementById('counter').innerHTML = field.value.length + entersLength ;
                           }
                         }
                 $('#add_feedback_container').ready(function(){

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
@@ -22,9 +23,10 @@ public class FeedbackController {
     }
 
     @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.POST)
-    public ModelAndView enterFeedback(@RequestParam(value = "talkId", defaultValue = "") int talkId,
+    public ModelAndView enterFeedback(HttpServletRequest request, @RequestParam(value = "talkId", defaultValue = "") int talkId,
                                       @RequestParam(value = "feedbackComment", defaultValue = "") String feedbackComment) {
-        feedbackService.enterFeedback(talkId, feedbackComment, "feedback giver name", "caroline@example.com");
+        String username = request.getUserPrincipal().getName();
+        feedbackService.enterFeedback(talkId, feedbackComment, username, username+"@thoughtworks.com");
         return getListOfPastFeedback(talkId);
 
     }
