@@ -1,10 +1,12 @@
 package com.thoughtworks.twu.controller;
 
+import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.service.TalkService;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -40,7 +42,13 @@ public class TalkControllerTest {
 
     @Test
     public void shouldLoadHomePageWhenAtHome() throws Exception {
-        assertThat(talkController.getHomePage().getViewName(),is("home"));
+        UserPrincipal userPrincipal = new UserPrincipal("test.twu");
+        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+        mockHttpServletRequest.setUserPrincipal(userPrincipal);
+        ModelAndView result = talkController.getHomePage(mockHttpServletRequest);
+        assertThat(result.getViewName(),is("home"));
+        assertThat((String)result.getModel().get("username"),is("test.twu"));
+
     }
 
     @Test

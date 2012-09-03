@@ -71,19 +71,22 @@
 
                     switch(validate_new_talk_form())
                     {
-                        case "title":   $('#title').css('-webkit-box-shadow', '0 0 12px red');
+                        case "title":   $('#title').css('-moz-box-shadow', '0 0 12px red');
+                                        $('#title').css('-webkit-box-shadow', '0 0 12px red');
                                         $('#title').css('box-shadow', '0 0 12px red');
                                         return false;
                                         break;
 
                         case 'date':
                                         resetTextBox($('#title'));
+                                        $('#datepicker').css('-moz-box-shadow', '0 0 12px red');
                                         $('#datepicker').css('-webkit-box-shadow', '0 0 12px red');
                                         $('#datepicker').css('box-shadow', '0 0 12px red');
                                         return false;
                                         break;
                         case 'time':    resetTextBox($('#title'));
                                         resetTextBox($('#datepicker'));
+                                        $('#timepicker').css('-moz-box-shadow', '0 0 12px red');
                                         $('#timepicker').css('-webkit-box-shadow', '0 0 12px red');
                                         $('#timepicker').css('box-shadow', '0 0 12px red');
                                         return false;
@@ -91,6 +94,7 @@
                         case "venue":   resetTextBox($('#title'));
                                         resetTextBox($('#datepicker'));
                                         resetTextBox($('#timepicker'));
+                                        $('#venue').css('-moz-box-shadow', '0 0 12px red');
                                         $('#venue').css('-webkit-box-shadow', '0 0 12px red');
                                         $('#venue').css('box-shadow', '0 0 12px red');
                                         return false;
