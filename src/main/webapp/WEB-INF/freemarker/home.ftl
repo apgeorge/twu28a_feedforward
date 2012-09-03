@@ -49,8 +49,8 @@
                     <div style="textalign: center; height: 25px" class="row-fluid">
 
                         <h2 style="text-align:center; padding-left: 2%; font-size: 18px;">
-                            Welcome Goku!
-                            <a href="#" class="ui-link" style="float: right; padding-right: 2%; font-size: 15px;">
+                            Welcome ${username}!
+                            <a href="http://castest.thoughtworks.com/cas/logout" class="ui-link" id="logout" style="float: right; padding-right: 2%; font-size: 15px;">
                                 Logout
                             </a>
                         </h2>
@@ -107,7 +107,7 @@
 
                                 $.ajax({
                                         method: "GET",
-                                        url: "add_feedback.html?talk_id=0",
+                                        url: "add_feedback.html?talk_id=0&username=${username}",
                                         cache: false,
                                         dataType: "html",
                                         async: true

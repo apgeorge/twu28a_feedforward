@@ -1,18 +1,19 @@
 package com.thoughtworks.twu.service;
 
-import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.domain.Presentation;
-import com.thoughtworks.twu.persistence.TalkMapper;
+import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.persistence.PresentationMapper;
+import com.thoughtworks.twu.persistence.TalkMapper;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 public class TalkServiceTest {
 
@@ -49,7 +50,20 @@ public class TalkServiceTest {
         assertThat(talk, is(talkExpected));
     }
 
+    @Test
+    public void shouldGetAListOfUsersTalks() throws Exception {
 
+
+        List<Talk> expectedTalkList=new ArrayList<Talk>();
+        String owner = "test owner";
+        expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner),"venue", "date", "time"));
+        expectedTalkList.add(new Talk(new Presentation("title", "description", owner),"test venue", "test date", "test time"));
+        when(mockTalkMapper.getTalksByUsername(owner)).thenReturn(expectedTalkList);
+
+        assertThat(talkService.getListOfMyTalks(owner),is(expectedTalkList));
+
+
+    }
 }
 
 

@@ -4,6 +4,7 @@ import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
 import com.thoughtworks.twu.service.TalkService;
+import com.thoughtworks.twu.utils.CasLoginLogout;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
@@ -37,11 +38,12 @@ public class FeedbackFunctionalTest {
         Presentation presentation = new Presentation("test title", "test description", "test presenter");
         talkService.createTalkWithNewPresentation(presentation, "venue", "date", "time");
         webDriver.get(HTTP_BASE_URL);
-
+        CasLoginLogout.login(webDriver);
     }
 
     @Test
     public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
+
 
         WebElement talkLink = webDriver.findElement(By.id("test_talk"));
         talkLink.click();
@@ -65,6 +67,7 @@ public class FeedbackFunctionalTest {
 
     @After
     public void tearDown() {
+        CasLoginLogout.logout(webDriver);
         webDriver.close();
     }
 
