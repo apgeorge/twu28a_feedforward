@@ -33,6 +33,7 @@ public class FeedbackControllerTest {
         assertThat(feedbackController.enterFeedback(0, "").getViewName(), is("add_feedback"));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void shouldEnterAFeedback() {
         // Given
@@ -48,7 +49,7 @@ public class FeedbackControllerTest {
          assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
     }
 
-
+    @SuppressWarnings("unchecked")
     @Test
     public void shouldShowListOfPreviousFeedbackByTalkIdOrderedByMostRecent() throws Exception {
         //Given
