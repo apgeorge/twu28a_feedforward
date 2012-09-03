@@ -1,11 +1,13 @@
 package com.thoughtworks.twu.service;
 
-import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.domain.Presentation;
-import com.thoughtworks.twu.persistence.TalkMapper;
+import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.persistence.PresentationMapper;
+import com.thoughtworks.twu.persistence.TalkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TalkService {
@@ -31,5 +33,9 @@ public class TalkService {
 
     public boolean validate(String title, String venue, String date, String time) {
         return !(title.isEmpty()||venue.isEmpty()||date.isEmpty()||time.isEmpty());
+    }
+
+    public List<Talk> getListOfMyTalks(String owner) {
+        return talkMapper.getTalksByUsername(owner);
     }
 }
