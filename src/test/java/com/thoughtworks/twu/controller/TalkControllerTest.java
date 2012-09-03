@@ -18,11 +18,15 @@ public class TalkControllerTest {
 
     private TalkController talkController;
     TalkService talkService;
+    private MockHttpServletRequest request;
 
     @Before
     public void setUp() {
          talkService = mock(TalkService.class);
         talkController = new TalkController(talkService);
+        UserPrincipal userPrincipal = new UserPrincipal("test.twu");
+        request = new MockHttpServletRequest();
+        request.setUserPrincipal(userPrincipal);
     }
 
     @Test
@@ -77,11 +81,11 @@ public class TalkControllerTest {
     public void shouldAddTalkCreationSuccessfulMessageUponCreationOfTalkOnMyTalksPage() throws Exception {
         String message="New Talk Created";
 
-        Presentation presentation = new Presentation("title", "description", "owner");
+        Presentation presentation = new Presentation("title", "description", "test.twu");
         when(talkService.createTalkWithNewPresentation(presentation,"venue","date","time")).thenReturn(1);
         when(talkService.validate("title", "venue","date","time")).thenReturn(true);
 
-        ModelAndView modelAndView= talkController.newTalksFormSubmit("title", "description", "venue", "date", "time");
+        ModelAndView modelAndView= talkController.newTalksFormSubmit(request, "title", "description", "venue", "date", "time");
 
         assertThat(modelAndView.getModel().get("status").toString(),equalTo("true"));
 
@@ -89,7 +93,7 @@ public class TalkControllerTest {
 
     @Test
     public void shouldReturnFalseStatusOnInvalidTalkSubmission() throws Exception {
-        ModelAndView modelAndView= talkController.newTalksFormSubmit("", "", "", "", "");
+        ModelAndView modelAndView= talkController.newTalksFormSubmit(request, "", "", "", "", "");
         assertThat(modelAndView.getModel().get("status").toString(),equalTo("false"));
     }
 
@@ -98,8 +102,8 @@ public class TalkControllerTest {
         String title = "title";
         String description = "description";
         when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
-        talkController.newTalksFormSubmit(title, description, "venue", "date", "time");
+        talkController.newTalksFormSubmit(request,title, description, "venue", "date", "time");
         verify(talkService).validate(title, "venue","date","time");
-        verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"owner"),"venue","date","time");
+        verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"test.twu"),"venue","date","time");
     }
 }
