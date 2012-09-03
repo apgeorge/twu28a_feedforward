@@ -51,12 +51,13 @@ public class FeedbackFunctionalTest {
         assertTrue(webDriver.getPageSource().contains("Past Feedback"));
         int countInitial= countNoOfFeedbacks();
         WebElement feedbackTextBox = webDriver.findElement(By.id("feedback_text"));
-        feedbackTextBox.sendKeys("New Feedback");
+        feedbackTextBox.sendKeys("New Feedback \n next line");
         WebElement feedbackSubmitButton= webDriver.findElement(By.id("add_feedback_submit"));
         feedbackSubmitButton.click();
         WaitForAjax.WaitForAjax(webDriver);
         int countNewFeedbacks=countNoOfFeedbacks()-countInitial;
         assertThat(countNewFeedbacks, is(1));
+        assertTrue(webDriver.getPageSource().contains("New Feedback <br /> next line"));
     }
 
     private int countNoOfFeedbacks()

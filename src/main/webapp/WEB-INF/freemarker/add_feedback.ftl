@@ -1,6 +1,4 @@
-<!-- A presentation -->
-
-
+<#include "/macros.ftl">
     <div id = "add_feedback_container">
     <h4 id="feedback_status_message">
     </h4>
@@ -35,17 +33,19 @@
     <ul data-role="listview" class="ui-listview" id="feedback-list">
 
     <#list retrieved_feedback_list as feedback>
-        <li class="ui-li ui-li-static ui-body-c feedback-item">
-            <h4>${feedback.feedbackComment}</h4>
+        <li class="ui-li ui-li-static ui-body-c feedback-item" ">
+            <h4>
+            <@nl2br>
+            ${feedback.feedbackComment}
+            </@nl2br>
+            </h4>
             <p><strong>&nbsp; &nbsp; &nbsp; - ${feedback.attendee}</strong>
                 <span>
                     <a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}
                     </a>
                 </span>
             </p>
-
             <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  KK:mm a")}</strong></p>
-
         </li>
     </#list>
 
@@ -56,9 +56,6 @@
                         <h1>${result_message}</h1>
                         </#if>
       </div>
-
-
-
 
 <script>
 
@@ -78,8 +75,10 @@
                 $('#add_feedback_container').ready(function(){
 
                  $('#add_feedback_submit').click(function(){
-
-                    $.ajax({
+                               if(validateFeedback()==false){
+                                return false;
+                               }
+                               $.ajax({
                                type: "POST",
                                url: "add_feedback.html",
                                cache: false,
@@ -90,14 +89,14 @@
                          .done(function(data){
                                 $('#feedback_text').val('');
                                 $('#add_feedback_container').html(data).trigger('create');
+                         });
 
-
-
-                                   });
-
-                 });
+                   });
 
 
                 });
+                function validateFeedback(){
+               return !($.trim($('#feedback_text').val())=="");
+                }
 
             </script>
