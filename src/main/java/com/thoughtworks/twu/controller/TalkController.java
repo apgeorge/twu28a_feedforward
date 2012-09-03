@@ -75,8 +75,14 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/my_talks.htm*", method = RequestMethod.GET)
-    public ModelAndView getMyTalksPage() {
-        return new ModelAndView("my_talks");
+    public ModelAndView getMyTalksPage(HttpServletRequest request) {
+        ModelAndView modelAndView=new ModelAndView("my_talks");
+        String user=request.getUserPrincipal().getName();
+
+
+        modelAndView.addObject("myTalksList",talkService.getListOfMyTalks(user));
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/new_talk.htm*", method = RequestMethod.GET)

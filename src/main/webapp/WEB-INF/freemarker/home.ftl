@@ -90,13 +90,14 @@
         
         <script>
 
-
+            var current_talk_id = -1;
             var feedback_button_fn = function (){
                 $('a[role="talk"]').click(function(){
                     $.mobile.showPageLoadingMsg();
+                    current_talk_id = this.id;
                     $.ajax({
                         method: "GET",
-                        url: "talk_details.html?talk_id=0",
+                        url: "talk_details.html?talk_id="+current_talk_id,
                         cache: false,
                         dataType: "html",
                         async: true
@@ -107,7 +108,7 @@
 
                                 $.ajax({
                                         method: "GET",
-                                        url: "add_feedback.html?talk_id=0",
+                                        url: "add_feedback.html?talk_id="+current_talk_id,
                                         cache: false,
                                         dataType: "html",
                                         async: true

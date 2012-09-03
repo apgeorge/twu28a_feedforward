@@ -1,7 +1,5 @@
 package com.thoughtworks.twu.domain;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Talk {
@@ -91,4 +89,5 @@ public class Talk {
         result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }
+
 }

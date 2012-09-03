@@ -36,6 +36,7 @@ public class FeedbackController {
         ArrayList<Feedback> feedbackArrayList = feedbackService.retrieveFeedbackByTalkId(talkId);
         ModelAndView modelAndView = new ModelAndView("add_feedback");
         modelAndView.addObject("retrieved_feedback_list", feedbackArrayList);
+        modelAndView.addObject("talk_id",talkId);
         return modelAndView;
     }
 
