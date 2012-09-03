@@ -25,16 +25,14 @@ public class FeedbackController {
     public ModelAndView enterFeedback(@RequestParam(value = "talkId", defaultValue = "") int talkId,
                                       @RequestParam(value = "feedbackComment", defaultValue = "") String feedbackComment) {
         feedbackService.enterFeedback(talkId, feedbackComment, "feedback giver name", "caroline@example.com");
-        ModelAndView modelAndView = new ModelAndView("add_feedback");
-        modelAndView.addObject("result-message", "Thank you for the feedback");
-        return modelAndView;
+        return getListOfPastFeedback(talkId);
+
     }
 
     @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.GET)
-    public ModelAndView getAddFeedbackPage(@RequestParam(value = "talkId", defaultValue = "-1") int talkId) {
-        ArrayList<Feedback> feedbackArrayList=new ArrayList<Feedback>();
-        feedbackArrayList=feedbackService.retrieveFeedbackByTalkId(talkId);
-        ModelAndView modelAndView= new ModelAndView("add_feedback");
+    public ModelAndView getListOfPastFeedback(@RequestParam(value = "talk_id", defaultValue = "0") int talkId) {
+        ArrayList<Feedback> feedbackArrayList = feedbackService.retrieveFeedbackByTalkId(talkId);
+        ModelAndView modelAndView = new ModelAndView("add_feedback");
         modelAndView.addObject("retrieved_feedback_list", feedbackArrayList);
         return modelAndView;
     }

@@ -11,56 +11,93 @@
         <fieldset data-role="controlgroup" style="text-align: center; width: 100%;">
             <label for="feedback_text">
             </label>
-            <textarea name="feedback" id="feedback_text" placeholder="add feedback" value="" style="width: 80%; height: 20%;"
+            <textarea name="feedback" id="feedback_text" onkeypress="textCounter(this,document.getElementById('counter'),500);" placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
+
+            <br>
+            <p style="float: right; font-weight: bold;">  <span id="counter" style="color:green;">500</span> Characters remaining.
+            </p>
+
             <br/>
-            <input type="submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 0.5%;"
-                       data-mini="true">
-        </fieldset>
+            <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
+                       data-mini="false">
+           </fieldset>
+
+
         </center>
     </div>
-    <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit"
-           data-mini="true">
 
+<div data-role="collapsible" data-collapsed="false">
+    <h3>
+        Past Feedback
+    </h3>
 
-    <div data-role="collapsible" data-collapsed="false">
-        <h3>
-            Past Feedback
-        </h3>
-        <ul data-role="listview" data-divider-theme="b" data-inset="true">
+    <ul data-role="listview" class="ui-listview" id="feedback-list">
 
+    <#list retrieved_feedback_list as feedback>
+        <li class="ui-li ui-li-static ui-body-c feedback-item">
+        ${feedback.attendee} (
 
-        <#--<#list ${retrieved_feedback_list} as feedback>-->
-        <#--<li>-->
-            <#--<a data-transition="slide">-->
-               <#--${feedback.feedbackComment}  --->
-               <#--<a href="mailto:gohan@dragon.ball">Email Gohan</a>-->
-               <#--${feedback.attendee}(${feedback.attendeeMail})-->
-            <#--</a>-->
-        <#--</li>-->
-        <#--</#list>-->
-
-
-            <li data-theme="c">
-                <a href="#page3" data-transition="slide">
-                    I like this presentation because it is awesome
+             <span>
+                <a href="mailto:${feedback.attendeeMail}">
+                ${feedback.attendeeMail}
                 </a>
-            </li>
+             </span>
+                )<br>
+        ${feedback.timeAtCreation} <br>
+        ${feedback.feedbackComment}
+        </li>
+    </#list>
 
-            <li data-theme="c">
-                <a href="#page3" data-transition="slide">
-                    The presentation needs more pictures
-                </a>
-            </li>
 
-
-        </ul>
     </div>
-    </div>
+     <div id="result">
+                    <#if result_message??>
+                        <h1>${result_message}</h1>
+                        </#if>
+      </div>
 
 
 
 
 <script>
+
+                        function textCounter( field, countfield, maxlimit ) {
+                          if ( field.value.length > maxlimit )
+                          {
+                            field.value = field.value.substring( 0, maxlimit );
+                            $('#counter').css('color','red');
+                            return false;
+                          }
+                          else
+                          {
+                             $('#counter').css('color','green');
+                            document.getElementById('counter').innerHTML = maxlimit - field.value.length;
+                          }
+                        }
+                $('#add_feedback_container').ready(function(){
+
+                 $('#add_feedback_submit').click(function(){
+
+                    $.ajax({
+                               type: "POST",
+                               url: "add_feedback.html",
+                               cache: false,
+                               dataType: "html",
+                               async: true,
+                               data: { talkId: "0", feedbackComment: $('#feedback_text').val() }
+                               })
+                         .done(function(data){
+                                $('#feedback_text').val('');
+                                $('#add_feedback_container').html(data).trigger('create');
+
+
+
+                                   });
+
+                 });
+
+
+                });
 
             </script>

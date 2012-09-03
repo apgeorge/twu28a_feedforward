@@ -33,7 +33,7 @@
                 </div>
             <#else>
                 <h3>
-                    There are no talks for this presentation at this moment.
+                    <p id="noeventmessage">There are no talks at this moment.</p>
                 <h3>
 
             </#if>

@@ -6,13 +6,11 @@ import com.thoughtworks.twu.service.TalkService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
+import static org.mockito.Mockito.*;
 
 public class TalkControllerTest {
 
@@ -62,33 +60,38 @@ public class TalkControllerTest {
 
 
     @Test
+    public void shouldLoadNewTalkPage() throws Exception {
+        assertThat(talkController.getNewTalkPage().getViewName(),is("new_talk"));
+    }
+
+
+    @Test
     public void shouldAddTalkCreationSuccessfulMessageUponCreationOfTalkOnMyTalksPage() throws Exception {
         String message="New Talk Created";
 
         Presentation presentation = new Presentation("title", "description", "owner");
         when(talkService.createTalkWithNewPresentation(presentation,"venue","date","time")).thenReturn(1);
-        when(talkService.validate("title","description","venue","date","time")).thenReturn(true);
+        when(talkService.validate("title", "venue","date","time")).thenReturn(true);
 
-        ModelAndView modelAndView= talkController.newTalksPage("title", "description", "venue", "date", "time");
+        ModelAndView modelAndView= talkController.newTalksFormSubmit("title", "description", "venue", "date", "time");
 
-        assertThat(modelAndView.getModel().get("message").toString(),equalTo(message));
-        assertViewName(modelAndView,"talk_tab");
+        assertThat(modelAndView.getModel().get("status").toString(),equalTo("true"));
 
     }
 
     @Test
-    public void shouldLoadNewTalkPage() throws Exception {
-        ModelAndView modelAndView= talkController.newTalksPage("","","","","");
-        assertViewName(modelAndView,"new_talk");
+    public void shouldReturnFalseStatusOnInvalidTalkSubmission() throws Exception {
+        ModelAndView modelAndView= talkController.newTalksFormSubmit("", "", "", "", "");
+        assertThat(modelAndView.getModel().get("status").toString(),equalTo("false"));
     }
 
     @Test
     public void shouldCreateNewTalkWithEnteredDetails() throws Exception {
         String title = "title";
         String description = "description";
-        when(talkService.validate(title, description, "venue", "date", "time")).thenReturn(true);
-        talkController.newTalksPage(title, description, "venue", "date", "time");
-        verify(talkService).validate(title,description,"venue","date","time");
+        when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
+        talkController.newTalksFormSubmit(title, description, "venue", "date", "time");
+        verify(talkService).validate(title, "venue","date","time");
         verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"owner"),"venue","date","time");
     }
 }

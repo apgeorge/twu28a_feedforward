@@ -29,7 +29,7 @@ public class TalkService {
         return talkMapper.getTalk(talkId);
     }
 
-    public boolean validate(String title, String description, String venue, String date, String time) {
-        return !(title.isEmpty()||description.isEmpty()||venue.isEmpty()||date.isEmpty()||time.isEmpty());
+    public boolean validate(String title, String venue, String date, String time) {
+        return !(title.isEmpty()||venue.isEmpty()||date.isEmpty()||time.isEmpty());
     }
 }

@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class FeedbackControllerTest {
     private FeedbackController feedbackController;
@@ -23,29 +25,32 @@ public class FeedbackControllerTest {
     public void setUp() throws Exception {
         feedbackService = mock(FeedbackService.class);
         feedbackController = new FeedbackController(feedbackService);
-
     }
 
     @Test
     public void shouldLoadAddFeedbackWhenClickedATalk()
     {
-        assertThat(feedbackController.enterFeedback(0,"").getViewName(),is("add_feedback"));
+        assertThat(feedbackController.enterFeedback(0, "").getViewName(), is("add_feedback"));
     }
 
     @Test
     public void shouldEnterAFeedback() {
         // Given
         int talkId = 9;
+        ArrayList<Feedback> feedbackArrayList=new ArrayList<Feedback>();
+        when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
         // When
         ModelAndView result = feedbackController.enterFeedback(talkId,"Feedback comment");
         // Then
-        String resultMessage = (String) result.getModel().get("result-message");
-        assertThat(resultMessage, is("Thank you for the feedback"));
-        verify(feedbackService).enterFeedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
+
+         verify(feedbackService).enterFeedback(talkId, "Feedback comment", "feedback giver name", "caroline@example.com");
+         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
+         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
     }
 
+
     @Test
-    public void shouldLoadAddFeedbackPage() throws Exception {
+    public void shouldShowListOfPreviousFeedbackByTalkIdOrderedByMostRecent() throws Exception {
         //Given
         int talkId=1;
         Feedback feedback = new Feedback(talkId, "comment1", "Vegeta", "vegeta@dragon.ball", new DateTime(2008, DateTimeZone.UTC));
@@ -57,14 +62,13 @@ public class FeedbackControllerTest {
         feedbackArrayList.add(feedback2);
         feedbackArrayList.add(feedback3);
         feedbackArrayList.add(feedback4);
-
         when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
-
-        ModelAndView result = feedbackController.getAddFeedbackPage(talkId);
-
+        //When
+        ModelAndView result = feedbackController.getListOfPastFeedback(talkId);
+        //Then
         assertThat(result.getViewName(), CoreMatchers.is("add_feedback"));
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
 
-    }        
+    }
 }
