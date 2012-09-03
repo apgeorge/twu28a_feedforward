@@ -6,8 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class TalkMapperTest extends IntegrationTest {
 
@@ -19,10 +23,12 @@ public class TalkMapperTest extends IntegrationTest {
     private Presentation presentation;
     private Talk talk;
 
+
     @Before
     public void init() {
         presentation = new Presentation("XConf", "Ruby Conference", "Aman King");
         talk = new Talk(presentation, "Pune Office", "23/08/2012", "12:01 pm");
+
     }
 
     @Test
@@ -45,4 +51,75 @@ public class TalkMapperTest extends IntegrationTest {
         assertThat(talkQueried, is(secondTalk));
     }
 
+
+
+    @Test
+    public void shouldGetAListOfTalksByUserName() {
+
+
+        Presentation firstPresentation = new Presentation("XConf", "Ruby Conference", "Aman King");
+        presentationMapper.insertPresentation(firstPresentation);
+
+
+        Presentation secondPresentation = new Presentation("Pecha Kucha", "seven wise men", "Aman King");
+        presentationMapper.insertPresentation(secondPresentation);
+
+
+        Presentation firstPresentationWithId=presentationMapper.getPresentation(firstPresentation.getTitle(),firstPresentation.getOwner());
+        Presentation secondPresentationWithId=presentationMapper.getPresentation(secondPresentation.getTitle(),secondPresentation.getOwner());
+
+
+        Talk firstTalk = new Talk(firstPresentationWithId, "Pune Office", "23/08/2012", "12:01 pm");
+        Talk secondTalk = new Talk(firstPresentationWithId, "pune", "12-3-04", "test time");
+        Talk thirdTalk= new Talk(secondPresentationWithId,"chennai","test date","test time 2");
+
+        talkMapper.insert(firstTalk);
+        talkMapper.insert(secondTalk);
+        talkMapper.insert(thirdTalk);
+
+        List<Talk> actualList;
+        actualList= talkMapper.getTalksByUsername("Aman King");
+
+        List<Talk> expectedList=new ArrayList<Talk>() ;
+        expectedList.add(firstTalk);
+        expectedList.add(secondTalk);
+        expectedList.add(thirdTalk);
+
+        for(Talk t:expectedList) {
+            assertTrue(actualList.contains(t));
+        }
+    }
+
+    @Test
+    public void shouldGetAListOfTalksByUserNameWithMultipleUsers() {
+        Presentation firstPresentation = new Presentation("XConf", "Ruby Conference", "Aman King");
+        presentationMapper.insertPresentation(firstPresentation);
+
+        Presentation secondPresentation = new Presentation("Pecha Kucha", "seven wise men", "Manali");
+        presentationMapper.insertPresentation(secondPresentation);
+
+        Presentation firstPresentationWithId=presentationMapper.getPresentation(firstPresentation.getTitle(),firstPresentation.getOwner());
+        Presentation secondPresentationWithId =presentationMapper.getPresentation(secondPresentation.getTitle(),secondPresentation.getOwner());
+
+        Talk firstTalk = new Talk(firstPresentationWithId, "Pune Office", "23/08/2012", "12:01 pm");
+        Talk secondTalk = new Talk(firstPresentationWithId, "pune", "12-3-04", "test time");
+        Talk thirdTalk= new Talk(secondPresentationWithId,"chennai","test date","test time 2");
+
+        talkMapper.insert(firstTalk);
+        talkMapper.insert(secondTalk);
+        talkMapper.insert(thirdTalk);
+
+
+        List<Talk> actualList;
+        actualList= talkMapper.getTalksByUsername("Aman King");
+
+
+        List<Talk> expectedList=new ArrayList<Talk>() ;
+        expectedList.add(firstTalk);
+        expectedList.add(secondTalk);
+
+
+        for(Talk t:expectedList)
+            assertTrue(actualList.contains(t));
+    }
 }
