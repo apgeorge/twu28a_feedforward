@@ -15,25 +15,29 @@ import java.util.ArrayList;
 public class FeedbackController {
 
     private FeedbackService feedbackService;
+    private String username;
 
     @Autowired
     public FeedbackController(FeedbackService feedbackService) {
         this.feedbackService = feedbackService;
+        this.username="anonymous";
     }
 
     @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.POST)
     public ModelAndView enterFeedback(@RequestParam(value = "talkId", defaultValue = "") int talkId,
                                       @RequestParam(value = "feedbackComment", defaultValue = "") String feedbackComment) {
-        feedbackService.enterFeedback(talkId, feedbackComment, "feedback giver name", "caroline@example.com");
-        return getListOfPastFeedback(talkId);
+        feedbackService.enterFeedback(talkId, feedbackComment, username, username+"@thoughtworks.com");
+        return getListOfPastFeedback(talkId,username);
 
     }
 
     @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.GET)
-    public ModelAndView getListOfPastFeedback(@RequestParam(value = "talk_id", defaultValue = "0") int talkId) {
+    public ModelAndView getListOfPastFeedback(@RequestParam(value = "talk_id", defaultValue = "0") int talkId,
+                                              @RequestParam(value = "username", defaultValue = "") String username) {
         ArrayList<Feedback> feedbackArrayList = feedbackService.retrieveFeedbackByTalkId(talkId);
         ModelAndView modelAndView = new ModelAndView("add_feedback");
         modelAndView.addObject("retrieved_feedback_list", feedbackArrayList);
+        this.username=username;
         return modelAndView;
     }
 
