@@ -11,11 +11,11 @@
         <fieldset data-role="controlgroup" style="text-align: center; width: 100%;">
             <label for="feedback_text">
             </label>
-            <textarea name="feedback" id="feedback_text" onkeypress="textCounter(this,document.getElementById('counter'),500);" placeholder="add feedback" value="" style="width: 100%; height: 20%;"
+            <textarea name="feedback" id="feedback_text" maxlength="500" onInput="textCounter(this,document.getElementById('counter'),500);"  placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
 
             <br>
-            <p style="float: right; font-weight: bold;">  <span id="counter" style="color:green;">500</span> Characters remaining.
+            <p style="float: right; font-weight: bold;">  <span id="counter" style="color:black;">0</span>/500
             </p>
 
             <br/>
@@ -36,16 +36,16 @@
 
     <#list retrieved_feedback_list as feedback>
         <li class="ui-li ui-li-static ui-body-c feedback-item">
-        ${feedback.attendee} (
+            <h4>${feedback.feedbackComment}</h4>
+            <p><strong>&nbsp; &nbsp; &nbsp; - ${feedback.attendee}</strong>
+                <span>
+                    <a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}
+                    </a>
+                </span>
+            </p>
 
-             <span>
-                <a href="mailto:${feedback.attendeeMail}">
-                ${feedback.attendeeMail}
-                </a>
-             </span>
-                )<br>
-        ${feedback.timeAtCreation} <br>
-        ${feedback.feedbackComment}
+            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  K:m a")}</strong></p>
+
         </li>
     </#list>
 
@@ -65,14 +65,12 @@
                         function textCounter( field, countfield, maxlimit ) {
                           if ( field.value.length > maxlimit )
                           {
-                            field.value = field.value.substring( 0, maxlimit );
-                            $('#counter').css('color','red');
                             return false;
                           }
                           else
                           {
                              $('#counter').css('color','green');
-                            document.getElementById('counter').innerHTML = maxlimit - field.value.length;
+                            document.getElementById('counter').innerHTML = field.value.length;
                           }
                         }
                 $('#add_feedback_container').ready(function(){
