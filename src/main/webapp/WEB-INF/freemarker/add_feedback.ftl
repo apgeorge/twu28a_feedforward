@@ -1,6 +1,4 @@
-<!-- A presentation -->
-
-
+<#include "/macros.ftl">
     <div id = "add_feedback_container">
     <h4 id="feedback_status_message">
     </h4>
@@ -19,7 +17,7 @@
             </p>
 
             <br/>
-            <input type="submit" id="add_feedback_submit" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
+            <input type="submit" id="add_feedback_submit" talk-id="${talk_id}" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
                        data-mini="false">
            </fieldset>
 
@@ -35,17 +33,19 @@
     <ul data-role="listview" class="ui-listview" id="feedback-list">
 
     <#list retrieved_feedback_list as feedback>
-        <li class="ui-li ui-li-static ui-body-c feedback-item">
-            <h4>${feedback.feedbackComment}</h4>
+        <li class="ui-li ui-li-static ui-body-c feedback-item" ">
+            <h4>
+            <@nl2br>
+            ${feedback.feedbackComment}
+            </@nl2br>
+            </h4>
             <p><strong>&nbsp; &nbsp; &nbsp; - ${feedback.attendee}</strong>
                 <span>
                     <a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}
                     </a>
                 </span>
             </p>
-
-            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  K:m a")}</strong></p>
-
+            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  KK:mm a")}</strong></p>
         </li>
     </#list>
 
@@ -57,9 +57,6 @@
                         </#if>
       </div>
 
-
-
-
 <script>
 
                         function textCounter( field, countfield, maxlimit ) {
@@ -70,32 +67,36 @@
                           else
                           {
                              $('#counter').css('color','green');
-                            document.getElementById('counter').innerHTML = field.value.length;
+                             var enters = field.value.match(/\n/g);
+                             var entersLength =  (enters == null)? 0 : enters.length;
+                            document.getElementById('counter').innerHTML = field.value.length + entersLength ;
                           }
                         }
                 $('#add_feedback_container').ready(function(){
 
                  $('#add_feedback_submit').click(function(){
-
-                    $.ajax({
+                               if(validateFeedback()==false){
+                                return false;
+                               }
+                               $.ajax({
                                type: "POST",
                                url: "add_feedback.html",
                                cache: false,
                                dataType: "html",
                                async: true,
-                               data: { talkId: "0", feedbackComment: $('#feedback_text').val() }
+                               data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val() }
                                })
                          .done(function(data){
                                 $('#feedback_text').val('');
                                 $('#add_feedback_container').html(data).trigger('create');
+                         });
 
-
-
-                                   });
-
-                 });
+                   });
 
 
                 });
+                function validateFeedback(){
+               return !($.trim($('#feedback_text').val())=="");
+                }
 
             </script>

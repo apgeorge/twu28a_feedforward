@@ -48,7 +48,8 @@ public class TalkController {
 
 
     @RequestMapping(value = "/new_talk_submit.htm*", method = RequestMethod.GET)
-    public ModelAndView newTalksFormSubmit(@RequestParam(value = "title", defaultValue = "") String title,
+    public ModelAndView newTalksFormSubmit(HttpServletRequest request,
+                                           @RequestParam(value = "title", defaultValue = "") String title,
                                            @RequestParam(value = "description", defaultValue = "") String description,
                                            @RequestParam(value = "venue", defaultValue = "") String venue,
                                            @RequestParam(value = "date", defaultValue = "") String date,
@@ -57,7 +58,7 @@ public class TalkController {
         if(!talkService.validate(title,venue,date,time)){
             return addFailuireMessageToModelAndView(modelAndView);
         }
-        Presentation presentation = new Presentation(title,description,"owner");
+        Presentation presentation = new Presentation(title,description,request.getUserPrincipal().getName());
         int resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
 
         if(resultOfInsertion == 0 )
@@ -74,8 +75,14 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/my_talks.htm*", method = RequestMethod.GET)
-    public ModelAndView getMyTalksPage() {
-        return new ModelAndView("my_talks");
+    public ModelAndView getMyTalksPage(HttpServletRequest request) {
+        ModelAndView modelAndView=new ModelAndView("my_talks");
+        String user=request.getUserPrincipal().getName();
+
+
+        modelAndView.addObject("myTalksList",talkService.getListOfMyTalks(user));
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/new_talk.htm*", method = RequestMethod.GET)

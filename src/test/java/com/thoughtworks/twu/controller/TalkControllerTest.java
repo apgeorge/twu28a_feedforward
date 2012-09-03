@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -18,11 +21,15 @@ public class TalkControllerTest {
 
     private TalkController talkController;
     TalkService talkService;
+    private MockHttpServletRequest request;
 
     @Before
     public void setUp() {
          talkService = mock(TalkService.class);
         talkController = new TalkController(talkService);
+        UserPrincipal userPrincipal = new UserPrincipal("test.twu");
+        request = new MockHttpServletRequest();
+        request.setUserPrincipal(userPrincipal);
     }
 
     @Test
@@ -56,10 +63,6 @@ public class TalkControllerTest {
         assertThat(talkController.getTalksPage().getViewName(),is("talks"));
     }
 
-    @Test
-     public void shouldMyTalksPage() throws Exception {
-        assertThat(talkController.getMyTalksPage().getViewName(),is("my_talks"));
-    }
 
     @Test
     public void shouldLoadTalkTabPage() throws Exception {
@@ -77,11 +80,11 @@ public class TalkControllerTest {
     public void shouldAddTalkCreationSuccessfulMessageUponCreationOfTalkOnMyTalksPage() throws Exception {
         String message="New Talk Created";
 
-        Presentation presentation = new Presentation("title", "description", "owner");
+        Presentation presentation = new Presentation("title", "description", "test.twu");
         when(talkService.createTalkWithNewPresentation(presentation,"venue","date","time")).thenReturn(1);
         when(talkService.validate("title", "venue","date","time")).thenReturn(true);
 
-        ModelAndView modelAndView= talkController.newTalksFormSubmit("title", "description", "venue", "date", "time");
+        ModelAndView modelAndView= talkController.newTalksFormSubmit(request, "title", "description", "venue", "date", "time");
 
         assertThat(modelAndView.getModel().get("status").toString(),equalTo("true"));
 
@@ -89,7 +92,7 @@ public class TalkControllerTest {
 
     @Test
     public void shouldReturnFalseStatusOnInvalidTalkSubmission() throws Exception {
-        ModelAndView modelAndView= talkController.newTalksFormSubmit("", "", "", "", "");
+        ModelAndView modelAndView= talkController.newTalksFormSubmit(request, "", "", "", "", "");
         assertThat(modelAndView.getModel().get("status").toString(),equalTo("false"));
     }
 
@@ -98,8 +101,24 @@ public class TalkControllerTest {
         String title = "title";
         String description = "description";
         when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
-        talkController.newTalksFormSubmit(title, description, "venue", "date", "time");
+        talkController.newTalksFormSubmit(request,title, description, "venue", "date", "time");
         verify(talkService).validate(title, "venue","date","time");
-        verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"owner"),"venue","date","time");
+        verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"test.twu"),"venue","date","time");
+    }
+
+    @Test
+    public void shouldReturnListOfMyTalksToPage() throws Exception {
+        List<Talk> myTalksList=new ArrayList<Talk>();
+        UserPrincipal userPrincipal=new UserPrincipal("test.twu");
+        MockHttpServletRequest request=new MockHttpServletRequest();
+        request.setUserPrincipal(userPrincipal);
+        when(talkService.getListOfMyTalks(userPrincipal.getName())).thenReturn(myTalksList);
+
+        ModelAndView modelAndView=talkController.getMyTalksPage(request);
+
+        verify(talkService).getListOfMyTalks("test.twu");
+
+        assertThat((List<Talk>) modelAndView.getModel().get("myTalksList"),is(myTalksList));
+
     }
 }
