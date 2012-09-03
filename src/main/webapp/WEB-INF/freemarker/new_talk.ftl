@@ -33,6 +33,7 @@
                         <input name="time" id="timepicker" placeholder="Time *" maxlength="50" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
+
                 <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="venue">
@@ -40,6 +41,19 @@
                         <input name="venue" id="venue" placeholder="Venue *" maxlength="50" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
+
+
+                <div data-role="fieldcontain" style="width: 100%; padding-top : 1%;">
+                    <fieldset data-role="controlgroup">
+                        <select name="city" id="city" data-native-menu="false" style="width: 100%;">
+                                 <option value="Bangalore">Bangalore</option>
+                                 <option value="Chennai">Chennai</option>
+                                 <option value="Gurgaon">Gurgaon</option>
+                                 <option value="Pune">Pune</option>
+                        </select>
+                    </fieldset>
+                </div>
+
                 <div style="margin-top: 10%;">
                     <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="false">
                 </div>
