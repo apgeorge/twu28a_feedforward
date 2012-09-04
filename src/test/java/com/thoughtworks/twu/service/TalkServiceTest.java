@@ -4,7 +4,9 @@ import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
+import com.thoughtworks.twu.utils.ApplicationClock;
 import com.thoughtworks.twu.utils.DateParser;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,6 +49,7 @@ public class TalkServiceTest {
         Talk talkExpected = new Talk(new Presentation("test title", "test description", "test owner"), "venue", new DateParser(date,time).convertToDateTime());
         when(mockTalkMapper.getTalk(talkId)).thenReturn(talkExpected);
         Talk talk = talkService.getTalk(talkId);
+        verify(mockTalkMapper).getTalk(talkId);
         assertThat(talk, is(talkExpected));
     }
 
@@ -57,8 +60,23 @@ public class TalkServiceTest {
         expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner), "venue",  new DateParser(date,time).convertToDateTime()));
         expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue",  new DateParser("01/08/2012","10:00 AM").convertToDateTime()));
         when(mockTalkMapper.getTalksByUsername(owner)).thenReturn(expectedTalkList);
-        assertThat(talkService.getListOfMyTalks(owner), is(expectedTalkList));
 
+        assertThat(talkService.getListOfMyTalks(owner), is(expectedTalkList));
+        verify(mockTalkMapper).getTalksByUsername(owner);
+
+    }
+
+    @Test
+    public void shouldGetAListOfTalksInThePastTwoDays() {
+        //Given
+        List<Talk> expectedTalkList = new ArrayList<Talk>();
+        when(mockTalkMapper.getListOfRecentTalks(any(DateTime.class), any(DateTime.class))).thenReturn(expectedTalkList);
+        //When
+        List<Talk> actualTalksList=talkService.getListOfRecentTalks();
+
+        //Then
+        verify(mockTalkMapper).getListOfRecentTalks(any(DateTime.class), any(DateTime.class));
+        assertThat(actualTalksList, is(expectedTalkList));
     }
 }
 

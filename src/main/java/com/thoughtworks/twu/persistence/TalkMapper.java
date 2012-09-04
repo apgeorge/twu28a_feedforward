@@ -3,6 +3,7 @@ package com.thoughtworks.twu.persistence;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import org.apache.ibatis.annotations.*;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -34,7 +35,23 @@ public interface TalkMapper {
             @Result(property = "presentation.description",column="description"),
             @Result(property = "presentation.owner",column="owner"),
             @Result(property="venue", column="venue"),
-            @Result(property="dateTime", column="time_of_talk"),
+            @Result(property="dateTime", column="time_of_talk")
     })
     List<Talk> getTalksByUsername(String owner);
+
+    @Select("SELECT talk_id,title,description,owner,venue,time_of_talk " +
+            "FROM presentation " +
+            "JOIN talk ON presentation.id=talk.presentation_id " +
+            "WHERE talk.time_of_talk > #{since} and talk.time_of_talk < #{now}")
+    @Results(value = {
+            @Result(property="talkId", column="talk_id"),
+            @Result(property="presentation.title", column="title"),
+            @Result(property = "presentation.description",column="description"),
+            @Result(property = "presentation.owner",column="owner"),
+            @Result(property="venue", column="venue"),
+            @Result(property="dateTime", column="time_of_talk")
+    })
+    List<Talk> getListOfRecentTalks(@Param("since")DateTime since, @Param("now")DateTime now);
+
+
 }
