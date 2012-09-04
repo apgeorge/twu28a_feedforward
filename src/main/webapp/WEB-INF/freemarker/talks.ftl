@@ -10,7 +10,7 @@
 
                             <li data-theme="c">
                                         <a id="${recentTalk.talkId}" role="talk"  data-transition="slide">
-                                            ${recentTalk.presentation.title}
+                                            ${recentTalk.presentation.title} by ${recentTalk.presentation.owner}
                                         </a>
                                     </li>
 
