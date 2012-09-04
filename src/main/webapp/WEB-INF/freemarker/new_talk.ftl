@@ -1,5 +1,5 @@
-<!-- New Talk -->
-    <div style="font-weight: bold;
+<#escape x as x?html>
+<div style="font-weight: bold;
                 color: red;
                 text-align: center;">
     	<p id="message_box_error"><p>
@@ -33,6 +33,7 @@
                         <input name="time" id="timepicker" placeholder="Time *" maxlength="50" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
+
                 <div data-role="fieldcontain" style="width: 100%;">
                     <fieldset data-role="controlgroup">
                         <label for="venue">
@@ -40,11 +41,24 @@
                         <input name="venue" id="venue" placeholder="Venue *" maxlength="50" value="" type="text" style="width: 100%;">
                     </fieldset>
                 </div>
+
+
+                <div data-role="fieldcontain" style="width: 100%; padding-top : 1%;">
+                    <fieldset data-role="controlgroup">
+                        <select name="city" id="city" data-native-menu="false" style="width: 100%;">
+                                 <option value="Bangalore">Bangalore</option>
+                                 <option value="Chennai">Chennai</option>
+                                 <option value="Gurgaon">Gurgaon</option>
+                                 <option value="Pune">Pune</option>
+                        </select>
+                    </fieldset>
+                </div>
+
                 <div style="margin-top: 10%;">
                     <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="false">
                 </div>
               </div>
-
+</#escape>
             <script>
 
                 function validate_new_talk_form(){
@@ -126,7 +140,7 @@
                                         if(data.indexOf("true") != -1) {
                                             $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
                                         }else{
-                                           $('#message_box_error').html('Please Supply Valid Entries For All Fields');
+                                           $('#message_box_error').html('Cannot create talk with duplicate title');
                                         }
                               });
 

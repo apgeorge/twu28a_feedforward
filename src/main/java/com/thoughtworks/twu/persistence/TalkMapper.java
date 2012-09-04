@@ -3,21 +3,21 @@ package com.thoughtworks.twu.persistence;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import org.apache.ibatis.annotations.*;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
 public interface TalkMapper {
 
-    @Insert("INSERT INTO talk (presentation_id,venue, talk_date,talk_time) VALUES(#{presentation.id}, #{venue}, #{date},#{time})")
+    @Insert("INSERT INTO talk (presentation_id,venue, time_of_talk) VALUES(#{presentation.id}, #{venue}, #{dateTime})")
     int insert(Talk talk);
 
 
-    @Select("SELECT talk_id, presentation_id, venue, talk_date, talk_time FROM talk WHERE talk_id =  #{talkId}")
+    @Select("SELECT talk_id, presentation_id, venue, time_of_talk FROM talk WHERE talk_id =  #{talkId}")
     @Results(value = {
             @Result(property="talkId", column="talk_id"),
             @Result(property="venue", column="venue"),
-            @Result(property="date", column="talk_date"),
-            @Result(property="time", column="talk_time"),
+            @Result(property="dateTime", column="time_of_talk"),
             @Result(property="presentation", column="presentation_id", javaType=Presentation.class, one=@One(select="selectPresentation"))
     })
     Talk getTalk(int talkId);
@@ -28,15 +28,31 @@ public interface TalkMapper {
     @Select("SELECT talk_id FROM talk WHERE talk_id=IDENTITY()")
     int getLastId();
 
-    @Select("SELECT talk_id,title,description,owner,venue,talk_date,talk_time FROM presentation JOIN talk ON presentation.id=talk.presentation_id WHERE presentation.owner=#{owner}")
+    @Select("SELECT talk_id,title,description,owner,venue,time_of_talk FROM presentation JOIN talk ON presentation.id=talk.presentation_id WHERE presentation.owner=#{owner} ORDER BY time_stamp DESC")
     @Results(value = {
             @Result(property="talkId", column="talk_id"),
             @Result(property="presentation.title", column="title"),
             @Result(property = "presentation.description",column="description"),
             @Result(property = "presentation.owner",column="owner"),
             @Result(property="venue", column="venue"),
-            @Result(property="date", column="talk_date"),
-            @Result(property="time", column="talk_time")
+            @Result(property="dateTime", column="time_of_talk")
     })
     List<Talk> getTalksByUsername(String owner);
+
+    @Select("SELECT talk_id,title,description,owner,venue,time_of_talk " +
+            "FROM presentation " +
+            "JOIN talk ON presentation.id=talk.presentation_id " +
+            "WHERE talk.time_of_talk > #{since} and talk.time_of_talk < #{now}" +
+            "ORDER BY talk.time_of_talk DESC")
+    @Results(value = {
+            @Result(property="talkId", column="talk_id"),
+            @Result(property="presentation.title", column="title"),
+            @Result(property = "presentation.description",column="description"),
+            @Result(property = "presentation.owner",column="owner"),
+            @Result(property="venue", column="venue"),
+            @Result(property="dateTime", column="time_of_talk")
+    })
+    List<Talk> getListOfRecentTalks(@Param("since")DateTime since, @Param("now")DateTime now);
+
+
 }

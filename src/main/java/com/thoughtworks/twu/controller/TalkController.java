@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class TalkController {
@@ -31,9 +32,13 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/talks.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalksPage()
+    public ModelAndView getRecentTalksPage()
     {
-        return new ModelAndView("talks");
+        ModelAndView modelAndView = new ModelAndView("talks");
+        List<Talk> listOfRecentTalks = talkService.getListOfRecentTalks();
+
+        modelAndView.addObject("talksList",listOfRecentTalks);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/home.htm*", method = RequestMethod.GET)
@@ -55,28 +60,40 @@ public class TalkController {
                                            @RequestParam(value = "date", defaultValue = "") String date,
                                            @RequestParam(value = "time", defaultValue = "") String time) {
         ModelAndView modelAndView = new ModelAndView("message");
+        int resultOfInsertion;
         if(!talkService.validate(title,venue,date,time)){
-            return addFailuireMessageToModelAndView(modelAndView);
+            return addFailureMessageToModelAndView(modelAndView);
         }
         Presentation presentation = new Presentation(title,description,request.getUserPrincipal().getName());
-        int resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
+        try{
 
+            resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
+        }
+        catch(Exception e){
+            return  addFailureMessageToModelAndView(modelAndView);
+        }
         if(resultOfInsertion == 0 )
-            return  addFailuireMessageToModelAndView(modelAndView);
+            return  addFailureMessageToModelAndView(modelAndView);
 
         modelAndView.addObject("status","true") ;
         return modelAndView;
 
     }
 
-    private ModelAndView addFailuireMessageToModelAndView(ModelAndView modelAndView) {
+    private ModelAndView addFailureMessageToModelAndView(ModelAndView modelAndView) {
         modelAndView.addObject("status", "false");
         return modelAndView;
     }
 
     @RequestMapping(value = "/my_talks.htm*", method = RequestMethod.GET)
-    public ModelAndView getMyTalksPage() {
-        return new ModelAndView("my_talks");
+    public ModelAndView getMyTalksPage(HttpServletRequest request) {
+        ModelAndView modelAndView=new ModelAndView("my_talks");
+        String user=request.getUserPrincipal().getName();
+
+
+        modelAndView.addObject("myTalksList",talkService.getListOfMyTalks(user));
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/new_talk.htm*", method = RequestMethod.GET)

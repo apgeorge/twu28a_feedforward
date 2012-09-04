@@ -1,6 +1,7 @@
 package functional.com.thoughtworks.twu;
 
 import com.thoughtworks.twu.utils.CasLoginLogout;
+import com.thoughtworks.twu.utils.Talk;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,6 +27,7 @@ public class TalksHomePage {
     private String failMessage;
     private String successMessage;
     private String errorCssValue;
+    private Talk talk;
 
 
     @Before
@@ -32,28 +35,19 @@ public class TalksHomePage {
         webDriver = new FirefoxDriver();
         webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         webDriver.get(HTTP_BASE_URL);
+        talk = new Talk();
         failMessage = "Please Supply Valid Entries For All Fields";
         successMessage="New Talk Successfully Created";
         errorCssValue = "rgb(255, 0, 0) 0px 0px 12px 0px";
         CasLoginLogout.login(webDriver);
 
 
+
     }
 
     @Test
     public void shouldBeAbleToCreateNewTalk() throws Exception {
-        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
-        myTalksButton.click();
-        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
-        webDriver.findElement(By.id("new_talk")).click();
-        assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
-        webDriver.findElement(By.id("title")).sendKeys(now().toString());
-        webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
-        webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
-        javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
-        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        talk.newTalk(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box_success"));
         assertThat(text.getText(), is(successMessage));
     }

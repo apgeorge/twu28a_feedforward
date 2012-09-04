@@ -1,26 +1,24 @@
-      <div data-role="content" style="padding: 15px">
-                <ul data-role="listview"  data-inset="true">
+<#escape x as x?html>
+<div data-role="content" style="padding: 15px">
+      <#if talksList?has_content>
+                <ul data-role="listview" data-divider-theme="b" data-inset="true">
                     <li data-role="list-divider" role="heading">
                     </li>
-                    <li data-theme="c">
-                        <a id="test_talk" role="talk"  data-transition="slide">
-                            Test Talk
-                        </a>
-                    </li><li data-theme="c">
-                        <a id="1" role="talk"  data-transition="slide">
-                            Android Programming
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a id="1" role="talk" data-transition="slide">
-                            Spring Security and CAS
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a id="1" role="talk" data-transition="slide">
-                            Feed Forward
-                        </a>
-                    </li>
-                </ul>
 
-            </div>
+                    <#list talksList as recentTalk>
+
+
+                            <li data-theme="c">
+                                        <a id="${recentTalk.talkId}" role="talk"  data-transition="slide">
+                                            ${recentTalk.presentation.title} by ${recentTalk.presentation.owner}
+                                        </a>
+                                    </li>
+
+
+                        </#list>
+
+
+                </ul>
+                </#if>
+  </div>
+</#escape>

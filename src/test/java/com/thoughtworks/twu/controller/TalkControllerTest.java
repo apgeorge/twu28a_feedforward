@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -57,13 +60,9 @@ public class TalkControllerTest {
 
     @Test
      public void shouldLoadTalksPage() throws Exception {
-        assertThat(talkController.getTalksPage().getViewName(),is("talks"));
+        assertThat(talkController.getRecentTalksPage().getViewName(),is("talks"));
     }
 
-    @Test
-     public void shouldMyTalksPage() throws Exception {
-        assertThat(talkController.getMyTalksPage().getViewName(),is("my_talks"));
-    }
 
     @Test
     public void shouldLoadTalkTabPage() throws Exception {
@@ -105,5 +104,33 @@ public class TalkControllerTest {
         talkController.newTalksFormSubmit(request,title, description, "venue", "date", "time");
         verify(talkService).validate(title, "venue","date","time");
         verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"test.twu"),"venue","date","time");
+    }
+
+    @Test
+    public void shouldReturnListOfMyTalksToPage() throws Exception {
+        List<Talk> myTalksList=new ArrayList<Talk>();
+        UserPrincipal userPrincipal=new UserPrincipal("test.twu");
+        MockHttpServletRequest request=new MockHttpServletRequest();
+        request.setUserPrincipal(userPrincipal);
+        when(talkService.getListOfMyTalks(userPrincipal.getName())).thenReturn(myTalksList);
+
+        ModelAndView modelAndView=talkController.getMyTalksPage(request);
+
+        verify(talkService).getListOfMyTalks("test.twu");
+
+        assertThat((List<Talk>) modelAndView.getModel().get("myTalksList"),is(myTalksList));
+
+    }
+
+    @Test
+    public void shouldReturnAListOfTalksHappenedInPastTwoDays() {
+        //Given
+        List<Talk> recentTalksList=new ArrayList<Talk>();
+        when(talkService.getListOfRecentTalks()).thenReturn(recentTalksList);
+        //When
+        ModelAndView modelAndView=talkController.getRecentTalksPage();
+        //Then
+        verify(talkService).getListOfRecentTalks();
+        assertThat((List<Talk>) modelAndView.getModel().get("talksList"),is(recentTalksList));
     }
 }
