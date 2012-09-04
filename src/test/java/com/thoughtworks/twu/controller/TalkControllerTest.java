@@ -60,7 +60,7 @@ public class TalkControllerTest {
 
     @Test
      public void shouldLoadTalksPage() throws Exception {
-        assertThat(talkController.getTalksPage().getViewName(),is("talks"));
+        assertThat(talkController.getRecentTalksPage().getViewName(),is("talks"));
     }
 
 
@@ -120,5 +120,17 @@ public class TalkControllerTest {
 
         assertThat((List<Talk>) modelAndView.getModel().get("myTalksList"),is(myTalksList));
 
+    }
+
+    @Test
+    public void shouldReturnAListOfTalksHappenedInPastTwoDays() {
+        //Given
+        List<Talk> recentTalksList=new ArrayList<Talk>();
+        when(talkService.getListOfRecentTalks()).thenReturn(recentTalksList);
+        //When
+        ModelAndView modelAndView=talkController.getRecentTalksPage();
+        //Then
+        verify(talkService).getListOfRecentTalks();
+        assertThat((List<Talk>) modelAndView.getModel().get("talksList"),is(recentTalksList));
     }
 }
