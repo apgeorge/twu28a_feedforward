@@ -131,15 +131,20 @@ public class TalkMapperTest extends IntegrationTest {
         presentationMapper.insertPresentation(presentation);
         Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
         Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(1));
-        Talk secondTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().minusHours(1));
-        Talk thirdTalk= new Talk(presentationWithID,"chennai",new ApplicationClock().now().minusDays(1));
+        Talk secondTalk= new Talk(presentationWithID,"chennai",new ApplicationClock().now().minusDays(1));
+        Talk thirdTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().minusHours(1));
+
         talkMapper.insert(firstTalk);
         talkMapper.insert(secondTalk);
         talkMapper.insert(thirdTalk);
         //When
         List<Talk> listOfRecentTalks = talkMapper.getListOfRecentTalks(new ApplicationClock().now().minusDays(2), new ApplicationClock().now());
         //Then
+        List<Talk> expectedList=new ArrayList<Talk>();
+        expectedList.add(thirdTalk);
+        expectedList.add(secondTalk);
         assertThat(listOfRecentTalks.size(), is(2));
         assertThat(listOfRecentTalks.contains(firstTalk),is(false));
+        assertThat(listOfRecentTalks,is(expectedList));
     }
 }

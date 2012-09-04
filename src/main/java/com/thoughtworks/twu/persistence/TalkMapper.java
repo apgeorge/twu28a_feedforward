@@ -42,7 +42,8 @@ public interface TalkMapper {
     @Select("SELECT talk_id,title,description,owner,venue,time_of_talk " +
             "FROM presentation " +
             "JOIN talk ON presentation.id=talk.presentation_id " +
-            "WHERE talk.time_of_talk > #{since} and talk.time_of_talk < #{now}")
+            "WHERE talk.time_of_talk > #{since} and talk.time_of_talk < #{now}" +
+            "ORDER BY talk.time_of_talk DESC")
     @Results(value = {
             @Result(property="talkId", column="talk_id"),
             @Result(property="presentation.title", column="title"),
