@@ -5,6 +5,7 @@ import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
 import com.thoughtworks.twu.service.TalkService;
 import com.thoughtworks.twu.utils.CasLoginLogout;
+import com.thoughtworks.twu.utils.Feedback;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
@@ -28,6 +29,7 @@ public class FeedbackFunctionalTest {
     private TalkMapper mockTalkMapper;
     private PresentationMapper mockPresentationMapper;
     private TalkService talkService;
+    private Feedback feedback;
 
     @Before
     public void setUp() {
@@ -52,10 +54,7 @@ public class FeedbackFunctionalTest {
         WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains("Past Feedback"));
         int countInitial= countNoOfFeedbacks();
-        WebElement feedbackTextBox = webDriver.findElement(By.id("feedback_text"));
-        feedbackTextBox.sendKeys("New Feedback \n next line");
-        WebElement feedbackSubmitButton= webDriver.findElement(By.id("add_feedback_submit"));
-        feedbackSubmitButton.click();
+        feedback.giveFeedback();
         WaitForAjax.WaitForAjax(webDriver);
         int countNewFeedbacks=countNoOfFeedbacks()-countInitial;
         assertThat(countNewFeedbacks, is(1));

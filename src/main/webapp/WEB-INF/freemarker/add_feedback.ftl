@@ -25,7 +25,7 @@
         </center>
     </div>
 
-<div data-role="collapsible" data-collapsed="false">
+<div data-role="collapsible" data-collapsed="false" data-icon="refresh">
     <h3>
         Past Feedback
     </h3>
@@ -34,7 +34,7 @@
 
     <#list retrieved_feedback_list as feedback>
         <li class="ui-li ui-li-static ui-body-c feedback-item" ">
-            <h4>
+            <h4 style="white-space: pre-wrap; white-space: : -moz-pre-wrap; white-space: : -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; width: 95%;">
             <@nl2br>
             ${feedback.feedbackComment}
             </@nl2br>

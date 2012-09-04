@@ -1,20 +1,26 @@
+<style type="text/css">
+    .ui-btn-inr{
+        white-space: normal;
+    }
+</style>
+
 <div data-role="content" style="padding: 15px">
     <div data-role="collapsible-set" data-theme="" data-content-theme="">
         <div data-role="collapsible" data-collapsed="true">
             <#if talk??>
-                <h3>
+                <h4 style="word-wrap: break-word;">
                     ${talk.presentation.title}  By  ${talk.presentation.owner}
-                </h3>
+                </h4>
 
                 <div>
                     <p>
-                        <b>
+                        <b style=" word-wrap: break-word; ">
                             ${talk.presentation.description}
                         </b>
                     </p>
 
                     <p>
-                        <b>
+                        <b style=" word-wrap: break-word; ">
                             Venue : ${talk.venue}.
                         </b>
                     </p>
