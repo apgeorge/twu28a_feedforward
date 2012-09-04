@@ -54,7 +54,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>http://127.0.0.1:9191</param-value>
+            <param-value>http://@servername@:@serverPort@</param-value>
         </init-param>
     </filter>
     <filter>
@@ -66,7 +66,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>http://127.0.0.1:9191</param-value>
+            <param-value>http://@servername@:@serverPort@</param-value>
         </init-param>
         <init-param>
             <param-name>redirectAfterValidation</param-name>
@@ -93,7 +93,7 @@
     </filter>
 
 
-     <!--Other filters as needed-->
+    <!--Other filters as needed-->
 
     <filter-mapping>
         <filter-name>CAS Single Sign Out Filter</filter-name>
