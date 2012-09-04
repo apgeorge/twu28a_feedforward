@@ -22,20 +22,20 @@
 
                     <p>
                         <b>
-                            Date : ${talk.date}
+                            Date : ${talk.dateTime.toString("dd/MM/YYYY")}
                         </b>
                     </p>
 
                     <p>
                         <b>
-                            Time : ${talk.time}
+                            Time : ${talk.dateTime.toString("hh:mm a")}
                         </b>
                     </p>
                 </div>
             <#else>
-                <h3>
-                    <p id="noeventmessage">There are no talks at this moment.</p>
-                <h3>
+            <h3>
+                <p id="noeventmessage">There are no talks at this moment.</p>
+            <h3>
 
             </#if>
         </div>

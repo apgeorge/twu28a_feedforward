@@ -36,19 +36,16 @@
 
     <#list retrieved_feedback_list as feedback>
         <li class="ui-li ui-li-static ui-body-c feedback-item" ">
+
             <h4 style="word-wrap: break-word; width: 95%;">
             <@nl2br>
             ${feedback.feedbackComment}
             </@nl2br>
             </h4>
-            <p><strong>&nbsp; &nbsp; &nbsp; - ${feedback.attendee}</strong>
-                <span>
-                    <a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}
-                    </a>
-                </span>
-            </p>
-            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
-        </li>
+        <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
+         <p> <a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
+
+         </li>
     </#list>
 
 

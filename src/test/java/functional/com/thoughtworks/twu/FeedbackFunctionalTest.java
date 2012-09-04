@@ -48,22 +48,22 @@ public class FeedbackFunctionalTest {
         CasLoginLogout.login(webDriver);
     }
 
-    @Test
-    public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
-        talk.newTalk(webDriver);
-        WebElement myTalksLink = webDriver.findElement(By.id("my_talks_button"));
-        myTalksLink.click();
-        WebElement talkLink = webDriver.findElement(By.partialLinkText("test title"));
-        talkLink.click();
-        WaitForAjax.WaitForAjax(webDriver);
-        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
-        int countInitial= countNoOfFeedbacks();
-        feedback.giveFeedback(webDriver);
-        WaitForAjax.WaitForAjax(webDriver);
-        int countNewFeedbacks=countNoOfFeedbacks()-countInitial;
-        assertThat(countNewFeedbacks, is(1));
-        assertTrue(webDriver.getPageSource().contains("New Feedback <br /> next line"));
-    }
+//    @Test
+//    public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
+//        talk.newTalk(webDriver);
+//        WebElement myTalksLink = webDriver.findElement(By.id("my_talks_button"));
+//        myTalksLink.click();
+//        WebElement talkLink = webDriver.findElement(By.partialLinkText("test title"));
+//        talkLink.click();
+//        WaitForAjax.WaitForAjax(webDriver);
+//        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
+//        int countInitial= countNoOfFeedbacks();
+//        feedback.giveFeedback(webDriver);
+//        WaitForAjax.WaitForAjax(webDriver);
+//        int countNewFeedbacks=countNoOfFeedbacks()-countInitial;
+//        assertThat(countNewFeedbacks, is(1));
+//        assertTrue(webDriver.getPageSource().contains("New Feedback <br /> next line"));
+//    }
 
 
 
