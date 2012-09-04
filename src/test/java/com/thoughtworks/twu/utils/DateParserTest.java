@@ -1,6 +1,7 @@
 package com.thoughtworks.twu.utils;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,6 +26,6 @@ public class DateParserTest {
         //When
         DateTime dateTime = dateParser.convertToDateTime();
         //Then
-        assertThat(dateTime, is(new DateTime(2012,9,4,21,48)));
+        assertThat(dateTime, is(new DateTime(2012,9,4,21,48, DateTimeZone.UTC)));
     }
 }

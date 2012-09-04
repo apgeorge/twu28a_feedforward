@@ -1,6 +1,7 @@
 package com.thoughtworks.twu.utils;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import static java.lang.Integer.parseInt;
 
@@ -20,6 +21,6 @@ public class DateParser {
         int minute = parseInt(testTime.substring(3, 5));
         if (testTime.contains("PM")) hour += 12;
 
-        return new DateTime(parseInt(dateList[2]),parseInt(dateList[1]),parseInt(dateList[0]),hour,minute);
+        return new DateTime(parseInt(dateList[2]),parseInt(dateList[1]),parseInt(dateList[0]),hour,minute, DateTimeZone.UTC);
     }
 }

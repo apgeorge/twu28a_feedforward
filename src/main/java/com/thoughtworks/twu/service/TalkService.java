@@ -4,6 +4,7 @@ import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
+import com.thoughtworks.twu.utils.DateParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class TalkService {
     public int createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
         presentationMapper.insertPresentation(presentation);
         presentation = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
-        return talkMapper.insert(new Talk(presentation, venue, date, time));
+        return talkMapper.insert(new Talk(presentation, venue, new DateParser(date,time).convertToDateTime()));
     }
 
     public Talk getTalk(int talkId) {

@@ -3,9 +3,10 @@ package com.thoughtworks.twu.domain;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.joda.time.DateTime;
 
 public class Talk {
-
+    private DateTime dateTime;
 
     public void setTalkId(int talkId) {
         this.talkId = talkId;
@@ -14,16 +15,7 @@ public class Talk {
     Presentation presentation;
     int talkId;
     String venue;
-    String date;
-    String time;
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getTime() {
-        return time;
-    }
 
     public int getTalkId() {
         return talkId;
@@ -41,11 +33,10 @@ public class Talk {
     public Talk() {
     }
 
-    public Talk(Presentation presentation, String venue, String date, String time) {
+    public Talk(Presentation presentation, String venue, DateTime dateTime) {
         this.presentation=presentation;
         this.venue=venue;
-        this.date = date;
-        this.time = time;
+        this.dateTime =dateTime;
 
     }
 
@@ -53,42 +44,34 @@ public class Talk {
         return talkId;
     }
 
-    /*@Override
-    public boolean equals(Object o) {
-        return EqualsBuilder.reflectionEquals(this, o);
-    }
-
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }*/
 
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
 
+
+
+    public DateTime getDateTime() {
+        return dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Talk talk = (Talk) o;
-
-        if (date != null ? !date.equals(talk.date) : talk.date != null) return false;
+        if (dateTime != null ? !dateTime.equals(talk.dateTime) : talk.dateTime != null) return false;
         if (presentation != null ? !presentation.equals(talk.presentation) : talk.presentation != null) return false;
-        if (time != null ? !time.equals(talk.time) : talk.time != null) return false;
         if (venue != null ? !venue.equals(talk.venue) : talk.venue != null) return false;
-
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = presentation != null ? presentation.hashCode() : 0;
+        int result = dateTime != null ? dateTime.hashCode() : 0;
+        result = 31 * result + (presentation != null ? presentation.hashCode() : 0);
         result = 31 * result + (venue != null ? venue.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }
 }

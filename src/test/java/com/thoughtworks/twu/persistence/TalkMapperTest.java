@@ -2,6 +2,7 @@ package com.thoughtworks.twu.persistence;
 
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
+import com.thoughtworks.twu.utils.DateParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,13 @@ public class TalkMapperTest extends IntegrationTest {
     @Before
     public void init() {
         presentation = new Presentation("XConf", "Ruby Conference", "Aman King");
-        talk = new Talk(presentation, "Pune Office", "23/08/2012", "12:01 pm");
+        talk = new Talk(presentation, "Pune Office", new DateParser("23/08/2012", "12:01 pm").convertToDateTime());
 
     }
 
     @Test
     public void shouldVerifyCorrectInsertionOfTalk() throws Exception {
-        Talk secondTalk =new Talk(presentation,"sjafh","kxcvn","sdfjde");
+        Talk secondTalk =new Talk(presentation,"sjafh",new DateParser("22/08/2012","04:56 AM").convertToDateTime());
         assertThat(talkMapper.insert(talk),is(1));
         assertThat(talkMapper.insert(secondTalk),not(0));
 
@@ -44,7 +45,7 @@ public class TalkMapperTest extends IntegrationTest {
     public void shouldGetTalkWhenTalkIdIsGiven(){
         presentationMapper.insertPresentation(presentation);
         presentation= presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
-        Talk secondTalk=new Talk(presentation,"venue", "date", "time");
+        Talk secondTalk=new Talk(presentation,"venue", new DateParser("22/08/2012", "04:56 AM").convertToDateTime());
         talkMapper.insert(secondTalk);
 
         Talk talkQueried = talkMapper.getTalk(talkMapper.getLastId());
@@ -69,9 +70,9 @@ public class TalkMapperTest extends IntegrationTest {
         Presentation secondPresentationWithId=presentationMapper.getPresentation(secondPresentation.getTitle(),secondPresentation.getOwner());
 
 
-        Talk firstTalk = new Talk(firstPresentationWithId, "Pune Office", "23/08/2012", "12:01 pm");
-        Talk secondTalk = new Talk(firstPresentationWithId, "pune", "12-3-04", "test time");
-        Talk thirdTalk= new Talk(secondPresentationWithId,"chennai","test date","test time 2");
+        Talk firstTalk = new Talk(firstPresentationWithId, "Pune Office", new DateParser("23/08/2012", "12:01 pm").convertToDateTime());
+        Talk secondTalk = new Talk(firstPresentationWithId, "pune", new DateParser("22/08/2012", "04:56 AM").convertToDateTime());
+        Talk thirdTalk= new Talk(secondPresentationWithId,"chennai",new DateParser("15/05/1990","11:00 PM").convertToDateTime());
 
         talkMapper.insert(firstTalk);
         talkMapper.insert(secondTalk);
@@ -101,9 +102,9 @@ public class TalkMapperTest extends IntegrationTest {
         Presentation firstPresentationWithId=presentationMapper.getPresentation(firstPresentation.getTitle(),firstPresentation.getOwner());
         Presentation secondPresentationWithId =presentationMapper.getPresentation(secondPresentation.getTitle(),secondPresentation.getOwner());
 
-        Talk firstTalk = new Talk(firstPresentationWithId, "Pune Office", "23/08/2012", "12:01 pm");
-        Talk secondTalk = new Talk(firstPresentationWithId, "pune", "12-3-04", "test time");
-        Talk thirdTalk= new Talk(secondPresentationWithId,"chennai","test date","test time 2");
+        Talk firstTalk = new Talk(firstPresentationWithId, "Pune Office", new DateParser("23/08/2012", "12:01 pm").convertToDateTime());
+        Talk secondTalk = new Talk(firstPresentationWithId, "pune", new DateParser("22/08/2012", "04:56 AM").convertToDateTime());
+        Talk thirdTalk= new Talk(secondPresentationWithId,"chennai",new DateParser("15/05/1990","11:00 PM").convertToDateTime());
 
         talkMapper.insert(firstTalk);
         talkMapper.insert(secondTalk);
