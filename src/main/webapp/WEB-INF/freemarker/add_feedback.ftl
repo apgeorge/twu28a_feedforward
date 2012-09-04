@@ -1,4 +1,5 @@
 <#include "/macros.ftl">
+<#escape x as x?html>
     <div id = "add_feedback_container">
     <h4 id="feedback_status_message">
     </h4>
@@ -12,11 +13,12 @@
             <textarea name="feedback" id="feedback_text" maxlength="500" onInput="textCounter(this,document.getElementById('counter'),500);"  placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
 
-            <br>
-            <p style="float: right; font-weight: bold;">  <span id="counter" style="color:black;">0</span>/500
-            </p>
 
-            <br/>
+            <p style="float: right; font-weight: bold;">  <span id="counter" style="color:black;">0</span>/500</p>
+
+            <br>
+
+
             <input type="submit" id="add_feedback_submit" talk-id="${talk_id}" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
                        data-mini="false">
            </fieldset>
@@ -45,7 +47,7 @@
                     </a>
                 </span>
             </p>
-            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  KK:mm a")}</strong></p>
+            <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
         </li>
     </#list>
 
@@ -100,3 +102,4 @@
                 }
 
             </script>
+</#escape>

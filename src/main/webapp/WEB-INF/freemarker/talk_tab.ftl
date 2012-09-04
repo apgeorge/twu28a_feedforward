@@ -1,4 +1,4 @@
-
+<#escape x as x?html>
 <div style="font-weight: bold;
             color: green;
             text-align: center;">
@@ -21,3 +21,4 @@
  <div id="talk_container">
 
  </div>
+</#escape>

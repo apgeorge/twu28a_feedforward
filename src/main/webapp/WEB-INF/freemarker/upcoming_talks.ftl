@@ -1,4 +1,5 @@
-<div data-role="content" style="padding: 15px">
+<#escape x as x?html>
+    <div data-role="content" style="padding: 15px">
     <ul data-role="listview" data-divider-theme="b" data-inset="true">
         <li data-role="list-divider" role="heading">
         </li>
@@ -24,4 +25,5 @@
         </li>
     </ul>
 
-</div>
+    </div>
+    </#escape>

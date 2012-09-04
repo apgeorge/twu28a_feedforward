@@ -1,9 +1,4 @@
-<style type="text/css">
-    .ui-btn-inr{
-        white-space: normal;
-    }
-</style>
-
+<#escape x as x?html>
 <div data-role="content" style="padding: 15px">
     <div data-role="collapsible-set" data-theme="" data-content-theme="">
         <div data-role="collapsible" data-collapsed="true">
@@ -20,8 +15,8 @@
                     </p>
 
                     <p>
-                        <b style=" word-wrap: break-word; ">
-                            Venue : ${talk.venue}.
+                        <b>
+                            Venue : ${talk.venue}
                         </b>
                     </p>
 
@@ -49,3 +44,4 @@
     </div>
 
 </div>
+</#escape>
