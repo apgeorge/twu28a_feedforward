@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class TalkController {
@@ -31,9 +32,13 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/talks.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalksPage()
+    public ModelAndView getRecentTalksPage()
     {
-        return new ModelAndView("talks");
+        ModelAndView modelAndView = new ModelAndView("talks");
+        List<Talk> listOfRecentTalks = talkService.getListOfRecentTalks();
+
+        modelAndView.addObject("talksList",listOfRecentTalks);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/home.htm*", method = RequestMethod.GET)
