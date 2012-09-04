@@ -8,11 +8,11 @@ import com.thoughtworks.twu.utils.CasLoginLogout;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class FeedbackFunctionalTest {
         mockTalkMapper = mock(TalkMapper.class);
         mockPresentationMapper = mock(PresentationMapper.class);
         talkService = new TalkService(mockTalkMapper, mockPresentationMapper);
-        Presentation presentation = new Presentation("test title", "test description", "test presenter");
+        Presentation presentation = new Presentation("test title", "test description", "test.twu");
         talkService.createTalkWithNewPresentation(presentation, "venue", "date", "time");
         webDriver.get(HTTP_BASE_URL);
         CasLoginLogout.login(webDriver);
@@ -44,8 +44,10 @@ public class FeedbackFunctionalTest {
     @Test
     public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
 
+        WebElement myTalksLink = webDriver.findElement(By.id("my_talks_button"));
+        myTalksLink.click();
 
-        WebElement talkLink = webDriver.findElement(By.id("test_talk"));
+        WebElement talkLink = webDriver.findElement(By.partialLinkText("test title"));
         talkLink.click();
         WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains("Past Feedback"));
