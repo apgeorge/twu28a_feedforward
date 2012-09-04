@@ -16,7 +16,7 @@
 
                     <p>
                         <b>
-                            Venue : ${talk.venue}.
+                            Venue : ${talk.venue}
                         </b>
                     </p>
 
