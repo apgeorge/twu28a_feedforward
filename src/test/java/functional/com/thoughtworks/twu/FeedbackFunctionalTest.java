@@ -62,7 +62,6 @@ public class FeedbackFunctionalTest {
         assertTrue(webDriver.getPageSource().contains("New Feedback <br /> next line"));
     }
 
-<<<<<<< HEAD
     @Test
     public void shouldNotBeAbleToSubmitBlankFeedbackOnTalk() throws Exception {
 
@@ -82,11 +81,6 @@ public class FeedbackFunctionalTest {
         int countNewFeedbacks=countNoOfFeedbacks()-countInitial;
         assertThat(countNewFeedbacks, is(0));
       }
-=======
-
-
-
->>>>>>> 82c0fa071f5c86111fef005c3a2af14598ad6599
 
     private int countNoOfFeedbacks()
     {
