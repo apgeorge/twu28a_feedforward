@@ -1,4 +1,5 @@
 <#include "/macros.ftl">
+<#escape x as x?html>
     <div id = "add_feedback_container">
     <h4 id="feedback_status_message">
     </h4>
@@ -100,3 +101,4 @@
                 }
 
             </script>
+</#escape>

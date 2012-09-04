@@ -1,3 +1,4 @@
+<#escape x as x?html>
 <div data-role="content" style="padding: 15px">
       <ul data-role="listview"  data-inset="true">
           <li data-role="list-divider" role="heading">
@@ -24,3 +25,4 @@
       </ul>
 
   </div>
+</#escape>

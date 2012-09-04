@@ -1,5 +1,5 @@
-<!-- New Talk -->
-    <div style="font-weight: bold;
+<#escape x as x?html>
+<div style="font-weight: bold;
                 color: red;
                 text-align: center;">
     	<p id="message_box_error"><p>
@@ -58,7 +58,7 @@
                     <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="false">
                 </div>
               </div>
-
+</#escape>
             <script>
 
                 function validate_new_talk_form(){
