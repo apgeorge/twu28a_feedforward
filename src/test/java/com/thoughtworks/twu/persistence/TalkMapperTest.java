@@ -2,6 +2,7 @@ package com.thoughtworks.twu.persistence;
 
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
+import com.thoughtworks.twu.utils.ApplicationClock;
 import com.thoughtworks.twu.utils.DateParser;
 import org.junit.Before;
 import org.junit.Test;
@@ -122,5 +123,23 @@ public class TalkMapperTest extends IntegrationTest {
 
         for(Talk t:expectedList)
             assertTrue(actualList.contains(t));
+    }
+
+    @Test
+    public void shouldGetAListOfTalksFromTheLastTwoDays() {
+        //Given
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(1));
+        Talk secondTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().minusHours(1));
+        Talk thirdTalk= new Talk(presentationWithID,"chennai",new ApplicationClock().now().minusDays(1));
+        talkMapper.insert(firstTalk);
+        talkMapper.insert(secondTalk);
+        talkMapper.insert(thirdTalk);
+        //When
+        List<Talk> listOfRecentTalks = talkMapper.getListOfRecentTalks(new ApplicationClock().now().minusDays(2), new ApplicationClock().now());
+        //Then
+        assertThat(listOfRecentTalks.size(), is(2));
+        assertThat(listOfRecentTalks.contains(firstTalk),is(false));
     }
 }
