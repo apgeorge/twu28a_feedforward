@@ -14,15 +14,13 @@
                    type="textArea" rows="9" cols="200"></textarea>
 
 
-            <p style="float: right; font-weight: bold;">  <span id="counter" style="color:black;">0</span>/500</p>
+            <p style="float: right; font-weight: bold;"><span id="counter" style="color:black;">0</span >/500</p>
 
             <br>
 
-
-            <input type="submit" id="add_feedback_submit" talk-id="${talk_id}" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
-                       data-mini="false">
            </fieldset>
-
+            <input type="submit" id="add_feedback_submit" talk-id="${talk_id}" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
+                   data-mini="false">
 
         </center>
     </div>
@@ -86,7 +84,7 @@
                                cache: false,
                                dataType: "html",
                                async: true,
-                               data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val() }
+                               data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}
                                })
                          .done(function(data){
                                 $('#feedback_text').val('');
@@ -98,7 +96,8 @@
 
                 });
                 function validateFeedback(){
-               return !($.trim($('#feedback_text').val())=="");
+                    $('#feedback_text').val($.trim($('#feedback_text').val()));
+                    return !($('#feedback_text').val()=="");
                 }
 
             </script>
