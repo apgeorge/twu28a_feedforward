@@ -1,3 +1,4 @@
+<#escape x as x?html>
     <!DOCTYPE html>
     <html>
 
@@ -85,8 +86,8 @@
         
         </div>
         </div>
-       
-        
+
+   </#escape>
         
         <script>
 

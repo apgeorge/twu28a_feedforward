@@ -1,3 +1,4 @@
+<#escape x as x?html>
 <div data-role="content" style="padding: 15px">
     <div data-role="collapsible-set" data-theme="" data-content-theme="">
         <div data-role="collapsible" data-collapsed="true">
@@ -43,3 +44,4 @@
     </div>
 
 </div>
+</#escape>

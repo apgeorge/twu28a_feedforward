@@ -1,4 +1,4 @@
-
+<#escape x as x?html>
 <div id="my_talks_list" data-role="content" style="padding: 15px">
     <#if myTalksList?has_content>
     <ul data-role="listview" data-divider-theme="b" data-inset="true">
@@ -22,5 +22,4 @@
     </#if>
 
 </div>
-
-
+</#escape>

@@ -1,4 +1,5 @@
 <#include "/macros.ftl">
+<#escape x as x?html>
     <div id = "add_feedback_container">
     <h4 id="feedback_status_message">
     </h4>
@@ -84,7 +85,7 @@
                                cache: false,
                                dataType: "html",
                                async: true,
-                               data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val() }
+                               data: { talkId: "0", feedbackComment: $('#feedback_text').val() }
                                })
                          .done(function(data){
                                 $('#feedback_text').val('');
@@ -100,3 +101,4 @@
                 }
 
             </script>
+</#escape>

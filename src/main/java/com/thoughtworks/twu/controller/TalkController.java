@@ -55,21 +55,27 @@ public class TalkController {
                                            @RequestParam(value = "date", defaultValue = "") String date,
                                            @RequestParam(value = "time", defaultValue = "") String time) {
         ModelAndView modelAndView = new ModelAndView("message");
+        int resultOfInsertion;
         if(!talkService.validate(title,venue,date,time)){
-            return addFailuireMessageToModelAndView(modelAndView);
+            return addFailureMessageToModelAndView(modelAndView);
         }
         Presentation presentation = new Presentation(title,description,request.getUserPrincipal().getName());
-        int resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
+        try{
 
+            resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
+        }
+        catch(Exception e){
+            return  addFailureMessageToModelAndView(modelAndView);
+        }
         if(resultOfInsertion == 0 )
-            return  addFailuireMessageToModelAndView(modelAndView);
+            return  addFailureMessageToModelAndView(modelAndView);
 
         modelAndView.addObject("status","true") ;
         return modelAndView;
 
     }
 
-    private ModelAndView addFailuireMessageToModelAndView(ModelAndView modelAndView) {
+    private ModelAndView addFailureMessageToModelAndView(ModelAndView modelAndView) {
         modelAndView.addObject("status", "false");
         return modelAndView;
     }
