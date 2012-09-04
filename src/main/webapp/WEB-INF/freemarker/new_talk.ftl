@@ -1,5 +1,5 @@
-<!-- New Talk -->
-    <div style="font-weight: bold;
+<#escape x as x?html>
+<div style="font-weight: bold;
                 color: red;
                 text-align: center;">
     	<p id="message_box_error"><p>
@@ -58,7 +58,7 @@
                     <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="false">
                 </div>
               </div>
-
+</#escape>
             <script>
 
                 function validate_new_talk_form(){
@@ -140,7 +140,7 @@
                                         if(data.indexOf("true") != -1) {
                                             $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
                                         }else{
-                                           $('#message_box_error').html('Please Supply Valid Entries For All Fields');
+                                           $('#message_box_error').html('Cannot create talk with duplicate title');
                                         }
                               });
 

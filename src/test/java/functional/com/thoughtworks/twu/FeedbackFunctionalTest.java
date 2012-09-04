@@ -62,6 +62,10 @@ public class FeedbackFunctionalTest {
         assertTrue(webDriver.getPageSource().contains("New Feedback <br /> next line"));
     }
 
+
+
+
+
     private int countNoOfFeedbacks()
     {
         List<WebElement> feedbackList= webDriver.findElements(By.className("feedback-item"));
