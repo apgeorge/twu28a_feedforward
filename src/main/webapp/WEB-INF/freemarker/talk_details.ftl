@@ -4,13 +4,13 @@
         <div data-role="collapsible" data-collapsed="true">
             <#if talk??>
                 <h3>
-                    ${talk.presentation.title}  By  ${talk.presentation.owner}
+                ${talk.presentation.title}  By  ${talk.presentation.owner}
                 </h3>
 
                 <div>
                     <p>
                         <b>
-                            ${talk.presentation.description}
+                        ${talk.presentation.description}
                         </b>
                     </p>
 
@@ -22,20 +22,20 @@
 
                     <p>
                         <b>
-                            Date : ${talk.date}
+                            Date : ${talk.dateTime.toString("dd/MM/YYYY")}
                         </b>
                     </p>
 
                     <p>
                         <b>
-                            Time : ${talk.time}
+                            Time : ${talk.dateTime.toString("hh:mm a")}
                         </b>
                     </p>
                 </div>
             <#else>
-                <h3>
-                    <p id="noeventmessage">There are no talks at this moment.</p>
-                <h3>
+            <h3>
+                <p id="noeventmessage">There are no talks at this moment.</p>
+            <h3>
 
             </#if>
         </div>

@@ -27,7 +27,7 @@ public interface TalkMapper {
     @Select("SELECT talk_id FROM talk WHERE talk_id=IDENTITY()")
     int getLastId();
 
-    @Select("SELECT talk_id,title,description,owner,venue,time_of_talk FROM presentation JOIN talk ON presentation.id=talk.presentation_id WHERE presentation.owner=#{owner}")
+    @Select("SELECT talk_id,title,description,owner,venue,time_of_talk FROM presentation JOIN talk ON presentation.id=talk.presentation_id WHERE presentation.owner=#{owner} ORDER BY time_stamp DESC")
     @Results(value = {
             @Result(property="talkId", column="talk_id"),
             @Result(property="presentation.title", column="title"),
