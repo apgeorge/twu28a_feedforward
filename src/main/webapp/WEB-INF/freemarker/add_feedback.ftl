@@ -13,6 +13,8 @@
             <textarea name="feedback" id="feedback_text" maxlength="500" onInput="textCounter(this,document.getElementById('counter'),500);"  placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
 
+            <p style="float: right; font-weight: bold;"><span id="counter" style="color:black;">0</span >/500</p>
+
             <br>
 
            </fieldset>
@@ -32,13 +34,13 @@
     <#list retrieved_feedback_list as feedback>
         <li class="ui-li ui-li-static ui-body-c feedback-item" ">
 
-            <h4 style="white-space: pre-wrap; white-space: : -moz-pre-wrap; white-space: : -pre-wrap; white-space: -o-pre-wrap;word-wrap: break-word; width: 95%;">
+            <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%;">
             <@nl2br>
             ${feedback.feedbackComment}
             </@nl2br>
             </h4>
         <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
-         <p ><a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
+        <p align="right"><a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
 
          </li>
     </#list>
