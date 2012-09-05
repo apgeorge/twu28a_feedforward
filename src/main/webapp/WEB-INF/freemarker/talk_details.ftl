@@ -1,6 +1,6 @@
 <#escape x as x?html>
 <style type="text/css">
-    .ui-btn-inner{
+    .ui-corner-bottom{
         white-space: pre-line !important; /* CSS 3.0 */
         white-space: -o-pre-wrap !important; /* Opera 7 */
         white-space: -moz-pre-wrap !important; /* Mozilla */
