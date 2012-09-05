@@ -65,7 +65,7 @@ public class FeedbackFunctionalTest {
 //        assertTrue(webDriver.getPageSource().contains("New Feedback <br /> next line"));
 //    }
 
-    @Test
+/*    @Test
     public void shouldNotBeAbleToSubmitBlankFeedbackOnTalk() throws Exception {
 
         WebElement myTalksLink = webDriver.findElement(By.id("my_talks_button"));
@@ -84,7 +84,7 @@ public class FeedbackFunctionalTest {
         int countNewFeedbacks=countNoOfFeedbacks()-countInitial;
         assertThat(countNewFeedbacks, is(0));
       }
-
+   */
     private int countNoOfFeedbacks()
     {
         List<WebElement> feedbackList= webDriver.findElements(By.className("feedback-item"));
