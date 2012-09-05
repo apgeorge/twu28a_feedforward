@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -19,7 +21,7 @@ public class TalkController {
 
     @Autowired
     public TalkController(TalkService talkService) {
-         this.talkService = talkService;
+        this.talkService = talkService;
     }
 
 
@@ -27,17 +29,16 @@ public class TalkController {
     public ModelAndView getTalk(@RequestParam(value = "talk_id", defaultValue = "-1") int talkId) {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("talk_details");
-        modelAndView.addObject("talk",talk);
+        modelAndView.addObject("talk", talk);
         return modelAndView;
     }
 
     @RequestMapping(value = "/talks.htm*", method = RequestMethod.GET)
-    public ModelAndView getRecentTalksPage()
-    {
+    public ModelAndView getRecentTalksPage() {
         ModelAndView modelAndView = new ModelAndView("talks");
         List<Talk> listOfRecentTalks = talkService.getListOfRecentTalks();
 
-        modelAndView.addObject("talksList",listOfRecentTalks);
+        modelAndView.addObject("talksList", listOfRecentTalks);
         return modelAndView;
     }
 
@@ -47,6 +48,15 @@ public class TalkController {
         String username = httpServletRequest.getUserPrincipal().getName();
 
         modelAndView.addObject("username", username);
+        return modelAndView;
+
+    }
+
+    @RequestMapping(value = "/logout*")
+    public ModelAndView logoutPage(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+            httpServletRequest.getSession().invalidate();
+            httpServletResponse.sendRedirect("Http://castest.thoughtworks.com/cas/logout");
         return modelAndView;
 
     }
@@ -61,21 +71,20 @@ public class TalkController {
                                            @RequestParam(value = "time", defaultValue = "") String time) {
         ModelAndView modelAndView = new ModelAndView("message");
         int resultOfInsertion;
-        if(!talkService.validate(title,venue,date,time)){
+        if (!talkService.validate(title, venue, date, time)) {
             return addFailureMessageToModelAndView(modelAndView);
         }
-        Presentation presentation = new Presentation(title,description,request.getUserPrincipal().getName());
-        try{
+        Presentation presentation = new Presentation(title, description, request.getUserPrincipal().getName());
+        try {
 
             resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
+        } catch (Exception e) {
+            return addFailureMessageToModelAndView(modelAndView);
         }
-        catch(Exception e){
-            return  addFailureMessageToModelAndView(modelAndView);
-        }
-        if(resultOfInsertion == 0 )
-            return  addFailureMessageToModelAndView(modelAndView);
+        if (resultOfInsertion == 0)
+            return addFailureMessageToModelAndView(modelAndView);
 
-        modelAndView.addObject("status","true") ;
+        modelAndView.addObject("status", "true");
         return modelAndView;
 
     }
@@ -87,11 +96,11 @@ public class TalkController {
 
     @RequestMapping(value = "/my_talks.htm*", method = RequestMethod.GET)
     public ModelAndView getMyTalksPage(HttpServletRequest request) {
-        ModelAndView modelAndView=new ModelAndView("my_talks");
-        String user=request.getUserPrincipal().getName();
+        ModelAndView modelAndView = new ModelAndView("my_talks");
+        String user = request.getUserPrincipal().getName();
 
 
-        modelAndView.addObject("myTalksList",talkService.getListOfMyTalks(user));
+        modelAndView.addObject("myTalksList", talkService.getListOfMyTalks(user));
 
         return modelAndView;
     }
