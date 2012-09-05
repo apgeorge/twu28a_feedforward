@@ -13,6 +13,7 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="com.thoughtworks.twu"/>
 
+    <!-- OLD IMPLEMENTATION -->
     <!--<jdbc:embedded-database id="dataSource" type="HSQL">-->
         <!--<jdbc:script location="classpath:twu_database/schema.sql"/>-->
         <!--<jdbc:script location="classpath:twu_database/import.sql"/>-->
@@ -25,10 +26,11 @@
         <property name="password" value=""/>
 
     </bean>
-    <!--<jdbc:initialize-database>
-        <jdbc:script location="classpath:twu_database/schema.sql"/>
-        <jdbc:script location="classpath:twu_database/import.sql"/>
-    </jdbc:initialize-database>-->
+
+    <!--<jdbc:initialize-database>-->
+        <!--<jdbc:script location="classpath:twu_database/schema.sql"/>-->
+        <!--<jdbc:script location="classpath:twu_database/import.sql"/>-->
+    <!--</jdbc:initialize-database>-->
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
