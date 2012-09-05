@@ -1,4 +1,13 @@
 <#escape x as x?html>
+<style type="text/css">
+    .ui-btn-inner{
+        white-space: pre-line !important; /* CSS 3.0 */
+        white-space: -o-pre-wrap !important; /* Opera 7 */
+        white-space: -moz-pre-wrap !important; /* Mozilla */
+        word-wrap: break-word !important; /* IE 5+ */
+    }
+</style>
+
 <div data-role="content" style="padding: 15px">
     <div data-role="collapsible-set" data-theme="" data-content-theme="">
         <div data-role="collapsible" data-collapsed="true">
