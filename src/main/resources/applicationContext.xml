@@ -27,10 +27,10 @@
 
     </bean>
 
-    <jdbc:initialize-database>
+<!--    <jdbc:initialize-database>
         <jdbc:script location="classpath:twu_database/schema.sql"/>
         <jdbc:script location="classpath:twu_database/import.sql"/>
-    </jdbc:initialize-database>
+    </jdbc:initialize-database>-->
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
