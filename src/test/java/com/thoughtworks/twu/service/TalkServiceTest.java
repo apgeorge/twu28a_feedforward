@@ -4,7 +4,6 @@ import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
-import com.thoughtworks.twu.utils.ApplicationClock;
 import com.thoughtworks.twu.utils.DateParser;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -61,7 +60,7 @@ public class TalkServiceTest {
         expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue",  new DateParser("01/08/2012","10:00 AM").convertToDateTime()));
         when(mockTalkMapper.getTalksByUsername(owner)).thenReturn(expectedTalkList);
 
-        assertThat(talkService.getListOfMyTalks(owner), is(expectedTalkList));
+        assertThat(talkService.getMyTalks(owner), is(expectedTalkList));
         verify(mockTalkMapper).getTalksByUsername(owner);
 
     }
@@ -72,7 +71,7 @@ public class TalkServiceTest {
         List<Talk> expectedTalkList = new ArrayList<Talk>();
         when(mockTalkMapper.getListOfRecentTalks(any(DateTime.class), any(DateTime.class))).thenReturn(expectedTalkList);
         //When
-        List<Talk> actualTalksList=talkService.getListOfRecentTalks();
+        List<Talk> actualTalksList=talkService.getRecentTalks();
 
         //Then
         verify(mockTalkMapper).getListOfRecentTalks(any(DateTime.class), any(DateTime.class));
