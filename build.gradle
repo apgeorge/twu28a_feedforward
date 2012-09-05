@@ -3,6 +3,16 @@ apply plugin: 'jetty'
 apply plugin: 'war'
 apply plugin: 'idea'
 
+import org.apache.tools.ant.filters.*
+
+
+ext
+        {
+            webXmlTemplate = file("$webAppDir/WEB-INF/web.xml")
+            generatedWebXmlFile = file("$buildDir/web.xml")
+        }
+
+
 repositories {
     mavenCentral()
 }
@@ -29,7 +39,8 @@ dependencies {
             'org.opensaml:opensaml:1.1',
             'org.springframework.security:spring-security-acl:2.0.4',
             'xml-security:xmlsec:1.3.0',
-            'joda-time:joda-time:2.1'
+            'joda-time:joda-time:2.1',
+            'org.codehaus.groovy:groovy-all:2.0.1'
 
     testCompile 'junit:junit:4.10',
             'org.springframework:spring-test:3.1.1.RELEASE',
@@ -39,22 +50,56 @@ dependencies {
             'org.seleniumhq.selenium:selenium-firefox-driver:2.23.0'
 }
 
-jettyRun {
+
+task generateTemplateFilesDEV(type: Copy) {
+    Properties props = new Properties()
+    props.load(new FileInputStream("$projectDir/properties/" + "DEV" + ".properties"))
+
+    from "$projectDir/template"
+    include "*.xml"
+    into "$projectDir/src/main/webapp/WEB-INF"
+    filter(ReplaceTokens, tokens: props)
+}
+
+task generateTemplateFilesQA(type: Copy) {
+    Properties props = new Properties()
+    props.load(new FileInputStream("$projectDir/properties/" + "QA" + ".properties"))
+
+    from "$projectDir/template"
+    include "*.xml"
+    into "$projectDir/src/main/webapp/WEB-INF"
+    filter(ReplaceTokens, tokens: props)
+}
+
+
+task generateTemplateFilesCI(type: Copy) {
+    Properties props = new Properties()
+    props.load(new FileInputStream("$projectDir/properties/" + "CI" + ".properties"))
+
+    from "$projectDir/template"
+    include "*.xml"
+    into "$projectDir/src/main/webapp/WEB-INF"
+    filter(ReplaceTokens, tokens: props)
+}
+
+jettyRun{
     jettyRun.httpPort = 9091
     contextPath = 'twu'
 }
+
+task jettyRunDev(dependsOn: [generateTemplateFilesDEV, jettyRun])
 
 test {
     exclude '**/functional/com/thoughtworks/**/*.*'
 }
 
-task functionalTest(type: Test, dependsOn: "test") {
+task functionalTest(type: Test, dependsOn: [test, generateTemplateFilesCI]) {
     include '**/functional/com/thoughtworks/**'
 }
 
 functionalTest.doFirst {
-    jettyRun.httpPort = 9191
     jettyRun.daemon = true
+    jettyRun.httpPort = 9191
     jettyRun.execute()
 }
 
@@ -64,3 +109,14 @@ functionalTest.doFirst {
 functionalTest.doLast {
     jettyStop.execute()
 }
+
+
+task warQA(type: War, dependsOn: generateTemplateFilesQA) {
+    archiveName = 'feedForward-QA.war'
+}
+
+task warCI(type: War, dependsOn: generateTemplateFilesCI) {
+    archiveName = 'feedForward-CI.war'
+}
+
+

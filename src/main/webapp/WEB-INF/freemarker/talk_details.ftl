@@ -3,14 +3,14 @@
     <div data-role="collapsible-set" data-theme="" data-content-theme="">
         <div data-role="collapsible" data-collapsed="true">
             <#if talk??>
-                <h3>
-                ${talk.presentation.title}  By  ${talk.presentation.owner}
-                </h3>
+                <h4 style="word-wrap: break-word;">
+                    ${talk.presentation.title}  By  ${talk.presentation.owner}
+                </h4>
 
                 <div>
                     <p>
-                        <b>
-                        ${talk.presentation.description}
+                        <b style=" word-wrap: break-word; ">
+                            ${talk.presentation.description}
                         </b>
                     </p>
 
