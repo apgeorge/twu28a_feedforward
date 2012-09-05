@@ -42,26 +42,6 @@ public class TalkController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/home.htm*", method = RequestMethod.GET)
-    public ModelAndView getHomePage(HttpServletRequest httpServletRequest) {
-        ModelAndView modelAndView = new ModelAndView("home");
-        String username = httpServletRequest.getUserPrincipal().getName();
-
-        modelAndView.addObject("username", username);
-        return modelAndView;
-
-    }
-
-    @RequestMapping(value = "/logout*")
-    public ModelAndView logoutPage(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-            httpServletRequest.getSession().invalidate();
-            httpServletResponse.sendRedirect("Http://castest.thoughtworks.com/cas/logout");
-        return modelAndView;
-
-    }
-
-
     @RequestMapping(value = "/new_talk_submit.htm*", method = RequestMethod.GET)
     public ModelAndView newTalksFormSubmit(HttpServletRequest request,
                                            @RequestParam(value = "title", defaultValue = "") String title,
