@@ -19,8 +19,18 @@ public class DateParser {
         String dateList[]=testDate.split("/");
         int hour = parseInt(testTime.substring(0, 2));
         int minute = parseInt(testTime.substring(3, 5));
-        if (testTime.contains("PM")) hour += 12;
-
+        if (testTime.contains("PM"))
+        {
+            if(hour!=12){
+            hour += 12;
+            }
+        }
+        if(testTime.contains("AM"))
+        {
+            if(hour==12){
+                hour=0;
+            }
+        }
         return new DateTime(parseInt(dateList[2]),parseInt(dateList[1]),parseInt(dateList[0]),hour,minute, DateTimeZone.UTC);
     }
 }
