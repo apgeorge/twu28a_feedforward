@@ -1,4 +1,9 @@
 <#escape x as x?html>
+<style>
+    .ui-controlgroup-controls{
+        width: 100% !important;
+    }
+</style>
 <div style="font-weight: bold;
                 color: red;
                 text-align: center;">
@@ -43,7 +48,7 @@
                 </div>
 
 
-                <div data-role="fieldcontain" style="width: 100%; padding-top : 1%;">
+              <#--  <div data-role="fieldcontain" style="width: 100%; padding-top : 1%;">
                     <fieldset data-role="controlgroup">
                         <select name="city" id="city" data-native-menu="false" style="width: 100%;">
                                  <option value="Bangalore">Bangalore</option>
@@ -53,7 +58,7 @@
                         </select>
                     </fieldset>
                 </div>
-
+-->
                 <div style="margin-top: 10%;">
                     <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="false">
                 </div>

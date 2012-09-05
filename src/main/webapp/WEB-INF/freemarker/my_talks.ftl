@@ -19,6 +19,10 @@
 
 
     </ul>
+    <#else >
+        <div style="font-size: 25px; color: gray; text-shadow: 1px 1px 0px #BAD3ED;font-weight: bold;text-align: center;">
+            You haven't created a talk yet.
+        </div>
     </#if>
 
 </div>

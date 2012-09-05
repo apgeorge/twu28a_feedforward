@@ -18,3 +18,5 @@ out/
 build/
 logs/
 src/main/webapp/WEB-INF/web.xml
+src/main/webapp/WEB-INF/db/f2db.script
+srsrc/main/webapp/WEB-INF/f2db.properties
