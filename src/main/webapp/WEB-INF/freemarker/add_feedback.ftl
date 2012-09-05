@@ -1,5 +1,10 @@
 <#include "/macros.ftl">
 <#escape x as x?html>
+<style type="text/css">
+    .ui-submit{
+        width: : 100% !important;
+    }
+</style>
     <div id = "add_feedback_container">
     <h4 id="feedback_status_message">
     </h4>
@@ -12,14 +17,16 @@
             </label>
             <textarea name="feedback" id="feedback_text" maxlength="500" onInput="textCounter(this,document.getElementById('counter'),500);"  placeholder="add feedback" value="" style="width: 100%; height: 20%;"
                    type="textArea" rows="9" cols="200"></textarea>
-
+            <div>
             <p style="float: right; font-weight: bold;"><span id="counter" style="color:black;">0</span >/500</p>
-
+            </div>
             <br>
-
-           </fieldset>
+            <div style="margin-top: 50px; width: 100%;">
             <input type="submit" id="add_feedback_submit" talk-id="${talk_id}" data-inline="true" data-theme="b" value="Submit" style="padding-bottom: 0.5%; padding-top: 1%;"
                    data-mini="false">
+            </div>
+           </fieldset>
+
 
         </center>
     </div>

@@ -19,6 +19,14 @@
 
 
                 </ul>
-                </#if>
+
+       <#else >
+                <div style="font-size: 25px; color: gray; text-shadow: 1px 1px 0px #BAD3ED;font-weight: bold;text-align: center;">
+
+                    <img src="static/images/sad_cat.png">
+                    <br>
+                    No talks happening at the moment.
+                </div>
+      </#if>
   </div>
 </#escape>
