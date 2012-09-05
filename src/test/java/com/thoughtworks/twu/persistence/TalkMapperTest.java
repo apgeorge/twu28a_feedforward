@@ -143,8 +143,8 @@ public class TalkMapperTest extends IntegrationTest {
         List<Talk> expectedList=new ArrayList<Talk>();
         expectedList.add(thirdTalk);
         expectedList.add(secondTalk);
-        assertThat(listOfRecentTalks.size(), is(2));
         assertThat(listOfRecentTalks.contains(firstTalk),is(false));
-        assertThat(listOfRecentTalks,is(expectedList));
+        assertThat(listOfRecentTalks.contains(secondTalk), is(true));
+        assertThat(listOfRecentTalks.contains(thirdTalk), is(true));
     }
 }
