@@ -48,6 +48,7 @@ public class TalksHomePage {
     @Test
     public void shouldBeAbleToCreateNewTalk() throws Exception {
         talk.newTalk(webDriver);
+        WaitForAjax.WaitForAjax(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box_success"));
         assertThat(text.getText(), is(successMessage));
     }
