@@ -1,8 +1,8 @@
 <#include "/macros.ftl">
 <#escape x as x?html>
 <style type="text/css">
-    .ui-submit{
-        width: : 100% !important;
+    .ui-btn.ui-submit{
+        width: 100% !important;
     }
 </style>
     <div id = "add_feedback_container">

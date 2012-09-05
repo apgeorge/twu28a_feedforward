@@ -60,7 +60,7 @@
                 </div>
 -->
                 <div style="margin-top: 10%;">
-                    <input type="button" id="new_talk_submit"  data-theme="b" value="Submit" data-mini="false">
+                    <input type="button" id="new_talk_submit"  data-theme="b" value="Create" data-mini="false">
                 </div>
               </div>
 </#escape>
@@ -152,7 +152,7 @@
                  });
 
                  $("#datepicker").scroller({ preset: 'date' , dateOrder: 'ddmmyy', minDate: new Date() , dateFormat: 'dd/mm/yyyy'});
-                 $("#timepicker").scroller({ preset: 'time' });
+                 $("#timepicker").scroller({ preset: 'time', stepMinute: 5 });
                 });
 
             </script>
