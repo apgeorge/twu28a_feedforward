@@ -35,6 +35,11 @@
                             Time : ${talk.dateTime.toString("hh:mm a")}
                         </b>
                     </p>
+                    <p>
+                        <b>
+                            Contact me: <a href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a>
+                        </b>
+                    </p>
                 </div>
             <#else>
             <h3>

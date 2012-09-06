@@ -54,6 +54,7 @@ public class ViewTalkDetailsFunctionalTest {
         assertTrue(webDriver.getPageSource().contains("test venue"));
         assertTrue(webDriver.getPageSource().contains("06/09/2012"));
         assertTrue(webDriver.getPageSource().contains("10:00 AM"));
+        assertTrue(webDriver.getPageSource().contains("test.twu@thoughtworks.com"));
 
     }
 

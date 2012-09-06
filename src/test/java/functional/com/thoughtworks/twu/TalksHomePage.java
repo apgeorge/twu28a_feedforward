@@ -10,8 +10,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,21 +44,16 @@ public class TalksHomePage {
     public void shouldBeAbleToCreateNewTalk() throws Exception {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
-        WebElement element = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("new_talk")));
-          element.click();
-//        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
-//        webDriver.findElement(By.id("new_talk")).click();
-        WaitForAjax.WaitForAjax(webDriver);
-        assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
-        webDriver.findElement(By.id("title")).sendKeys(now().toString());
-        webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
-        webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
+        WebElement element = WaitForAjax.waitForElement(webDriver,"new_talk");
+        element.click();
+        WaitForAjax.waitForElement(webDriver,"title").sendKeys(now().toString());
+        WaitForAjax.waitForElement(webDriver,"description").sendKeys("Seven wise men");
+        WaitForAjax.waitForElement(webDriver,"venue").sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WaitForAjax.WaitForAjax(webDriver);
-        WebElement text = webDriver.findElement(By.id("message_box_success"));
+        WebElement text = WaitForAjax.waitForElement(webDriver,"message_box_success");
         assertThat(text.getText(), is(successMessage));
     }
 
