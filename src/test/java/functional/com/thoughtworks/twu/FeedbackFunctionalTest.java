@@ -11,9 +11,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -30,6 +33,7 @@ public class FeedbackFunctionalTest {
     @Before
     public void setUp() {
         webDriver = new FirefoxDriver();
+        webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         talk = new Talk();
         feedback = new Feedback();
         webDriver.get(HTTP_BASE_URL);
@@ -37,43 +41,41 @@ public class FeedbackFunctionalTest {
         talk.newTalk(webDriver);
     }
 
-//    @Test
-//    public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
-//        WebElement my_talks_button = webDriver.findElement(By.id("my_talks_button"));
-//        WebElement myTalksLink = my_talks_button;
-//        myTalksLink.click();
-//        WaitForAjax.WaitForAjax(webDriver);
-//        WebElement test_title = webDriver.findElement(By.partialLinkText(talk.getTalkTitle()));
-//        WebElement talkLink = test_title;
-//        talkLink.click();
-//        WaitForAjax.WaitForAjax(webDriver);
-//        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
-//        int countInitial = countNoOfFeedbacks();
-//        feedback.giveFeedback(webDriver);
-//        WaitForAjax.WaitForAjax(webDriver);
-//        int countNewFeedbacks = countNoOfFeedbacks() - countInitial;
-//        assertThat(countNewFeedbacks, is(1));
-//        assertTrue(webDriver.getPageSource().contains(feedback.getNowTime()));
-//    }
-//
-//    @Test
-//    public void shouldNotBeAbleToSubmitBlankFeedbackOnTalk() throws Exception {
-//        WebElement myTalksLink = webDriver.findElement(By.id("my_talks_button"));
-//        myTalksLink.click();
-//        WaitForAjax.WaitForAjax(webDriver);
-//        WebElement talkLink = webDriver.findElement(By.partialLinkText(talk.getTalkTitle()));
-//        talkLink.click();
-//        WaitForAjax.WaitForAjax(webDriver);
-//        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
-//        int countInitial = countNoOfFeedbacks();
-//        WebElement feedbackTextBox = webDriver.findElement(By.id("feedback_text"));
-//        feedbackTextBox.sendKeys("");
-//        WebElement feedbackSubmitButton = webDriver.findElement(By.id("add_feedback_submit"));
-//        feedbackSubmitButton.click();
-//        WaitForAjax.WaitForAjax(webDriver);
-//        int countNewFeedbacks = countNoOfFeedbacks() - countInitial;
-//        assertThat(countNewFeedbacks, is(0));
-//    }
+    @Test
+    public void shouldNotBeAbleToSubmitBlankFeedbackOnTalk() throws Exception {
+        WebElement myTalksLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("my_talks_button")));
+        myTalksLink.click();
+        WaitForAjax.WaitForAjax(webDriver);
+        WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(talk.getTalkTitle())));
+        talkLink.click();
+        WaitForAjax.WaitForAjax(webDriver);
+        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
+        int countInitial = countNoOfFeedbacks();
+        WebElement feedbackTextBox = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("feedback_text")));
+        feedbackTextBox.sendKeys("");
+        WebElement feedbackSubmitButton = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("add_feedback_submit")));
+        feedbackSubmitButton.click();
+        WaitForAjax.WaitForAjax(webDriver);
+        int countNewFeedbacks = countNoOfFeedbacks() - countInitial;
+        assertThat(countNewFeedbacks, is(0));
+    }
+
+    @Test
+    public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
+        WebElement myTalksLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("my_talks_button")));
+        myTalksLink.click();
+        WaitForAjax.WaitForAjax(webDriver);
+        WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(talk.getTalkTitle())));
+        talkLink.click();
+        WaitForAjax.WaitForAjax(webDriver);
+        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
+        int countInitial = countNoOfFeedbacks();
+        feedback.giveFeedback(webDriver);
+        WaitForAjax.WaitForAjax(webDriver);
+        int countNewFeedbacks = countNoOfFeedbacks() - countInitial;
+        assertThat(countNewFeedbacks, is(1));
+        assertTrue(webDriver.getPageSource().contains(feedback.getNowTime()));
+    }
 
     private int countNoOfFeedbacks() {
         List<WebElement> feedbackList = webDriver.findElements(By.className("feedback-item"));

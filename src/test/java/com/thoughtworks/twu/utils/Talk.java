@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.UUID;
 
@@ -22,14 +24,14 @@ public class Talk {
     private String talkTitle;
 
     public void newTalk(WebDriver webDriver){
-        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
+        WebElement myTalksButton = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("my_talks_button")));
         myTalksButton.click();
         try {
             WaitForAjax(webDriver);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        WebElement new_talk = webDriver.findElement(By.id("new_talk"));
+        WebElement new_talk = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("new_talk")));
         assertTrue(new_talk.isDisplayed());
         WebElement newTalkButton = new_talk;
         newTalkButton.click();
@@ -38,13 +40,13 @@ public class Talk {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        WebElement title = webDriver.findElement(By.id("title"));
+        WebElement title = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("title")));
         assertTrue(title.isDisplayed());
         talkTitle = UUID.randomUUID().toString();
         title.sendKeys(talkTitle);
-        WebElement description = webDriver.findElement(By.id("description"));
+        WebElement description = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("description")));
         description.sendKeys("Seven wise men");
-        WebElement venue = webDriver.findElement(By.id("venue"));
+        WebElement venue = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("venue")));
         venue.sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
