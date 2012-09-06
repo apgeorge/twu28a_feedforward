@@ -22,6 +22,6 @@ public  class WaitForAjax {
     }
 
     public static WebElement waitForElement(WebDriver webDriver, String elementId) {
-        return (new WebDriverWait(webDriver, 3)).until(ExpectedConditions.visibilityOfElementLocated(By.id(elementId)));
+        return (new WebDriverWait(webDriver, 5)).until(ExpectedConditions.visibilityOfElementLocated(By.id(elementId)));
     }
 }
