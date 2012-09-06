@@ -53,7 +53,7 @@ public class TalksHomePage {
         webDriver.findElement(By.id("new_talk")).click();
         assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
         webDriver.findElement(By.id("title")).sendKeys(now().toString());
-        webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
+        //webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
         webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
