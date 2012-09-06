@@ -10,6 +10,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,9 +46,10 @@ public class TalksHomePage {
     public void shouldBeAbleToCreateNewTalk() throws Exception {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
-        WaitForAjax.WaitForAjax(webDriver);
-        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
-        webDriver.findElement(By.id("new_talk")).click();
+        WebElement element = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("new_talk")));
+          element.click();
+//        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
+//        webDriver.findElement(By.id("new_talk")).click();
         WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
         webDriver.findElement(By.id("title")).sendKeys(now().toString());
