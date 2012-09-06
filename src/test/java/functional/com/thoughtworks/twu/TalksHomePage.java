@@ -33,7 +33,7 @@ public class TalksHomePage {
     @Before
     public void setUp() {
         webDriver = new FirefoxDriver();
-        webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         webDriver.get(HTTP_BASE_URL);
         failMessage = "Please Supply Valid Entries For All Fields";
         successMessage="New Talk Successfully Created";
