@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static com.thoughtworks.twu.utils.WaitForAjax.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.joda.time.DateTime.now;
 import static org.junit.Assert.assertThat;
@@ -46,9 +47,13 @@ public class TalksHomePage {
     }
 
     @Test
-    public void shouldBeAbleToCreateNewTalk() throws Exception {
+    public void shouldBeAbleToCreateNewTalk() {
         talk.newTalk(webDriver);
-        WaitForAjax.WaitForAjax(webDriver);
+        try {
+            WaitForAjax(webDriver);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         WebElement text = webDriver.findElement(By.id("message_box_success"));
         assertThat(text.getText(), is(successMessage));
     }
@@ -66,7 +71,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WaitForAjax.WaitForAjax(webDriver);
+        WaitForAjax(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box_success"));
         assertThat(text.getText(), is(successMessage));
     }
