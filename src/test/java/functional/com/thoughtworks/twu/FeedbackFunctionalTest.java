@@ -26,7 +26,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class FeedbackFunctionalTest {
     public static final int HTTP_PORT = 9191;
-    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
+    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/";
     private WebDriver webDriver;
     private TalkMapper mockTalkMapper;
     private PresentationMapper mockPresentationMapper;
