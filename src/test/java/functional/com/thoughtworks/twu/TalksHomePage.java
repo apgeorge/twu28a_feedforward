@@ -1,8 +1,6 @@
 package functional.com.thoughtworks.twu;
 
 import com.thoughtworks.twu.utils.CasLoginLogout;
-import com.thoughtworks.twu.utils.Talk;
-import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static com.thoughtworks.twu.utils.WaitForAjax.*;
+import static com.thoughtworks.twu.utils.WaitForAjax.WaitForAjax;
 import static org.hamcrest.CoreMatchers.is;
 import static org.joda.time.DateTime.now;
 import static org.junit.Assert.assertThat;
