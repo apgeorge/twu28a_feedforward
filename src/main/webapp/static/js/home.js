@@ -13,7 +13,7 @@ $.ajaxSetup({
     cache : 'false',
     dataType :"html",
     successThreshold : '3000',
-    timeout:5000
+    timeout:7000
 });
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.beforeSend = function () {
