@@ -1,6 +1,7 @@
 package functional.com.thoughtworks.twu;
 
 import com.thoughtworks.twu.utils.CasLoginLogout;
+import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +48,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#my_talks_button').click();");
         assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
+        WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
         webDriver.findElement(By.id("title")).sendKeys(now().toString());
         javascriptExecutor.executeScript("$('#description').val('Seven wise men');");
