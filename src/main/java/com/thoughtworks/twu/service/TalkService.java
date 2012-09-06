@@ -15,12 +15,14 @@ import java.util.List;
 public class TalkService {
 
     private PresentationMapper presentationMapper;
+    private ApplicationClock clock;
     private TalkMapper talkMapper;
 
     @Autowired
-    public TalkService(TalkMapper talkMapper, PresentationMapper presentationMapper) {
+    public TalkService(TalkMapper talkMapper, PresentationMapper presentationMapper, ApplicationClock clock) {
         this.talkMapper = talkMapper;
         this.presentationMapper = presentationMapper;
+        this.clock = clock;
     }
 
     public int createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
@@ -42,10 +44,10 @@ public class TalkService {
     }
 
     public List<Talk> getRecentTalks() {
-        return talkMapper.getListOfRecentTalks(new ApplicationClock().now().minusDays(1), new ApplicationClock().now());
+        return talkMapper.getTalks(clock.now().minusDays(2),clock.now());
     }
 
     public List<Talk> getUpcomingTalks() {
-        return null;
+        return talkMapper.getTalks(clock.now(), clock.now().plusMonths(1));
     }
 }

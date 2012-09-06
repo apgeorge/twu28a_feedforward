@@ -5,6 +5,7 @@ import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
 import com.thoughtworks.twu.utils.DateParser;
+import com.thoughtworks.twu.utils.TestClock;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -21,31 +23,31 @@ public class TalkServiceTest {
     private TalkService talkService;
     private TalkMapper mockTalkMapper;
     private PresentationMapper mockPresentationMapper;
-    String date;
-    String time;
+    private TestClock testClock;
+    private static final String DATE = "12/04/1999";
+    private static final String TIME = "11:00 AM";
 
     @Before
     public void init() {
         mockTalkMapper = mock(TalkMapper.class);
         mockPresentationMapper = mock(PresentationMapper.class);
-        talkService = new TalkService(mockTalkMapper, mockPresentationMapper);
-        date = "12/04/1999";
-        time = "11:00 AM";
+        testClock = new TestClock();
+        talkService = new TalkService(mockTalkMapper, mockPresentationMapper, testClock);
     }
 
     @Test
     public void shouldInsertPresentationOnCreationOfNewTalk() throws Exception {
         Presentation presentation = new Presentation("test title", "test description", "test presenter");
-        talkService.createTalkWithNewPresentation(presentation, "venue", date, time);
+        talkService.createTalkWithNewPresentation(presentation, "venue", DATE, TIME);
         verify(mockPresentationMapper).insertPresentation(presentation);
         verify(mockPresentationMapper).getPresentation("test title", "test presenter");
-        verify(mockTalkMapper).insert(new Talk(any(Presentation.class), "venue", new DateParser(date, time).convertToDateTime()));
+        verify(mockTalkMapper).insert(new Talk(any(Presentation.class), "venue", new DateParser(DATE, TIME).convertToDateTime()));
     }
 
     @Test
     public void shouldReturnTalk() {
         int talkId = 0;
-        Talk talkExpected = new Talk(new Presentation("test title", "test description", "test owner"), "venue", new DateParser(date,time).convertToDateTime());
+        Talk talkExpected = new Talk(new Presentation("test title", "test description", "test owner"), "venue", new DateParser(DATE, TIME).convertToDateTime());
         when(mockTalkMapper.getTalk(talkId)).thenReturn(talkExpected);
         Talk talk = talkService.getTalk(talkId);
         verify(mockTalkMapper).getTalk(talkId);
@@ -56,8 +58,8 @@ public class TalkServiceTest {
     public void shouldGetAListOfUsersTalks() throws Exception {
         List<Talk> expectedTalkList = new ArrayList<Talk>();
         String owner = "test owner";
-        expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner), "venue",  new DateParser(date,time).convertToDateTime()));
-        expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue",  new DateParser("01/08/2012","10:00 AM").convertToDateTime()));
+        expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner), "venue", new DateParser(DATE, TIME).convertToDateTime()));
+        expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue", new DateParser("01/08/2012", "10:00 AM").convertToDateTime()));
         when(mockTalkMapper.getTalksByUsername(owner)).thenReturn(expectedTalkList);
 
         assertThat(talkService.getMyTalks(owner), is(expectedTalkList));
@@ -67,15 +69,24 @@ public class TalkServiceTest {
 
     @Test
     public void shouldGetAListOfTalksInThePastTwoDays() {
-        //Given
         List<Talk> expectedTalkList = new ArrayList<Talk>();
-        when(mockTalkMapper.getListOfRecentTalks(any(DateTime.class), any(DateTime.class))).thenReturn(expectedTalkList);
-        //When
-        List<Talk> actualTalksList=talkService.getRecentTalks();
+        when(mockTalkMapper.getTalks(any(DateTime.class), any(DateTime.class))).thenReturn(expectedTalkList);
 
-        //Then
-        verify(mockTalkMapper).getListOfRecentTalks(any(DateTime.class), any(DateTime.class));
+        List<Talk> actualTalksList = talkService.getRecentTalks();
+
+        verify(mockTalkMapper).getTalks(testClock.now().minusDays(2), testClock.now());
         assertThat(actualTalksList, is(expectedTalkList));
+    }
+
+    @Test
+    public void shouldGetAListOfUpcomingTalksForTheNextMonth() throws Exception {
+        List<Talk> expectedList = new ArrayList<Talk>();
+        when(mockTalkMapper.getTalks(any(DateTime.class), any(DateTime.class))).thenReturn(expectedList);
+
+        List<Talk> actualTalkList = talkService.getUpcomingTalks();
+
+        assertThat(expectedList, is(actualTalkList));
+        verify(mockTalkMapper).getTalks(testClock.now(), testClock.now().plusMonths(1));
     }
 }
 

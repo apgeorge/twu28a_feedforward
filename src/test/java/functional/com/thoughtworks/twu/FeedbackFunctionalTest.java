@@ -39,7 +39,7 @@ public class FeedbackFunctionalTest {
         webDriver = new FirefoxDriver();
         mockTalkMapper = mock(TalkMapper.class);
         mockPresentationMapper = mock(PresentationMapper.class);
-        talkService = new TalkService(mockTalkMapper, mockPresentationMapper);
+        talkService = new TalkService(mockTalkMapper, mockPresentationMapper, null);
         Presentation presentation = new Presentation("test title", "test description", "test.twu");
         talk = new Talk();
         feedback = new Feedback();
