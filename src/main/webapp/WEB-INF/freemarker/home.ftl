@@ -5,49 +5,30 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://raw.github.com/commadelimited/jQuery-Mobile-Bootstrap-Theme/master/themes/Bootstrap.css"
-            />
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap-responsive.css">
-    <title>
-    </title>
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.css"
-            />
-    <link rel="stylesheet" href="static/css/my.css" />
-    <link rel="stylesheet" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" />
-
-    <style>
-            /* App custom styles */
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-    </script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.js">
-    </script>
-    <script src="static/js/my.js">
-    </script>
-
+    <title>Feed Forward App</title>
+    <link rel="stylesheet" href="static/css/jquery.mobile-1.1.1.min.css"/>
+    <link rel="stylesheet" href="static/css/jqm-datebox.min.css" />
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/jquery.mobile-1.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/mobiscroll-2.0.2.full.min.js"></script>
-    <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"
-            />
+    <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"/>
     <style >
         .dw{
             font-size: 15px;
         }
-
         .compulsory{
             color: red;
             font-weight: bold;
         }
     </style>
-
-
 </head>
 
 <body lang="en">
 <!--- Home --->
 <div data-role="page" id="page3">
-    <div class="row-fluid">
-        <div class="span12" data-theme="d" data-role="header">
-            <div style="textalign: center; height: 25px" class="row-fluid">
+
+        <div  data-theme="d" data-role="header">
+            <div style="textalign: center; height: 25px" >
 
                 <h2 style="text-align:center; padding-left: 2%; font-size: 18px;">
                     Welcome ${username}!
@@ -57,9 +38,9 @@
                 </h2>
 
             </div>
-            <div class="row-fluid">
 
-                <div class="span12" data-role="navbar" data-iconpos="top">
+
+                <div data-role="navbar" data-iconpos="top">
                     <ul>
                         <li>
                             <a  id="talks_button" data-theme="" data-icon="" class="ui-btn-active ui-state-persist">
@@ -79,9 +60,9 @@
 
                     </ul>
                 </div>
-            </div>
+
         </div>
-    </div>
+
     <div id="data_container">
 
     </div>

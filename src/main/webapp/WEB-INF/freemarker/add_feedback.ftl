@@ -47,7 +47,7 @@
             </@nl2br>
             </h4>
         <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
-        <p align="right"><a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
+        <p align="right" style="font-size: 15px"><a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
 
          </li>
     </#list>
