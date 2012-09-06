@@ -48,12 +48,11 @@ public class TalksHomePage {
     public void shouldBeAbleToCreateNewTalkWithDescription() throws InterruptedException {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#my_talks_button').click();");
-        WaitForAjax(webDriver);
         assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
         assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
         webDriver.findElement(By.id("title")).sendKeys(now().toString());
-        webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
+
         webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
 
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
