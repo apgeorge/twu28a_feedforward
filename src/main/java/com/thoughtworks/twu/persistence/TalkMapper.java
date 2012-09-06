@@ -55,4 +55,6 @@ public interface TalkMapper {
     List<Talk> getListOfRecentTalks(@Param("since")DateTime since, @Param("now")DateTime now);
 
 
+    @Delete("DELETE FROM talk WHERE talk_id=#{talkId}")
+    int deleteById(int talkId);
 }

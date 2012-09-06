@@ -44,42 +44,26 @@ public class TalkControllerTest {
 
         assertThat(result.getViewName(), is("talk_details"));
         assertThat((Talk) result.getModel().get("talk"), is(talk));
-
     }
-
-    @Test
-    public void shouldLoadHomePageWhenAtHome() throws Exception {
-        UserPrincipal userPrincipal = new UserPrincipal("test.twu");
-        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
-        mockHttpServletRequest.setUserPrincipal(userPrincipal);
-        ModelAndView result = talkController.getHomePage(mockHttpServletRequest);
-        assertThat(result.getViewName(),is("home"));
-        assertThat((String)result.getModel().get("username"),is("test.twu"));
-
-    }
-
-    @Test
-     public void shouldLoadTalksPage() throws Exception {
-        assertThat(talkController.getRecentTalksPage().getViewName(),is("talks"));
-    }
-
 
     @Test
     public void shouldLoadTalkTabPage() throws Exception {
-        assertThat(talkController.getTalkTabPage().getViewName(),is("talk_tab"));
+        ModelAndView modelAndView = talkController.getTalkTabPage();
+
+        assertThat(modelAndView.getViewName(),is("talk_tab"));
     }
 
 
     @Test
     public void shouldLoadNewTalkPage() throws Exception {
-        assertThat(talkController.getNewTalkPage().getViewName(),is("new_talk"));
+        ModelAndView modelAndView = talkController.getNewTalkPage();
+
+        assertThat(modelAndView.getViewName(),is("new_talk"));
     }
 
 
     @Test
     public void shouldAddTalkCreationSuccessfulMessageUponCreationOfTalkOnMyTalksPage() throws Exception {
-        String message="New Talk Created";
-
         Presentation presentation = new Presentation("title", "description", "test.twu");
         when(talkService.createTalkWithNewPresentation(presentation,"venue","date","time")).thenReturn(1);
         when(talkService.validate("title", "venue","date","time")).thenReturn(true);
@@ -112,11 +96,11 @@ public class TalkControllerTest {
         UserPrincipal userPrincipal=new UserPrincipal("test.twu");
         MockHttpServletRequest request=new MockHttpServletRequest();
         request.setUserPrincipal(userPrincipal);
-        when(talkService.getListOfMyTalks(userPrincipal.getName())).thenReturn(myTalksList);
+        when(talkService.getMyTalks(userPrincipal.getName())).thenReturn(myTalksList);
 
         ModelAndView modelAndView=talkController.getMyTalksPage(request);
 
-        verify(talkService).getListOfMyTalks("test.twu");
+        verify(talkService).getMyTalks("test.twu");
 
         assertThat((List<Talk>) modelAndView.getModel().get("myTalksList"),is(myTalksList));
 
@@ -124,13 +108,25 @@ public class TalkControllerTest {
 
     @Test
     public void shouldReturnAListOfTalksHappenedInPastTwoDays() {
-        //Given
         List<Talk> recentTalksList=new ArrayList<Talk>();
-        when(talkService.getListOfRecentTalks()).thenReturn(recentTalksList);
-        //When
+        when(talkService.getRecentTalks()).thenReturn(recentTalksList);
+
         ModelAndView modelAndView=talkController.getRecentTalksPage();
-        //Then
-        verify(talkService).getListOfRecentTalks();
+
+        assertThat(modelAndView.getViewName(),is("talks"));
+        verify(talkService).getRecentTalks();
         assertThat((List<Talk>) modelAndView.getModel().get("talksList"),is(recentTalksList));
+    }
+
+    @Test
+    public void shouldReturnAListOfUpcomingTalks() throws Exception {
+        List<Talk> upcomingTalksList = new ArrayList<Talk>();
+        when(talkService.getUpcomingTalks()).thenReturn(upcomingTalksList);
+
+        ModelAndView modelAndView = talkController.getUpcomingTalks();
+
+        assertThat(modelAndView.getViewName(), is("talks"));
+        verify(talkService).getUpcomingTalks();
+        assertThat((List<Talk>) modelAndView.getModel().get("talksList"),is(upcomingTalksList));
     }
 }

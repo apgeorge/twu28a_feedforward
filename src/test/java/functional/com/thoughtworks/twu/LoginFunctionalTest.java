@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class LoginFunctionalTest {
     public static final int HTTP_PORT = 9191;
-    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
+    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/";
     private WebDriver webDriver;
     private String passwordErrorMessage;
     private String usernameErrorMessage;

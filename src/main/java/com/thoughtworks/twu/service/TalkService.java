@@ -37,11 +37,15 @@ public class TalkService {
         return !(title.isEmpty()||venue.isEmpty()||date.isEmpty()||time.isEmpty());
     }
 
-    public List<Talk> getListOfMyTalks(String owner) {
+    public List<Talk> getMyTalks(String owner) {
         return talkMapper.getTalksByUsername(owner);
     }
 
-    public List<Talk> getListOfRecentTalks() {
+    public List<Talk> getRecentTalks() {
         return talkMapper.getListOfRecentTalks(new ApplicationClock().now().minusDays(1), new ApplicationClock().now());
+    }
+
+    public List<Talk> getUpcomingTalks() {
+        return null;
     }
 }

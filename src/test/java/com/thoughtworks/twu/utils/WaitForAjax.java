@@ -13,7 +13,7 @@ public  class WaitForAjax {
             if (ajaxIsComplete)
                 break;
 
-            Thread.currentThread().sleep(500);
+            Thread.currentThread().sleep(5000);
         }
     }
 }

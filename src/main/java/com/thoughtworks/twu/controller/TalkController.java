@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -36,31 +34,19 @@ public class TalkController {
     @RequestMapping(value = "/talks.htm*", method = RequestMethod.GET)
     public ModelAndView getRecentTalksPage() {
         ModelAndView modelAndView = new ModelAndView("talks");
-        List<Talk> listOfRecentTalks = talkService.getListOfRecentTalks();
+        List<Talk> recentTalks = talkService.getRecentTalks();
 
-        modelAndView.addObject("talksList", listOfRecentTalks);
+        modelAndView.addObject("talksList", recentTalks);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/home.htm*", method = RequestMethod.GET)
-    public ModelAndView getHomePage(HttpServletRequest httpServletRequest) {
-        ModelAndView modelAndView = new ModelAndView("home");
-        String username = httpServletRequest.getUserPrincipal().getName();
+    public ModelAndView getUpcomingTalks() {
+        List<Talk> upcomingTalks = talkService.getUpcomingTalks();
 
-        modelAndView.addObject("username", username);
+        ModelAndView modelAndView = new ModelAndView("talks");
+        modelAndView.addObject("talksList", upcomingTalks);
         return modelAndView;
-
     }
-
-    @RequestMapping(value = "/logout*")
-    public ModelAndView logoutPage(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-            httpServletRequest.getSession().invalidate();
-            httpServletResponse.sendRedirect("Http://castest.thoughtworks.com/cas/logout");
-        return modelAndView;
-
-    }
-
 
     @RequestMapping(value = "/new_talk_submit.htm*", method = RequestMethod.GET)
     public ModelAndView newTalksFormSubmit(HttpServletRequest request,
@@ -100,7 +86,7 @@ public class TalkController {
         String user = request.getUserPrincipal().getName();
 
 
-        modelAndView.addObject("myTalksList", talkService.getListOfMyTalks(user));
+        modelAndView.addObject("myTalksList", talkService.getMyTalks(user));
 
         return modelAndView;
     }
@@ -110,10 +96,9 @@ public class TalkController {
         return new ModelAndView("new_talk");
     }
 
+
     @RequestMapping(value = "/talk_tab.htm*", method = RequestMethod.GET)
     public ModelAndView getTalkTabPage() {
         return new ModelAndView("talk_tab");
     }
-
-
 }
