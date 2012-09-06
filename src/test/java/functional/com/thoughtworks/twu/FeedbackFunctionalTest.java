@@ -31,7 +31,6 @@ public class FeedbackFunctionalTest {
     private TalkMapper mockTalkMapper;
     private PresentationMapper mockPresentationMapper;
     private TalkService talkService;
-    private Talk talk;
     private Feedback feedback;
 
     @Before
@@ -41,7 +40,6 @@ public class FeedbackFunctionalTest {
         mockPresentationMapper = mock(PresentationMapper.class);
         talkService = new TalkService(mockTalkMapper, mockPresentationMapper);
         Presentation presentation = new Presentation("test title", "test description", "test.twu");
-        talk = new Talk();
         feedback = new Feedback();
         talkService.createTalkWithNewPresentation(presentation, "venue", "date", "time");
         webDriver.get(HTTP_BASE_URL);

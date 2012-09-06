@@ -28,7 +28,6 @@ public class TalksHomePage {
     private String failMessage;
     private String successMessage;
     private String errorCssValue;
-    private Talk talk;
 
 
     @Before
@@ -36,7 +35,6 @@ public class TalksHomePage {
         webDriver = new FirefoxDriver();
         webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         webDriver.get(HTTP_BASE_URL);
-        talk = new Talk();
         failMessage = "Please Supply Valid Entries For All Fields";
         successMessage="New Talk Successfully Created";
         errorCssValue = "rgb(255, 0, 0) 0px 0px 12px 0px";
@@ -47,13 +45,20 @@ public class TalksHomePage {
     }
 
     @Test
-    public void shouldBeAbleToCreateNewTalk() {
-        talk.newTalk(webDriver);
-        try {
-            WaitForAjax(webDriver);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void shouldBeAbleToCreateNewTalk() throws InterruptedException {
+        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
+        myTalksButton.click();
+        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
+        webDriver.findElement(By.id("new_talk")).click();
+        assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
+        webDriver.findElement(By.id("title")).sendKeys(now().toString());
+        webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
+        webDriver.findElement(By.id("venue")).sendKeys("Ajanta Ellora");
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
+        javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
+        javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
+        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        WaitForAjax(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box_success"));
         assertThat(text.getText(), is(successMessage));
     }
