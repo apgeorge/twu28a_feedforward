@@ -39,7 +39,7 @@
     <ul data-role="listview" class="ui-listview" id="feedback-list">
 
     <#list retrieved_feedback_list as feedback>
-        <li class="ui-li ui-li-static ui-body-c feedback-item" ">
+        <li id="feedback_messages"class="ui-li ui-li-static ui-body-c feedback-item" ">
 
             <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%;">
             <@nl2br>
