@@ -48,6 +48,7 @@ public class TalksHomePage {
     public void shouldBeAbleToCreateNewTalk() throws InterruptedException {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
+        WaitForAjax(webDriver);
         assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
         assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
