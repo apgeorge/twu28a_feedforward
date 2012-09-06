@@ -44,8 +44,10 @@ public class TalksHomePage {
     public void shouldBeAbleToCreateNewTalk() throws Exception {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
+        WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
+        WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
         webDriver.findElement(By.id("title")).sendKeys(now().toString());
         webDriver.findElement(By.id("description")).sendKeys("Seven wise men");
@@ -54,6 +56,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        WaitForAjax.WaitForAjax(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box_success"));
         assertThat(text.getText(), is(successMessage));
     }

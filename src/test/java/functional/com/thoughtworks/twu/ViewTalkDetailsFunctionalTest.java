@@ -47,10 +47,10 @@ public class ViewTalkDetailsFunctionalTest {
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
         WaitForAjax.WaitForAjax(webDriver);
         webDriver.findElement(By.linkText(testTitle)).click();
-
+        WaitForAjax.WaitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains(testTitle));
         assertTrue(webDriver.getPageSource().contains("test.twu"));
-        //assertTrue(webDriver.getPageSource().contains("test description"));
+        assertTrue(webDriver.getPageSource().contains("test description"));
         assertTrue(webDriver.getPageSource().contains("test venue"));
         assertTrue(webDriver.getPageSource().contains("06/09/2012"));
         assertTrue(webDriver.getPageSource().contains("10:00 AM"));
