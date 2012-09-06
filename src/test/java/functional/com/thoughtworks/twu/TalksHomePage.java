@@ -48,6 +48,7 @@ public class TalksHomePage {
     public void shouldBeAbleToCreateNewTalkWithDescription() throws InterruptedException {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#my_talks_button').click();");
+        WaitForAjax(webDriver);
         assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
         assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
