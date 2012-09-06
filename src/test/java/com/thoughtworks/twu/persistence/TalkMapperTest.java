@@ -149,7 +149,7 @@ public class TalkMapperTest extends IntegrationTest {
     }
 
     @Test
-    public void shouldGetAListOfUpcomingTalksForAMonth() throws Exception {
+    public void shouldGetAListOfUpcomingTalksForAMonthBorder() throws Exception {
         presentationMapper.insertPresentation(presentation);
         Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
         Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(8));

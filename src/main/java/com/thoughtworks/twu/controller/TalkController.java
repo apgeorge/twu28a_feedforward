@@ -40,6 +40,7 @@ public class TalkController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/upcoming_talks.htm*", method = RequestMethod.GET)
     public ModelAndView getUpcomingTalks() {
         List<Talk> upcomingTalks = talkService.getUpcomingTalks();
 

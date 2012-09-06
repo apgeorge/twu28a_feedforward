@@ -9,6 +9,7 @@ import com.thoughtworks.twu.utils.DateParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -44,10 +45,12 @@ public class TalkService {
     }
 
     public List<Talk> getRecentTalks() {
-        return talkMapper.getTalks(clock.now().minusDays(2),clock.now());
+        return talkMapper.getTalks(clock.now().minusDays(2), clock.now());
     }
 
     public List<Talk> getUpcomingTalks() {
-        return talkMapper.getTalks(clock.now(), clock.now().plusMonths(1));
+       List<Talk> upcomingTalksList = talkMapper.getTalks(clock.now(), clock.now().plusMonths(1));
+       Collections.reverse(upcomingTalksList);
+       return upcomingTalksList;
     }
 }
