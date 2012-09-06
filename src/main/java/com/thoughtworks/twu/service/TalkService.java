@@ -53,4 +53,8 @@ public class TalkService {
        Collections.reverse(upcomingTalksList);
        return upcomingTalksList;
     }
+
+    public Boolean isUpcomingTalk(Talk talk) {
+        return (talk.getDateTime().isAfterNow());
+    }
 }

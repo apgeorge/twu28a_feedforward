@@ -36,11 +36,9 @@ public class TalkControllerTest {
     public void shouldReturnTalkDetailsViewForAnId() {
         int talkId = 42;
         Talk talk = new Talk();
-        TalkService talkService = mock(TalkService.class);
-        talkController = new TalkController(talkService);
         when(talkService.getTalk(talkId)).thenReturn(talk);
 
-        ModelAndView result = talkController.getTalk(talkId);
+        ModelAndView result = talkController.getTalkDetails(talkId);
 
         assertThat(result.getViewName(), is("talk_details"));
         assertThat((Talk) result.getModel().get("talk"), is(talk));
@@ -87,7 +85,7 @@ public class TalkControllerTest {
         when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
         talkController.newTalksFormSubmit(request,title, description, "venue", "date", "time");
         verify(talkService).validate(title, "venue","date","time");
-        verify(talkService).createTalkWithNewPresentation(new Presentation(title,description,"test.twu"),"venue","date","time");
+        verify(talkService).createTalkWithNewPresentation(new Presentation(title, description, "test.twu"), "venue", "date", "time");
     }
 
     @Test
@@ -113,7 +111,7 @@ public class TalkControllerTest {
 
         ModelAndView modelAndView=talkController.getRecentTalksPage();
 
-        assertThat(modelAndView.getViewName(),is("talks"));
+        assertThat(modelAndView.getViewName(), is("talks"));
         verify(talkService).getRecentTalks();
         assertThat((List<Talk>) modelAndView.getModel().get("talksList"),is(recentTalksList));
     }
@@ -128,5 +126,20 @@ public class TalkControllerTest {
         assertThat(modelAndView.getViewName(), is("talks"));
         verify(talkService).getUpcomingTalks();
         assertThat((List<Talk>) modelAndView.getModel().get("talksList"),is(upcomingTalksList));
+    }
+
+    @Test
+    public void shouldReturnTalkDetailsPageWithoutFeedback() throws Exception {
+
+        Talk talk=new Talk();
+        when(talkService.isUpcomingTalk(talk)).thenReturn(true);
+        int talkId=1;
+        when(talkService.getTalk(talkId)).thenReturn(talk);
+        ModelAndView modelAndView= talkController.getTalkDetails(talkId);
+        assertThat(modelAndView.getViewName(),is("talk_details"));
+        verify(talkService).isUpcomingTalk(talk);
+        assertThat((String)modelAndView.getModel().get("isUpcoming"),is("true"));
+
+
     }
 }

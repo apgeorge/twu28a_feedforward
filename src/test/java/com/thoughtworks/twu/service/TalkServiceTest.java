@@ -4,6 +4,7 @@ import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
+import com.thoughtworks.twu.utils.ApplicationClock;
 import com.thoughtworks.twu.utils.DateParser;
 import com.thoughtworks.twu.utils.TestClock;
 import org.joda.time.DateTime;
@@ -15,7 +16,9 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -87,6 +90,16 @@ public class TalkServiceTest {
 
         assertThat(expectedList, is(actualTalkList));
         verify(mockTalkMapper).getTalks(testClock.now(), testClock.now().plusMonths(1));
+    }
+
+    @Test
+    public void shouldReturnTrueForUpcomingTalk() throws Exception {
+        Presentation presentation = new Presentation("test title", "test description", "test presenter");
+        Talk talk = new Talk(presentation,"test venue", new ApplicationClock().now().plusDays(24));
+        int talkId=1;
+        when(mockTalkMapper.getTalk(talkId)).thenReturn(talk);
+        assertTrue(talkService.isUpcomingTalk(talk));
+
     }
 }
 

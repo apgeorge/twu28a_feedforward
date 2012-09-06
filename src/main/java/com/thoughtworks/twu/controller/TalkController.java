@@ -24,18 +24,21 @@ public class TalkController {
 
 
     @RequestMapping(value = "/talk_details.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalk(@RequestParam(value = "talk_id", defaultValue = "-1") int talkId) {
+    public ModelAndView getTalkDetails(@RequestParam(value = "talk_id", defaultValue = "-1") int talkId) {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk", talk);
-        return modelAndView;
+        if(talkService.isUpcomingTalk(talk)){
+           return modelAndView.addObject("isUpcoming","true");
+        }
+       return modelAndView.addObject("isUpcoming","false");
+
     }
 
     @RequestMapping(value = "/talks.htm*", method = RequestMethod.GET)
     public ModelAndView getRecentTalksPage() {
         ModelAndView modelAndView = new ModelAndView("talks");
         List<Talk> recentTalks = talkService.getRecentTalks();
-
         modelAndView.addObject("talksList", recentTalks);
         return modelAndView;
     }
