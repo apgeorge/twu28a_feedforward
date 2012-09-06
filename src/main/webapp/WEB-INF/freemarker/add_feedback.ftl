@@ -24,7 +24,7 @@
         </center>
     </div>
 
-<div data-role="collapsible" data-collapsed="false" data-icon="refresh">
+<div id="talk_details" data-role="collapsible" data-collapsed="false" data-icon="refresh">
     <h3>
         Past Feedback
     </h3>
