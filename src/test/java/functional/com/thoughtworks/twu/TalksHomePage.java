@@ -46,7 +46,9 @@ public class TalksHomePage {
         myTalksButton.click();
         WebElement element = WaitForAjax.waitForElement(webDriver,"new_talk");
         element.click();
-        WaitForAjax.waitForElement(webDriver,"title").sendKeys(now().toString());
+
+        WebElement element1 = WaitForAjax.waitForElement(webDriver,"title");
+                element1.sendKeys(now().toString());
         WaitForAjax.waitForElement(webDriver,"description").sendKeys("Seven wise men");
         WaitForAjax.waitForElement(webDriver,"venue").sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
