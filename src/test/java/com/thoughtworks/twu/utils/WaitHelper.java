@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public  class WaitForAjax {
+public  class WaitHelper {
     public static void waitForAjax(WebDriver webDriver) throws InterruptedException {
 
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;

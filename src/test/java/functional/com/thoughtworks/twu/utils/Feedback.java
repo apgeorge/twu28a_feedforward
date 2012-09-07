@@ -1,4 +1,4 @@
-package com.thoughtworks.twu.utils;
+package functional.com.thoughtworks.twu.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
