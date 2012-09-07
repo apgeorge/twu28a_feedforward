@@ -1,6 +1,6 @@
 package functional.com.thoughtworks.twu;
 
-import com.thoughtworks.twu.utils.CasLoginLogout;
+import com.thoughtworks.twu.utils.Cas;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class ViewTalkDetailsFunctionalTest {
     public void setUp() {
         webDriver = new FirefoxDriver();
         webDriver.get(HTTP_BASE_URL);
-        CasLoginLogout.login(webDriver);
+        Cas.login(webDriver);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ViewTalkDetailsFunctionalTest {
 
     @After
     public void tearDown() {
-        CasLoginLogout.logout(webDriver);
+        Cas.logout(webDriver);
         webDriver.close();
     }
 

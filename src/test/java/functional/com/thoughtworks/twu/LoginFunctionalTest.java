@@ -1,6 +1,6 @@
 package functional.com.thoughtworks.twu;
 
-import com.thoughtworks.twu.utils.CasLoginLogout;
+import com.thoughtworks.twu.utils.Cas;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,14 +27,13 @@ public class LoginFunctionalTest {
         webDriver.get(HTTP_BASE_URL);
         passwordErrorMessage = "Password is a required field.";
         usernameErrorMessage = "Username is a required field.";
-
     }
 
     @Test
     public void ShouldLoginTestUser() throws Exception {
-        CasLoginLogout.login(webDriver);
+        Cas.login(webDriver);
         assertTrue(webDriver.getPageSource().contains("Welcome test.twu!"));
-        CasLoginLogout.logout(this.webDriver);
+        Cas.logout(this.webDriver);
     }
 
    @Test

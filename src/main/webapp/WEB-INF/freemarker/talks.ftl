@@ -1,5 +1,5 @@
 <#escape x as x?html>
-<div id="recent_talks_list" data-role="content" style="padding: 15px">
+<div id="talks_container" data-role="content" style="padding: 15px">
     <#if talksList?has_content>
         <ul data-role="listview" data-divider-theme="b" data-inset="true">
             <li data-role="list-divider" role="heading">
