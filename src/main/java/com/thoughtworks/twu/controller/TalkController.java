@@ -29,9 +29,9 @@ public class TalkController {
         ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk", talk);
         if(talkService.isUpcomingTalk(talk)){
-           return modelAndView.addObject("isUpcoming","true");
+         return modelAndView.addObject("isUpcoming","isAnUpcomingTalk");
         }
-       return modelAndView.addObject("isUpcoming","false");
+        return  modelAndView.addObject("isUpcoming","isNotAnUpcomingTalk");
 
     }
 

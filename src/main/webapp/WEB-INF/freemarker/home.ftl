@@ -107,7 +107,7 @@
                     .done(function(data){
                         $('#data_container').html(data).trigger('create');
 
-
+                        if(data.indexOf("isNotAnUpcomingTalk") != -1){
                         $.ajax({
                             method: "GET",
                             url: "add_feedback.html?talk_id="+current_talk_id,
@@ -119,6 +119,9 @@
                                     $('#feedback_container').html(data).trigger('create');
                                     $.mobile.hidePageLoadingMsg();
                                 });
+
+                        }
+
                     });
             $.mobile.hidePageLoadingMsg();
 

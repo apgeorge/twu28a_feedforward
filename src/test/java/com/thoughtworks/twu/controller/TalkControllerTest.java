@@ -138,7 +138,20 @@ public class TalkControllerTest {
         ModelAndView modelAndView= talkController.getTalkDetails(talkId);
         assertThat(modelAndView.getViewName(),is("talk_details"));
         verify(talkService).isUpcomingTalk(talk);
-        assertThat((String)modelAndView.getModel().get("isUpcoming"),is("true"));
+        assertThat((String)modelAndView.getModel().get("isUpcoming"),is("isAnUpcomingTalk"));
+
+
+    }@Test
+    public void shouldReturnTalkDetailsPageWithFeedbackForRecentTalk() throws Exception {
+
+        Talk talk=new Talk();
+        when(talkService.isUpcomingTalk(talk)).thenReturn(false);
+        int talkId=1;
+        when(talkService.getTalk(talkId)).thenReturn(talk);
+        ModelAndView modelAndView= talkController.getTalkDetails(talkId);
+        assertThat(modelAndView.getViewName(),is("talk_details"));
+        verify(talkService).isUpcomingTalk(talk);
+        assertThat((String)modelAndView.getModel().get("isUpcoming"),is("isNotAnUpcomingTalk"));
 
 
     }
