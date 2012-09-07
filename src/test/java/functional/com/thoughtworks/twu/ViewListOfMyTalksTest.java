@@ -1,78 +1,54 @@
 package functional.com.thoughtworks.twu;
 
 import functional.com.thoughtworks.twu.utils.Cas;
+import functional.com.thoughtworks.twu.utils.Talk;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.internal.matchers.StringContains;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.UUID;
 
-import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class ViewListOfMyTalksTest {
-    public static final int HTTP_PORT = 9091;
+    public static final int HTTP_PORT = 9191;
     public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
-    private WebDriver webDriver;
+    public static final String TEST_USERNAME = "test.twu";
+    WebDriver webDriver;
+    Talk talk;
 
     @Before
     public void setUp() {
         webDriver = new FirefoxDriver();
+        talk=new Talk(webDriver);
         webDriver.get(HTTP_BASE_URL);
         Cas.login(webDriver);
     }
 
     @Test
     public void shouldDisplayListOfTalksOnlyByLoggedInUser() throws Exception {
-        waitForElement(webDriver,"my_talks_button").click();
-        waitForElement(webDriver,"new_talk").click();
-
         String testTitle = "title_" + UUID.randomUUID().toString();
-        waitForElement(webDriver, "title").sendKeys(testTitle);
-        waitForElement(webDriver, "description").sendKeys("Seven wise men");
-        waitForElement(webDriver, "venue").sendKeys("Ajanta Ellora");
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
-        javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
-        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-
-        waitForElement(webDriver, "message_box_success");
-
-        waitForElement(webDriver,"new_talk").click();
+        talk.newTalk(testTitle,"Seven wise men","Ajanta Ellora","28/09/2012","11:42 AM");
 
         String secondTestTitle = "title_" + UUID.randomUUID().toString();
-        waitForElement(webDriver, "title").sendKeys(secondTestTitle);
-        waitForElement(webDriver, "description").sendKeys("second description");
-        waitForElement(webDriver, "venue").sendKeys("second venue");
-        javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
-        javascriptExecutor.executeScript("$('#timepicker').val('11:45 AM')");
-        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        talk.newTalk(secondTestTitle,"second description","second venue","28/09/2012","11:45 AM");
 
-        waitForElement(webDriver, "message_box_success");
+        talk.loadTalkDetails(testTitle);
 
-        waitForElement(webDriver,"my_talks_list");
+        assertThat(talk.getHeaderDescription(), StringContains.containsString(TEST_USERNAME));
 
-        webDriver.findElement(By.linkText(testTitle)).click();
+        talk.loadTalkDetails(secondTestTitle);
 
-        waitForElement(webDriver,"talk_details");
+        assertThat(talk.getHeaderDescription(), StringContains.containsString(TEST_USERNAME));
 
-        assertTrue(webDriver.getPageSource().contains("test.twu"));
-        assertThat(webDriver.findElement(By.xpath("//div[@id='talk_details']//span[@class='ui-btn-text']")).getText(), StringContains.containsString("test.twu"));
+    }
 
-        webDriver.findElement(By.id("my_talks_button")).click();
-
-        waitForElement(webDriver,"my_talks_list");
-
-        webDriver.findElement(By.linkText(secondTestTitle)).click();
-
-        waitForElement(webDriver,"talk_details");
-
-        assertTrue(webDriver.getPageSource().contains("test.twu"));
-
+    @After
+    public void tearDown() {
+        Cas.logout(webDriver);
+        webDriver.close();
     }
 }
