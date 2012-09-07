@@ -48,13 +48,15 @@ var feedback_button_fn = function () {
         })
             .done(function (data) {
                 $('#data_container').html(data).trigger('create');
-                $.ajax({
-                    method:"GET",
-                    url:"add_feedback.html?talk_id=" + current_talk_id
-                })
-                    .done(function (data) {
-                        $('#feedback_container').html(data).trigger('create');
-                    });
+                if(data.indexOf("isNotAnUpcomingTalk") != -1){
+                    $.ajax({
+                        method:"GET",
+                        url:"add_feedback.html?talk_id=" + current_talk_id
+                    })
+                        .done(function (data) {
+                            $('#feedback_container').html(data).trigger('create');
+                        });
+                }
             });
     });
 };

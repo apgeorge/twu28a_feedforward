@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a id="upcoming_talks_button" data-theme="" class="ui-disabled" data-icon="">
+                    <a id="upcoming_talks_button" data-theme="" class="ui-btn-active" data-icon="">
                         Upcoming Talks
                     </a>
                 </li>
