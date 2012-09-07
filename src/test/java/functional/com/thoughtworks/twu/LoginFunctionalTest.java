@@ -1,6 +1,6 @@
 package functional.com.thoughtworks.twu;
 
-import com.thoughtworks.twu.utils.Cas;
+import functional.com.thoughtworks.twu.utils.Cas;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

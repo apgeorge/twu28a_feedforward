@@ -1,11 +1,11 @@
-package com.thoughtworks.twu.utils;
+package functional.com.thoughtworks.twu.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static com.thoughtworks.twu.utils.WaitForAjax.waitForAjax;
+import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
 import static org.joda.time.DateTime.now;
 import static org.testng.Assert.assertTrue;
 

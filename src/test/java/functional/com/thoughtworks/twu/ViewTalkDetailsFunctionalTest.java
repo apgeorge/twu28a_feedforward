@@ -1,7 +1,6 @@
 package functional.com.thoughtworks.twu;
 
-import com.thoughtworks.twu.utils.Cas;
-import com.thoughtworks.twu.utils.WaitForAjax;
+import functional.com.thoughtworks.twu.utils.Cas;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +12,7 @@ import org.testng.Assert;
 
 import java.util.UUID;
 
+import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
 import static org.junit.Assert.assertTrue;
 
 public class ViewTalkDetailsFunctionalTest {
@@ -32,10 +32,10 @@ public class ViewTalkDetailsFunctionalTest {
         assertTrue(webDriver.findElement(By.id("my_talks_button")).isDisplayed());
 
         webDriver.findElement(By.id("my_talks_button")).click();
-        WaitForAjax.waitForAjax(webDriver);
+        waitForAjax(webDriver);
         Assert.assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
-        WaitForAjax.waitForAjax(webDriver);
+        waitForAjax(webDriver);
         String testTitle = "title_" + UUID.randomUUID().toString();
 
         webDriver.findElement(By.id("title")).sendKeys(testTitle);
@@ -45,9 +45,9 @@ public class ViewTalkDetailsFunctionalTest {
         javascriptExecutor.executeScript("$('#datepicker').val('06/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('10:00 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WaitForAjax.waitForAjax(webDriver);
+        waitForAjax(webDriver);
         webDriver.findElement(By.linkText(testTitle)).click();
-        WaitForAjax.waitForAjax(webDriver);
+        waitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains(testTitle));
         assertTrue(webDriver.getPageSource().contains("test.twu"));
         assertTrue(webDriver.getPageSource().contains("test description"));
