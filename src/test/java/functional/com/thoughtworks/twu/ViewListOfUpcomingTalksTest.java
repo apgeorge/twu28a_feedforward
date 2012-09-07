@@ -7,17 +7,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
-import static org.joda.time.DateTime.now;
+import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
+import static org.junit.Assert.assertTrue;
 
 public class ViewListOfUpcomingTalksTest  {
 
@@ -37,23 +37,19 @@ public class ViewListOfUpcomingTalksTest  {
     }
 
     @Test
-    (expected=NoSuchElementException.class)
-    public void shouldNotDisplayFeedbackTextboxForUpcomingTalks(){
-//        String date= DateTime.now().plusDays(3).toDate().toString();
-//        Talk talk=new Talk("RubyConf","Learn Ruby", "Ajanta-Ellora",date,"11:42 AM");
-//        talk.newTalk(webDriver);
-//
-        String date= DateTime.now().plusDays(3).toString("dd/MM/YYYY");
-        talk.newTalk(now().toString(), "Seven wise men", "Ajanta Ellora", date, "11:42 AM");
+    public void shouldNotDisplayFeedbackTextboxForUpcomingTalks() throws InterruptedException {
 
+
+        DateTime dateTime=DateTime.now().plusDays(3);
+        Talk talk=new Talk(webDriver);
+        talk.newTalk(UUID.randomUUID().toString(),"Learn Ruby", "Ajanta-Ellora",dateTime.toString("dd/MM/YYYY"),"11:42 AM");
         WebElement upcomingTalksButton =webDriver.findElement(By.id("upcoming_talks_button"));
         upcomingTalksButton.click();
-        waitForElement(webDriver,"");
+        waitForAjax(webDriver);
         List<WebElement> listOfTalks= webDriver.findElements(By.className("ui-link-inherit"));
         listOfTalks.get(0).click();
-        webDriver.findElement(By.id("feedback_text"));
+        assertTrue(webDriver.findElements(By.id("feedback_text")).isEmpty());
     }
-
 
     @After
     public void tearDown() {

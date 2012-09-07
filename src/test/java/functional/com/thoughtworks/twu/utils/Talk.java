@@ -32,7 +32,7 @@ public class Talk {
     public void loadTalkDetails(String testTitle) {
         waitForElement(webDriver,"my_talks_button").click();
 
-        waitForElement(webDriver,"my_talks_list");
+        waitForElement(webDriver, "my_talks_list");
 
         webDriver.findElement(By.linkText(testTitle)).click();
 
