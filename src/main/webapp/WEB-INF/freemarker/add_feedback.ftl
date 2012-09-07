@@ -13,7 +13,7 @@
                 <label for="feedback_text">
                 </label>
                 <textarea name="feedback" id="feedback_text" maxlength="500"
-                          onInput="textCounter(this,document.getElementById('counter'),500);" placeholder="add feedback"
+                          onInput="textCounter(this,document.getElementById('counter'),500);" placeholder="Add feedback"
                           value="" style="width: 100%; height: 20%;"
                           type="textArea" rows="9" cols="200"></textarea>
                 <div>
