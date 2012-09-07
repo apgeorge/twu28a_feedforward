@@ -20,9 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.gargoylesoftware.htmlunit.WebAssert.assertElementPresent;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public class ViewListOfUpcomingTalksTest  {
@@ -44,7 +46,6 @@ public class ViewListOfUpcomingTalksTest  {
     }
 
     @Test
-    (expected = NoSuchElementException.class)
     public void shouldNotDisplayFeedbackTextboxForUpcomingTalks(){
         DateTime dateTime=DateTime.now().plusDays(3);
         Talk talk=new Talk("RubyConf","Learn Ruby", "Ajanta-Ellora",dateTime.toString("dd/MM/YYYY"),"11:42 AM");
@@ -53,7 +54,7 @@ public class ViewListOfUpcomingTalksTest  {
         upcomingTalksButton.click();
         List<WebElement> listOfTalks= webDriver.findElements(By.className("ui-link-inherit"));
         listOfTalks.get(0).click();
-        webDriver.findElement(By.id("feedback_text"));
+        assertTrue(webDriver.findElements(By.id("feedback_text")).isEmpty());
      }
 
 
