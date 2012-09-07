@@ -34,16 +34,21 @@
             Past Feedback
         </h3>
         <ul data-role="listview" class="ui-listview" id="feedback-list">
-            <#list retrieved_feedback_list as feedback>
-                <li  class="ui-li ui-li-static ui-body-c feedback-item">
-                    <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%;">
-                        <@nl2br>
-                            ${feedback.feedbackComment}
-                        </@nl2br>
-                    </h4>
-                    <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
-                    <p align="right" style="font-size: 15px"><a
-                            href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
+
+
+    <#list retrieved_feedback_list as feedback>
+        <li id="feedback_messages"class="ui-li ui-li-static ui-body-c feedback-item" ">
+
+                <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%;">
+                    <@nl2br>
+            ${feedback.feedbackComment}
+            </@nl2br>
+                </h4>
+
+                <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
+
+                <p align="right" style="font-size: 15px"><a
+                        href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
                 </li>
             </#list>
     </div>
