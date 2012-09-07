@@ -25,7 +25,7 @@ public class TalkControllerTest {
 
     @Before
     public void setUp() {
-         talkService = mock(TalkService.class);
+        talkService = mock(TalkService.class);
         talkController = new TalkController(talkService);
         UserPrincipal userPrincipal = new UserPrincipal("test.twu");
         request = new MockHttpServletRequest();

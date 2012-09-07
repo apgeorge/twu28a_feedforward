@@ -17,7 +17,7 @@ public  class WaitHelper {
             if (ajaxIsComplete)
                 break;
 
-            Thread.currentThread().sleep(1000);
+            Thread.currentThread().sleep(000);
         }
     }
 

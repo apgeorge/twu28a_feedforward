@@ -4,52 +4,64 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.UUID;
 
 import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
+import static org.joda.time.DateTime.now;
 import static org.testng.Assert.assertTrue;
 
 public class Talk {
-
     public String getTalkTitle() {
-        return talkTitle;
+        return title;
     }
 
-    private String talkTitle;
+    private String title;
+    private String description;
+    private String venue;
+    private String date;
+    private  String time;
+
+    public Talk()
+    {
+        this.title= UUID.randomUUID().toString();
+        this.description= "Seven wise men";
+        this.venue="Ajanta Ellora";
+        this.date="$('#datepicker').val('28/07/2012')";
+        this.time="$('#timepicker').val('11:42 AM')";
+    }
+
+    public Talk(String title, String description, String venue, String date, String time)
+    {
+        this.title=title;
+        this.description= description;
+        this.venue=venue;
+        this.date="$('#datepicker').val('"+date+"')";
+        this.time="$('#timepicker').val('"+time+"')";
+    }
 
     public void newTalk(WebDriver webDriver){
-        WebElement myTalksButton = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("my_talks_button")));
+        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
         try {
             waitForAjax(webDriver);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        WebElement new_talk = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("new_talk")));
-        assertTrue(new_talk.isDisplayed());
-        WebElement newTalkButton = new_talk;
-        newTalkButton.click();
+        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
+        webDriver.findElement(By.id("new_talk")).click();
         try {
             waitForAjax(webDriver);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        WebElement title = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("title")));
-        assertTrue(title.isDisplayed());
-        talkTitle = UUID.randomUUID().toString();
-        title.sendKeys(talkTitle);
-        WebElement description = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("description")));
-        description.sendKeys("Seven wise men");
-        WebElement venue = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("venue")));
-        venue.sendKeys("Ajanta Ellora");
+        assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
+        webDriver.findElement(By.id("title")).sendKeys(title);
+        webDriver.findElement(By.id("description")).sendKeys(description);
+        webDriver.findElement(By.id("venue")).sendKeys(venue);
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('28/06/2012')");
-        javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
-        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-
-
+        javascriptExecutor.executeScript(date);
+        javascriptExecutor.executeScript(time);
+        webDriver.findElement(By.id("new_talk_submit")).click();
     }
 }

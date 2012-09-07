@@ -23,6 +23,6 @@ public class PresentationService {
 
 
     public List<Presentation> getPresentationByOwner(String owner) {
-        return presentationMapper.getPresentationsByOwner(owner);
+        return presentationMapper.getPresentationsByOwner(owner.toLowerCase());
     }
 }
