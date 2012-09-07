@@ -42,7 +42,7 @@ public interface TalkMapper {
     @Select("SELECT talk_id,title,description,owner,venue,time_of_talk " +
             "FROM presentation " +
             "JOIN talk ON presentation.id=talk.presentation_id " +
-            "WHERE talk.time_of_talk > #{since} and talk.time_of_talk < #{now}" +
+            "WHERE talk.time_of_talk > #{since} and talk.time_of_talk < #{to}" +
             "ORDER BY talk.time_of_talk DESC")
     @Results(value = {
             @Result(property="talkId", column="talk_id"),
@@ -52,7 +52,7 @@ public interface TalkMapper {
             @Result(property="venue", column="venue"),
             @Result(property="dateTime", column="time_of_talk")
     })
-    List<Talk> getListOfRecentTalks(@Param("since")DateTime since, @Param("now")DateTime now);
+    List<Talk> getTalks(@Param("since") DateTime since, @Param("to") DateTime to);
 
 
     @Delete("DELETE FROM talk WHERE talk_id=#{talkId}")

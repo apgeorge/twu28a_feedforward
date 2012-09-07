@@ -8,8 +8,11 @@
     }
 </style>
 <div data-role="content" style="padding: 15px">
-    <div data-role="collapsible-set" data-theme="" data-content-theme="">
-        <div data-role="collapsible" data-collapsed="true">
+    <div style="display: none;">
+        ${isUpcoming}
+    </div>
+    <div id="talk_details" data-role="collapsible-set" data-theme="" data-content-theme="">
+        <div data-role="collapsible" data-collapsed="<#if isUpcoming =="isAnUpcomingTalk">false<#else> true</#if>">
             <#if talk??>
                 <h4 style="word-wrap: break-word;">
                 ${talk.presentation.title}  By  ${talk.presentation.owner}
@@ -33,6 +36,11 @@
                     <p>
                         <b>
                             Time : ${talk.dateTime.toString("hh:mm a")}
+                        </b>
+                    </p>
+                    <p>
+                        <b>
+                            Contact me: <a href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a>
                         </b>
                     </p>
                 </div>

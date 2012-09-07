@@ -1,7 +1,6 @@
 <#escape x as x?html>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,21 +13,12 @@
     <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"/>
     <script type="text/javascript" src="static/js/home.js"></script>
     <style>
-        .dw {
-            font-size: 15px;
-        }
-
-        .compulsory {
-            color: red;
-            font-weight: bold;
-        }
+        .dw {font-size: 15px;}
+        .compulsory {color: red;font-weight: bold;}
     </style>
 </head>
-
 <body lang="en">
-<!--- Home --->
 <div data-role="page" id="page3">
-
     <div data-theme="d" data-role="header">
         <div style="textalign: center; height: 25px">
 
@@ -39,7 +29,6 @@
                     Logout
                 </a>
             </h2>
-
         </div>
         <div data-role="navbar" data-iconpos="top">
             <ul>
@@ -49,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a id="upcoming_talks_button" data-theme="" class="ui-disabled" data-icon="">
+                    <a id="upcoming_talks_button" data-theme="" class="ui-btn-active" data-icon="">
                         Upcoming Talks
                     </a>
                 </li>
@@ -63,14 +52,9 @@
         </div>
 
     </div>
-
     <div id="data_container">
-
     </div>
 </div>
-
 </#escape>
-
 </body>
-
 </html>

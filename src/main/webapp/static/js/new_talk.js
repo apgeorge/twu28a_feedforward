@@ -50,13 +50,9 @@ $('#new_talk_submit').ready(function () {
             "&time=" + $('#timepicker').val();
         $.ajax({
             method:"GET",
-            url:url,
-            cache:false,
-            dataType:"html",
-            async:true
+            url:url
         })
             .done(function (data) {
-
                 if (data.indexOf("true") != -1) {
                     $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
                 } else {

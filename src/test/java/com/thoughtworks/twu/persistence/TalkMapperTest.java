@@ -138,7 +138,7 @@ public class TalkMapperTest extends IntegrationTest {
         talkMapper.insert(secondTalk);
         talkMapper.insert(thirdTalk);
         //When
-        List<Talk> listOfRecentTalks = talkMapper.getListOfRecentTalks(new ApplicationClock().now().minusDays(2), new ApplicationClock().now());
+        List<Talk> listOfRecentTalks = talkMapper.getTalks(new ApplicationClock().now().minusDays(2), new ApplicationClock().now());
         //Then
         List<Talk> expectedList=new ArrayList<Talk>();
         expectedList.add(thirdTalk);
@@ -146,6 +146,27 @@ public class TalkMapperTest extends IntegrationTest {
         assertThat(listOfRecentTalks.contains(firstTalk),is(false));
         assertThat(listOfRecentTalks.contains(secondTalk), is(true));
         assertThat(listOfRecentTalks.contains(thirdTalk), is(true));
+    }
+
+    @Test
+    public void shouldGetAListOfUpcomingTalksForAMonthBorder() throws Exception {
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(8));
+        Talk secondTalk= new Talk(presentationWithID,"chennai",new ApplicationClock().now().plusDays(12));
+        Talk thirdTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().plusMonths(1));
+        Talk fourthTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().plusDays(32));
+        talkMapper.insert(firstTalk);
+        talkMapper.insert(secondTalk);
+        talkMapper.insert(thirdTalk);
+        talkMapper.insert(fourthTalk);
+
+        List<Talk> upcomingTalksList = talkMapper.getTalks(new ApplicationClock().now(), new ApplicationClock().now().plusMonths(1));
+
+        assertThat(upcomingTalksList.contains(firstTalk),is(true));
+        assertThat(upcomingTalksList.contains(secondTalk), is(true));
+        assertThat(upcomingTalksList.contains(thirdTalk), is(true));
+        assertThat(upcomingTalksList.contains(fourthTalk), is(false));
     }
 
     @Test
