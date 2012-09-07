@@ -1,7 +1,13 @@
 package functional.com.thoughtworks.twu;
 
+import com.thoughtworks.twu.domain.Presentation;
+import com.thoughtworks.twu.domain.Talk;
+import com.thoughtworks.twu.persistence.TalkMapper;
+import com.thoughtworks.twu.service.TalkService;
 import com.thoughtworks.twu.utils.Cas;
+import com.thoughtworks.twu.utils.DateParser;
 import com.thoughtworks.twu.utils.WaitForAjax;
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +55,7 @@ public class TalksHomePage {
 
         WaitForAjax.waitForElement(webDriver,"title").sendKeys(now().toString());
         WaitForAjax.waitForElement(webDriver, "description").sendKeys("Seven wise men");
-        WaitForAjax.waitForElement(webDriver,"venue").sendKeys("Ajanta Ellora");
+        WaitForAjax.waitForElement(webDriver, "venue").sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
@@ -135,7 +141,6 @@ public class TalksHomePage {
 
         assertThat(webDriver.findElement(By.id("timepicker")).getCssValue("box-shadow"), is(errorCssValue));
     }
-
 
     @After
     public void tearDown() {

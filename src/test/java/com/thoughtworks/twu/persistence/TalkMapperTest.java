@@ -154,7 +154,7 @@ public class TalkMapperTest extends IntegrationTest {
         Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
         Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(8));
         Talk secondTalk= new Talk(presentationWithID,"chennai",new ApplicationClock().now().plusDays(12));
-        Talk thirdTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().plusMonths(1));
+        Talk thirdTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().plusDays(29));
         Talk fourthTalk = new Talk(presentationWithID, "pune", new ApplicationClock().now().plusDays(32));
         talkMapper.insert(firstTalk);
         talkMapper.insert(secondTalk);
