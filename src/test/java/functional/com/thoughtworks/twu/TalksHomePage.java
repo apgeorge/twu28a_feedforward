@@ -1,10 +1,9 @@
 package functional.com.thoughtworks.twu;
 
-import com.thoughtworks.twu.utils.CasLoginLogout;
+import com.thoughtworks.twu.utils.Cas;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -36,13 +35,12 @@ public class TalksHomePage {
         failMessage = "Please Supply Valid Entries For All Fields";
         successMessage="New Talk Successfully Created";
         errorCssValue = "rgb(255, 0, 0) 0px 0px 12px 0px";
-        CasLoginLogout.login(webDriver);
+        Cas.login(webDriver);
 
 
     }
 
     @Test
-    @Ignore
     public void shouldBeAbleToCreateNewTalk() throws Exception {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
@@ -141,7 +139,7 @@ public class TalksHomePage {
 
     @After
     public void tearDown() {
-        CasLoginLogout.logout(webDriver);
+        Cas.logout(webDriver);
         webDriver.close();
     }
 

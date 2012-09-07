@@ -4,25 +4,18 @@ import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
 import com.thoughtworks.twu.service.TalkService;
-import com.thoughtworks.twu.utils.CasLoginLogout;
+import com.thoughtworks.twu.utils.Cas;
 import com.thoughtworks.twu.utils.Feedback;
-import com.thoughtworks.twu.utils.Talk;
-import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.testng.AssertJUnit.assertTrue;
 
 public class FeedbackFunctionalTest {
     public static final int HTTP_PORT = 9191;
@@ -43,7 +36,7 @@ public class FeedbackFunctionalTest {
         feedback = new Feedback();
         talkService.createTalkWithNewPresentation(presentation, "venue", "date", "time");
         webDriver.get(HTTP_BASE_URL);
-        CasLoginLogout.login(webDriver);
+        Cas.login(webDriver);
     }
 
 //    @Test
@@ -75,7 +68,7 @@ public class FeedbackFunctionalTest {
 
     @After
     public void tearDown() {
-        CasLoginLogout.logout(webDriver);
+        Cas.logout(webDriver);
         webDriver.close();
     }
 
