@@ -32,10 +32,10 @@ public class ViewTalkDetailsFunctionalTest {
         assertTrue(webDriver.findElement(By.id("my_talks_button")).isDisplayed());
 
         webDriver.findElement(By.id("my_talks_button")).click();
-        WaitForAjax.WaitForAjax(webDriver);
+        WaitForAjax.waitForAjax(webDriver);
         Assert.assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
-        WaitForAjax.WaitForAjax(webDriver);
+        WaitForAjax.waitForAjax(webDriver);
         String testTitle = "title_" + UUID.randomUUID().toString();
 
         webDriver.findElement(By.id("title")).sendKeys(testTitle);
@@ -45,9 +45,9 @@ public class ViewTalkDetailsFunctionalTest {
         javascriptExecutor.executeScript("$('#datepicker').val('06/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('10:00 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WaitForAjax.WaitForAjax(webDriver);
+        WaitForAjax.waitForAjax(webDriver);
         webDriver.findElement(By.linkText(testTitle)).click();
-        WaitForAjax.WaitForAjax(webDriver);
+        WaitForAjax.waitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains(testTitle));
         assertTrue(webDriver.getPageSource().contains("test.twu"));
         assertTrue(webDriver.getPageSource().contains("test description"));

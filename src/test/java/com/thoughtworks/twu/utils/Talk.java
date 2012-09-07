@@ -5,10 +5,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static com.thoughtworks.twu.utils.WaitForAjax.WaitForAjax;
-import static org.hamcrest.CoreMatchers.is;
+import static com.thoughtworks.twu.utils.WaitForAjax.waitForAjax;
 import static org.joda.time.DateTime.now;
-import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 public class Talk {
@@ -17,14 +15,14 @@ public class Talk {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
         try {
-            WaitForAjax(webDriver);
+            waitForAjax(webDriver);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
         try {
-            WaitForAjax(webDriver);
+            waitForAjax(webDriver);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

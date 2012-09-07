@@ -71,7 +71,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WaitForAjax.WaitForAjax(webDriver);
+        WaitForAjax.waitForAjax(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box_success"));
         assertThat(text.getText(), is(successMessage));
     }
