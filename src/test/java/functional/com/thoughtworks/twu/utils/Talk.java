@@ -5,11 +5,17 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.UUID;
+
 import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
 import static org.joda.time.DateTime.now;
 import static org.testng.Assert.assertTrue;
 
 public class Talk {
+    public String getTalkTitle() {
+        return title;
+    }
+
     private String title;
     private String description;
     private String venue;
@@ -18,10 +24,10 @@ public class Talk {
 
     public Talk()
     {
-        this.title=now().toString();
+        this.title= UUID.randomUUID().toString();
         this.description= "Seven wise men";
         this.venue="Ajanta Ellora";
-        this.date="$('#datepicker').val('28/09/2012')";
+        this.date="$('#datepicker').val('28/07/2012')";
         this.time="$('#timepicker').val('11:42 AM')";
     }
 
