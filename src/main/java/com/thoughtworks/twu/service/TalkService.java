@@ -38,7 +38,7 @@ public class TalkService {
     }
 
     public List<Talk> getMyTalks(String owner) {
-        return talkMapper.getTalksByUsername(owner);
+        return talkMapper.getTalksByUsername(owner.toLowerCase());
     }
 
     public List<Talk> getRecentTalks() {

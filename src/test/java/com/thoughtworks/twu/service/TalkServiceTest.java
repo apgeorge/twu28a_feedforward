@@ -45,7 +45,7 @@ public class TalkServiceTest {
     @Test
     public void shouldReturnTalk() {
         int talkId = 0;
-        Talk talkExpected = new Talk(new Presentation("test title", "test description", "test owner"), "venue", new DateParser(date,time).convertToDateTime());
+        Talk talkExpected = new Talk(new Presentation("test title", "test description", "test owner"), "venue", new DateParser(date, time).convertToDateTime());
         when(mockTalkMapper.getTalk(talkId)).thenReturn(talkExpected);
         Talk talk = talkService.getTalk(talkId);
         verify(mockTalkMapper).getTalk(talkId);
@@ -56,8 +56,8 @@ public class TalkServiceTest {
     public void shouldGetAListOfUsersTalks() throws Exception {
         List<Talk> expectedTalkList = new ArrayList<Talk>();
         String owner = "test owner";
-        expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner), "venue",  new DateParser(date,time).convertToDateTime()));
-        expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue",  new DateParser("01/08/2012","10:00 AM").convertToDateTime()));
+        expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner), "venue", new DateParser(date, time).convertToDateTime()));
+        expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue", new DateParser("01/08/2012", "10:00 AM").convertToDateTime()));
         when(mockTalkMapper.getTalksByUsername(owner)).thenReturn(expectedTalkList);
 
         assertThat(talkService.getMyTalks(owner), is(expectedTalkList));
@@ -71,11 +71,23 @@ public class TalkServiceTest {
         List<Talk> expectedTalkList = new ArrayList<Talk>();
         when(mockTalkMapper.getListOfRecentTalks(any(DateTime.class), any(DateTime.class))).thenReturn(expectedTalkList);
         //When
-        List<Talk> actualTalksList=talkService.getRecentTalks();
+        List<Talk> actualTalksList = talkService.getRecentTalks();
 
         //Then
         verify(mockTalkMapper).getListOfRecentTalks(any(DateTime.class), any(DateTime.class));
         assertThat(actualTalksList, is(expectedTalkList));
+    }
+
+    @Test
+    public void shouldMakeTalkWithLowercaseOwnerName() {
+        Presentation upperCasePresentation = new Presentation("test title", "test description", "TEST_PRESENTER");
+        talkService.createTalkWithNewPresentation(upperCasePresentation, "venue", date, time);
+        Talk originalTalk = new Talk(upperCasePresentation, "venue", new DateParser(date, time).convertToDateTime());
+        ArrayList<Talk> originalTalkList = new ArrayList<Talk>();
+        originalTalkList.add(originalTalk);
+        when(mockTalkMapper.getTalksByUsername("test_presenter")).thenReturn(originalTalkList);
+        List<Talk> expected = talkService.getMyTalks("TEST_PRESENTER");
+        assertThat(expected.contains(originalTalk), is(true));
     }
 }
 
