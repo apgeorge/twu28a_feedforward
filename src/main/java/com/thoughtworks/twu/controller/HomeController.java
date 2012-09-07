@@ -31,7 +31,11 @@ public class HomeController {
 
     @RequestMapping(value = "/logout*")
     public ModelAndView logoutPage(HttpServletRequest httpServletRequest) throws IOException {
-        ModelAndView modelAndView = new ModelAndView("redirect:http://castest.thoughtworks.com/cas/logout");
+        String serverName = httpServletRequest.getServerName();
+        String cas;
+        if (serverName.contains(".135")) cas = "cas";
+        else cas = "castest";
+        ModelAndView modelAndView = new ModelAndView("redirect:http://"+cas+".thoughtworks.com/cas/logout");
         httpServletRequest.getSession().invalidate();
         return modelAndView;
 

@@ -1,4 +1,4 @@
-package com.thoughtworks.twu.utils;
+package functional.com.thoughtworks.twu.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,10 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.UUID;
 
-import static com.thoughtworks.twu.utils.WaitForAjax.WaitForAjax;
-import static org.hamcrest.CoreMatchers.is;
-import static org.joda.time.DateTime.now;
-import static org.junit.Assert.assertThat;
+import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
 import static org.testng.Assert.assertTrue;
 
 public class Talk {
@@ -27,7 +24,7 @@ public class Talk {
         WebElement myTalksButton = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("my_talks_button")));
         myTalksButton.click();
         try {
-            WaitForAjax(webDriver);
+            waitForAjax(webDriver);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -36,7 +33,7 @@ public class Talk {
         WebElement newTalkButton = new_talk;
         newTalkButton.click();
         try {
-            WaitForAjax(webDriver);
+            waitForAjax(webDriver);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -49,7 +46,7 @@ public class Talk {
         WebElement venue = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id("venue")));
         venue.sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
+        javascriptExecutor.executeScript("$('#datepicker').val('28/06/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
 
