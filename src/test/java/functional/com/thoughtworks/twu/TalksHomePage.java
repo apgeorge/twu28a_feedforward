@@ -1,7 +1,6 @@
 package functional.com.thoughtworks.twu;
 
-import com.thoughtworks.twu.utils.CasLoginLogout;
-import com.thoughtworks.twu.utils.Talk;
+import com.thoughtworks.twu.utils.Cas;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -27,7 +25,6 @@ public class TalksHomePage {
     private String failMessage;
     private String successMessage;
     private String errorCssValue;
-    private Talk talk;
 
 
     @Before
@@ -35,20 +32,29 @@ public class TalksHomePage {
         webDriver = new FirefoxDriver();
         webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         webDriver.get(HTTP_BASE_URL);
-        talk = new Talk();
         failMessage = "Please Supply Valid Entries For All Fields";
         successMessage="New Talk Successfully Created";
         errorCssValue = "rgb(255, 0, 0) 0px 0px 12px 0px";
-        CasLoginLogout.login(webDriver);
-
+        Cas.login(webDriver);
 
 
     }
 
     @Test
     public void shouldBeAbleToCreateNewTalk() throws Exception {
-        talk.newTalk(webDriver);
-        WebElement text = webDriver.findElement(By.id("message_box_success"));
+        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
+        myTalksButton.click();
+        WebElement element = WaitForAjax.waitForElement(webDriver,"new_talk");
+        element.click();
+
+        WaitForAjax.waitForElement(webDriver,"title").sendKeys(now().toString());
+        WaitForAjax.waitForElement(webDriver, "description").sendKeys("Seven wise men");
+        WaitForAjax.waitForElement(webDriver,"venue").sendKeys("Ajanta Ellora");
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
+        javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
+        javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
+        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        WebElement text = WaitForAjax.waitForElement(webDriver, "message_box_success");
         assertThat(text.getText(), is(successMessage));
     }
 
@@ -133,7 +139,7 @@ public class TalksHomePage {
 
     @After
     public void tearDown() {
-        CasLoginLogout.logout(webDriver);
+        Cas.logout(webDriver);
         webDriver.close();
     }
 

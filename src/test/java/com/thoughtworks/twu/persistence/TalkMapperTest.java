@@ -168,4 +168,17 @@ public class TalkMapperTest extends IntegrationTest {
         assertThat(upcomingTalksList.contains(thirdTalk), is(true));
         assertThat(upcomingTalksList.contains(fourthTalk), is(false));
     }
+
+    @Test
+    public void shouldDeleteTalkById() throws Exception {
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(1));
+
+        talkMapper.insert(firstTalk);
+        int talkId=talkMapper.getLastId();
+
+        assertThat(talkMapper.deleteById(talkId),is(1));
+        assertThat(talkMapper.deleteById(talkId),is(0));
+    }
 }
