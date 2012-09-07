@@ -28,7 +28,7 @@ public class TalkMapperTest extends IntegrationTest {
 
     @Before
     public void init() {
-        presentation = new Presentation("XConf", "Ruby Conference", "Aman King");
+        presentation = new Presentation("XConf", "Ruby Conference", "aman king");
         talk = new Talk(presentation, "Pune Office", new DateParser("23/08/2012", "12:01 pm").convertToDateTime());
 
     }
@@ -59,11 +59,11 @@ public class TalkMapperTest extends IntegrationTest {
     public void shouldGetAListOfTalksByUserName() {
 
 
-        Presentation firstPresentation = new Presentation("XConf", "Ruby Conference", "Aman King");
+        Presentation firstPresentation = new Presentation("XConf", "Ruby Conference", "aman king");
         presentationMapper.insertPresentation(firstPresentation);
 
 
-        Presentation secondPresentation = new Presentation("Pecha Kucha", "seven wise men", "Aman King");
+        Presentation secondPresentation = new Presentation("Pecha Kucha", "seven wise men", "aman king");
         presentationMapper.insertPresentation(secondPresentation);
 
 
@@ -80,7 +80,7 @@ public class TalkMapperTest extends IntegrationTest {
         talkMapper.insert(thirdTalk);
 
         List<Talk> actualList;
-        actualList= talkMapper.getTalksByUsername("Aman King");
+        actualList= talkMapper.getTalksByUsername("aman king");
 
         List<Talk> expectedList=new ArrayList<Talk>() ;
         expectedList.add(firstTalk);
@@ -94,7 +94,7 @@ public class TalkMapperTest extends IntegrationTest {
 
     @Test
     public void shouldGetAListOfTalksByUserNameWithMultipleUsers() {
-        Presentation firstPresentation = new Presentation("XConf", "Ruby Conference", "Aman King");
+        Presentation firstPresentation = new Presentation("XConf", "Ruby Conference", "aman king");
         presentationMapper.insertPresentation(firstPresentation);
 
         Presentation secondPresentation = new Presentation("Pecha Kucha", "seven wise men", "Manali");
@@ -113,7 +113,7 @@ public class TalkMapperTest extends IntegrationTest {
 
 
         List<Talk> actualList;
-        actualList= talkMapper.getTalksByUsername("Aman King");
+        actualList= talkMapper.getTalksByUsername("aman king");
 
 
         List<Talk> expectedList=new ArrayList<Talk>() ;

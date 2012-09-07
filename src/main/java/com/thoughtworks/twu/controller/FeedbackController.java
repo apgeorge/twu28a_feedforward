@@ -25,7 +25,7 @@ public class FeedbackController {
     @RequestMapping(value = "/add_feedback.htm*", method = RequestMethod.POST)
     public ModelAndView enterFeedback(HttpServletRequest request, @RequestParam(value = "talkId", defaultValue = "") int talkId,
                                       @RequestParam(value = "feedbackComment", defaultValue = "") String feedbackComment) {
-        String username = request.getUserPrincipal().getName();
+        String username = request.getUserPrincipal().getName().toLowerCase();
         feedbackService.enterFeedback(talkId, feedbackComment, username, username+"@thoughtworks.com");
         return getListOfPastFeedback(talkId);
 

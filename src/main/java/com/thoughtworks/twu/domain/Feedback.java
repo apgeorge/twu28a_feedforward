@@ -20,8 +20,8 @@ public class Feedback {
     public Feedback(int talkId, String feedbackComment, String attendee, String attendeeMail, DateTime dateTime) {
         this.feedbackComment = feedbackComment;
         this.talkId = talkId;
-        this.attendee = attendee;
-        this.attendeeMail = attendeeMail;
+        this.attendee = attendee.toLowerCase();
+        this.attendeeMail = attendeeMail.toLowerCase();
         this.timeAtCreation = dateTime;
     }
 
