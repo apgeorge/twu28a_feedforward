@@ -4,6 +4,7 @@ import com.thoughtworks.twu.utils.CasLoginLogout;
 import com.thoughtworks.twu.utils.WaitForAjax;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -41,19 +42,21 @@ public class TalksHomePage {
     }
 
     @Test
+    @Ignore
     public void shouldBeAbleToCreateNewTalk() throws Exception {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
         WebElement element = WaitForAjax.waitForElement(webDriver,"new_talk");
         element.click();
+
         WaitForAjax.waitForElement(webDriver,"title").sendKeys(now().toString());
-        WaitForAjax.waitForElement(webDriver,"description").sendKeys("Seven wise men");
+        WaitForAjax.waitForElement(webDriver, "description").sendKeys("Seven wise men");
         WaitForAjax.waitForElement(webDriver,"venue").sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WebElement text = WaitForAjax.waitForElement(webDriver,"message_box_success");
+        WebElement text = WaitForAjax.waitForElement(webDriver, "message_box_success");
         assertThat(text.getText(), is(successMessage));
     }
 

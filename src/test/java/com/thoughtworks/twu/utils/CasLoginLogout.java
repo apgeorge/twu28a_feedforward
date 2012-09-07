@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 public class CasLoginLogout {
 
     public static void login(WebDriver webDriver) {
-        webDriver.findElement(By.id("username")).sendKeys("test.twu");
-        webDriver.findElement(By.id("password")).sendKeys("Th0ughtW0rks@12");
+        WaitForAjax.waitForElement(webDriver,"username").sendKeys("test.twu");
+        WaitForAjax.waitForElement(webDriver,"password").sendKeys("Th0ughtW0rks@12");
         webDriver.findElement(By.className("btn-submit")).click();
     }
 
