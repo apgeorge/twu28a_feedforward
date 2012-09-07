@@ -7,8 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public  class WaitForAjax {
-    public static void  WaitForAjax(WebDriver webDriver) throws InterruptedException {
+public  class WaitHelper {
+    public static void waitForAjax(WebDriver webDriver) throws InterruptedException {
 
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         while (true)
@@ -17,11 +17,11 @@ public  class WaitForAjax {
             if (ajaxIsComplete)
                 break;
 
-            Thread.currentThread().sleep(1000);
+            Thread.currentThread().sleep(000);
         }
     }
 
     public static WebElement waitForElement(WebDriver webDriver, String elementId) {
-        return (new WebDriverWait(webDriver, 7)).until(ExpectedConditions.visibilityOfElementLocated(By.id(elementId)));
+        return (new WebDriverWait(webDriver, 5)).until(ExpectedConditions.visibilityOfElementLocated(By.id(elementId)));
     }
 }

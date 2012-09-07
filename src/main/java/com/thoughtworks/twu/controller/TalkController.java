@@ -64,7 +64,7 @@ public class TalkController {
         if (!talkService.validate(title, venue, date, time)) {
             return addFailureMessageToModelAndView(modelAndView);
         }
-        Presentation presentation = new Presentation(title, description, request.getUserPrincipal().getName());
+        Presentation presentation = new Presentation(title, description, request.getUserPrincipal().getName().toLowerCase());
         try {
 
             resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);

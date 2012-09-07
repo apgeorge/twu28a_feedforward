@@ -1,13 +1,7 @@
 package functional.com.thoughtworks.twu;
 
-import com.thoughtworks.twu.domain.Presentation;
-import com.thoughtworks.twu.domain.Talk;
-import com.thoughtworks.twu.persistence.TalkMapper;
-import com.thoughtworks.twu.service.TalkService;
-import com.thoughtworks.twu.utils.Cas;
-import com.thoughtworks.twu.utils.DateParser;
-import com.thoughtworks.twu.utils.WaitForAjax;
-import org.joda.time.DateTime;
+import functional.com.thoughtworks.twu.utils.Cas;
+import com.thoughtworks.twu.utils.WaitHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
 import static org.hamcrest.CoreMatchers.is;
 import static org.joda.time.DateTime.now;
 import static org.junit.Assert.assertThat;
@@ -28,40 +23,33 @@ public class TalksHomePage {
     public static final int HTTP_PORT = 9191;
     public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
     private WebDriver webDriver;
-    private String failMessage;
-    private String successMessage;
-    private String errorCssValue;
-
+    private static final String SUCCESS_MESSAGE = "New Talk Successfully Created";
+    private static final String ERROR_CSS_VALUE = "rgb(255, 0, 0) 0px 0px 12px 0px";
 
     @Before
     public void setUp() {
         webDriver = new FirefoxDriver();
         webDriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         webDriver.get(HTTP_BASE_URL);
-        failMessage = "Please Supply Valid Entries For All Fields";
-        successMessage="New Talk Successfully Created";
-        errorCssValue = "rgb(255, 0, 0) 0px 0px 12px 0px";
         Cas.login(webDriver);
-
-
     }
 
     @Test
     public void shouldBeAbleToCreateNewTalk() throws Exception {
         WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
         myTalksButton.click();
-        WebElement element = WaitForAjax.waitForElement(webDriver,"new_talk");
+        WebElement element = waitForElement(webDriver, "new_talk");
         element.click();
 
-        WaitForAjax.waitForElement(webDriver,"title").sendKeys(now().toString());
-        WaitForAjax.waitForElement(webDriver, "description").sendKeys("Seven wise men");
-        WaitForAjax.waitForElement(webDriver, "venue").sendKeys("Ajanta Ellora");
+        waitForElement(webDriver, "title").sendKeys(now().toString());
+        waitForElement(webDriver, "description").sendKeys("Seven wise men");
+        waitForElement(webDriver, "venue").sendKeys("Ajanta Ellora");
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WebElement text = WaitForAjax.waitForElement(webDriver, "message_box_success");
-        assertThat(text.getText(), is(successMessage));
+        WebElement text = waitForElement(webDriver, "message_box_success");
+        assertThat(text.getText(), is(SUCCESS_MESSAGE));
     }
 
     @Test
@@ -77,9 +65,9 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        WaitForAjax.WaitForAjax(webDriver);
+        WaitHelper.waitForAjax(webDriver);
         WebElement text = webDriver.findElement(By.id("message_box_success"));
-        assertThat(text.getText(), is(successMessage));
+        assertThat(text.getText(), is(SUCCESS_MESSAGE));
     }
 
     @Test
@@ -94,7 +82,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
 
-        assertThat(webDriver.findElement(By.id("title")).getCssValue("box-shadow"), is(errorCssValue));
+        assertThat(webDriver.findElement(By.id("title")).getCssValue("box-shadow"), is(ERROR_CSS_VALUE));
     }
 
     @Test
@@ -109,7 +97,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
 
-        assertThat(webDriver.findElement(By.id("venue")).getCssValue("box-shadow"), is(errorCssValue));
+        assertThat(webDriver.findElement(By.id("venue")).getCssValue("box-shadow"), is(ERROR_CSS_VALUE));
     }
 
     @Test
@@ -124,7 +112,7 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#timepicker').val('11:42 AM')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
 
-        assertThat(webDriver.findElement(By.id("datepicker")).getCssValue("box-shadow"), is(errorCssValue));
+        assertThat(webDriver.findElement(By.id("datepicker")).getCssValue("box-shadow"), is(ERROR_CSS_VALUE));
     }
 
     @Test
@@ -139,8 +127,9 @@ public class TalksHomePage {
         javascriptExecutor.executeScript("$('#datepicker').val('28/09/2012')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
 
-        assertThat(webDriver.findElement(By.id("timepicker")).getCssValue("box-shadow"), is(errorCssValue));
+        assertThat(webDriver.findElement(By.id("timepicker")).getCssValue("box-shadow"), is(ERROR_CSS_VALUE));
     }
+
 
     @After
     public void tearDown() {

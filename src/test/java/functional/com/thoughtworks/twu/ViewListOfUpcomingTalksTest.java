@@ -2,8 +2,8 @@ package functional.com.thoughtworks.twu;
 
 import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
-import com.thoughtworks.twu.utils.Cas;
-import com.thoughtworks.twu.utils.Talk;
+import functional.com.thoughtworks.twu.utils.Cas;
+import functional.com.thoughtworks.twu.utils.Talk;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -44,7 +44,8 @@ public class ViewListOfUpcomingTalksTest  {
     (expected=NoSuchElementException.class)
     public void shouldNotDisplayFeedbackTextboxForUpcomingTalks(){
         String date= DateTime.now().plusDays(3).toDate().toString();
-        Talk talk= new Talk("RubyConf","Learn Ruby", "Ajanta-Ellora",date,"11:42 AM");
+        Talk talk=new Talk("RubyConf","Learn Ruby", "Ajanta-Ellora",date,"11:42 AM");
+        talk.newTalk(webDriver);
         WebElement upcomingTalksButton =webDriver.findElement(By.id("upcoming_talks_button"));
         upcomingTalksButton.click();
         List<WebElement> listOfTalks= webDriver.findElements(By.className("ui-link-inherit"));

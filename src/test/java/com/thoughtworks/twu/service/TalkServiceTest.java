@@ -14,9 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -95,11 +93,23 @@ public class TalkServiceTest {
     @Test
     public void shouldReturnTrueForUpcomingTalk() throws Exception {
         Presentation presentation = new Presentation("test title", "test description", "test presenter");
-        Talk talk = new Talk(presentation,"test venue", new ApplicationClock().now().plusDays(24));
-        int talkId=1;
+        Talk talk = new Talk(presentation, "test venue", new ApplicationClock().now().plusDays(24));
+        int talkId = 1;
         when(mockTalkMapper.getTalk(talkId)).thenReturn(talk);
         assertTrue(talkService.isUpcomingTalk(talk));
 
+    }
+
+    @Test
+    public void shouldMakeTalkWithLowercaseOwnerName() {
+        Presentation upperCasePresentation = new Presentation("test title", "test description", "TEST_PRESENTER");
+        talkService.createTalkWithNewPresentation(upperCasePresentation, "venue", DATE, TIME);
+        Talk originalTalk = new Talk(upperCasePresentation, "venue", new DateParser(DATE, TIME).convertToDateTime());
+        ArrayList<Talk> originalTalkList = new ArrayList<Talk>();
+        originalTalkList.add(originalTalk);
+        when(mockTalkMapper.getTalksByUsername("test_presenter")).thenReturn(originalTalkList);
+        List<Talk> expected = talkService.getMyTalks("TEST_PRESENTER");
+        assertThat(expected.contains(originalTalk), is(true));
     }
 }
 
