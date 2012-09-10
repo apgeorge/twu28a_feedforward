@@ -27,6 +27,7 @@ public class TalkServiceTest {
     private TestClock testClock;
     private static final String DATE = "12/04/1999";
     private static final String TIME = "11:00 AM";
+    private Presentation presentation;
 
     @Before
     public void init() {
@@ -34,21 +35,21 @@ public class TalkServiceTest {
         mockPresentationMapper = mock(PresentationMapper.class);
         testClock = new TestClock();
         talkService = new TalkService(mockTalkMapper, mockPresentationMapper, testClock);
+        presentation = new Presentation("test title", "test description", "test presenter");
     }
 
     @Test
     public void shouldInsertPresentationOnCreationOfNewTalk() throws Exception {
-        Presentation presentation = new Presentation("test title", "test description", "test presenter");
         talkService.createTalkWithNewPresentation(presentation, "venue", DATE, TIME);
         verify(mockPresentationMapper).insertPresentation(presentation);
         verify(mockPresentationMapper).getPresentation("test title", "test presenter");
-        verify(mockTalkMapper).insert(new Talk(any(Presentation.class), "venue", new DateParser(DATE, TIME).convertToDateTime()));
+        verify(mockTalkMapper).insert(new Talk(any(Presentation.class), "venue", new DateParser(DATE, TIME).convertToDateTime(), testClock.now()));
     }
 
     @Test
     public void shouldReturnTalk() {
         int talkId = 0;
-        Talk talkExpected = new Talk(new Presentation("test title", "test description", "test owner"), "venue", new DateParser(DATE, TIME).convertToDateTime());
+        Talk talkExpected = new Talk(new Presentation("test title", "test description", "test owner"), "venue", new DateParser(DATE, TIME).convertToDateTime(), testClock.now());
         when(mockTalkMapper.getTalk(talkId)).thenReturn(talkExpected);
         Talk talk = talkService.getTalk(talkId);
         verify(mockTalkMapper).getTalk(talkId);
@@ -59,8 +60,8 @@ public class TalkServiceTest {
     public void shouldGetAListOfUsersTalks() throws Exception {
         List<Talk> expectedTalkList = new ArrayList<Talk>();
         String owner = "test owner";
-        expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner), "venue", new DateParser(DATE, TIME).convertToDateTime()));
-        expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue", new DateParser("01/08/2012", "10:00 AM").convertToDateTime()));
+        expectedTalkList.add(new Talk(new Presentation("test title", "test description", owner), "venue", new DateParser(DATE, TIME).convertToDateTime(), testClock.now()));
+        expectedTalkList.add(new Talk(new Presentation("title", "description", owner), "test venue", new DateParser("01/08/2012", "10:00 AM").convertToDateTime(), testClock.now()));
         when(mockTalkMapper.getTalksByUsername(owner)).thenReturn(expectedTalkList);
 
         assertThat(talkService.getMyTalks(owner), is(expectedTalkList));
@@ -92,8 +93,7 @@ public class TalkServiceTest {
 
     @Test
     public void shouldReturnTrueForUpcomingTalk() throws Exception {
-        Presentation presentation = new Presentation("test title", "test description", "test presenter");
-        Talk talk = new Talk(presentation, "test venue", new ApplicationClock().now().plusDays(24));
+        Talk talk = new Talk(presentation, "test venue", new ApplicationClock().now().plusDays(24), testClock.now());
         int talkId = 1;
         when(mockTalkMapper.getTalk(talkId)).thenReturn(talk);
         assertTrue(talkService.isUpcomingTalk(talk));
@@ -104,12 +104,25 @@ public class TalkServiceTest {
     public void shouldMakeTalkWithLowercaseOwnerName() {
         Presentation upperCasePresentation = new Presentation("test title", "test description", "TEST_PRESENTER");
         talkService.createTalkWithNewPresentation(upperCasePresentation, "venue", DATE, TIME);
-        Talk originalTalk = new Talk(upperCasePresentation, "venue", new DateParser(DATE, TIME).convertToDateTime());
+        Talk originalTalk = new Talk(upperCasePresentation, "venue", new DateParser(DATE, TIME).convertToDateTime(), testClock.now());
         ArrayList<Talk> originalTalkList = new ArrayList<Talk>();
         originalTalkList.add(originalTalk);
         when(mockTalkMapper.getTalksByUsername("test_presenter")).thenReturn(originalTalkList);
         List<Talk> expected = talkService.getMyTalks("TEST_PRESENTER");
         assertThat(expected.contains(originalTalk), is(true));
+    }
+
+    @Test
+    public void shouldCheckForTheCorrectCreationTime(){
+        talkService.createTalkWithNewPresentation(presentation,"venue",DATE,TIME);
+        int talkId=0;
+        DateTime now = testClock.now();
+        Talk originalTalk = new Talk(presentation, "venue", new DateParser(DATE, TIME).convertToDateTime(), now);
+        when(mockTalkMapper.getCreationTimeById(talkId)).thenReturn(now);
+        assertThat(talkService.getCreationTime(originalTalk), is(now));
+        verify(mockTalkMapper).getCreationTimeById(talkId);
+
+
     }
 }
 

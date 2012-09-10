@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TalkMapper {
 
-    @Insert("INSERT INTO talk (presentation_id,venue, time_of_talk) VALUES(#{presentation.id}, #{venue}, #{dateTime})")
+    @Insert("INSERT INTO talk (presentation_id,venue, time_of_talk, time_of_creation) VALUES(#{presentation.id}, #{venue}, #{dateTime},#{timeOfCreation})")
     int insert(Talk talk);
 
 
@@ -57,4 +57,7 @@ public interface TalkMapper {
 
     @Delete("DELETE FROM talk WHERE talk_id=#{talkId}")
     int deleteById(int talkId);
+
+    @Select("SELECT time_of_creation FROM talk WHERE talk_id=#{talkId}")
+    DateTime getCreationTimeById(int talkId);
 }
