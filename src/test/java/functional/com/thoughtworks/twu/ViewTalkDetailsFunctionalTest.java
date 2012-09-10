@@ -29,6 +29,7 @@ public class ViewTalkDetailsFunctionalTest {
     public void shouldDisplayTalkDetailsOfCreatedTalk() throws Exception {
         String testTitle = "title_" + UUID.randomUUID().toString();
         talk.newTalk(testTitle, "test description", "test venue", "06/09/2012", "10:00 AM");
+        talk.assertCreationSuccess();
         talk.clickTitle(testTitle);
 
         talk.assertHeaderMatch(testTitle, "test.twu");

@@ -1,16 +1,23 @@
 package functional.com.thoughtworks.twu.utils;
 
+import functional.com.thoughtworks.twu.TalksHomePage;
+import functional.com.thoughtworks.twu.ViewTalkDetailsFunctionalTest;
+import org.hamcrest.CoreMatchers;
 import org.junit.internal.matchers.StringContains;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class Talk {
     private WebDriver webDriver;
+    private static final String SUCCESS_MESSAGE = "New Talk Successfully Created";
+    private static final String ERROR_CSS_VALUE = "rgb(255, 0, 0) 0px 0px 12px 0px";
 
     public Talk(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -29,7 +36,11 @@ public class Talk {
         javascriptExecutor.executeScript("$('#datepicker').val('"+date+"')");
         javascriptExecutor.executeScript("$('#timepicker').val('"+time+"')");
         javascriptExecutor.executeScript("$('#new_talk_submit').click()");
-        waitForElement(webDriver, "message_box_success");
+    }
+
+    public void assertCreationSuccess() {
+        WebElement text = waitForElement(webDriver, "message_box_success");
+        assertThat(text.getText(), is(SUCCESS_MESSAGE));
     }
 
     public void loadTalkDetails(String testTitle) {
@@ -39,7 +50,7 @@ public class Talk {
 
         webDriver.findElement(By.linkText(testTitle)).click();
 
-        waitForElement(webDriver,"talk_details");
+        waitForElement(webDriver, "talk_details");
     }
 
     public String getHeader() {
@@ -80,6 +91,7 @@ public class Talk {
     }
 
     public void assertDetailsMatch(String description, String venue, String date, String time, String email) {
+        waitForElement(webDriver,"talk_details");
         assertThat(getDescription(), StringContains.containsString(description));
         assertThat(getVenue(), StringContains.containsString(venue));
         assertThat(getDate(), StringContains.containsString(date));
@@ -89,7 +101,12 @@ public class Talk {
     }
 
     public void assertHeaderMatch(String testTitle, String owner) {
+        waitForElement(webDriver, "talk_details");
         assertThat(getHeader(), StringContains.containsString(testTitle));
         assertThat(getHeader(), StringContains.containsString(owner));
+    }
+
+    public void assertCreationFailForElement(String elementId) {
+        assertThat(webDriver.findElement(By.id(elementId)).getCssValue("box-shadow"), is(ERROR_CSS_VALUE));
     }
 }

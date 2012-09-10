@@ -43,6 +43,7 @@ public class ViewListOfUpcomingTalksTest  {
         DateTime dateTime=DateTime.now().plusDays(3);
         Talk talk=new Talk(webDriver);
         talk.newTalk(UUID.randomUUID().toString(),"Learn Ruby", "Ajanta-Ellora",dateTime.toString("dd/MM/YYYY"),"11:42 AM");
+        talk.assertCreationSuccess();
         WebElement upcomingTalksButton =webDriver.findElement(By.id("upcoming_talks_button"));
         upcomingTalksButton.click();
         waitForAjax(webDriver);
