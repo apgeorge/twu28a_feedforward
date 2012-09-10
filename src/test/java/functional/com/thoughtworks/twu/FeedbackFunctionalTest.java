@@ -37,6 +37,7 @@ public class FeedbackFunctionalTest {
         talk = new Talk(webDriver);
         title = UUID.randomUUID().toString();
         talk.newTalk(title,"Seven wise men","Ajanta Ellora","28/07/2012","11:42 AM");
+        talk.assertCreationSuccess();
         enterFeedback = new EnterFeedback();
 
 

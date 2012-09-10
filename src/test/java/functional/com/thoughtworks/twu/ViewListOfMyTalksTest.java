@@ -33,8 +33,11 @@ public class ViewListOfMyTalksTest {
 
         String testTitle = "Title_" + UUID.randomUUID().toString();
         talk.newTalk(testTitle,"Seven wise men","Ajanta Ellora","28/09/2012","11:42 AM");
+        talk.assertCreationSuccess();
+
         String secondTestTitle = "Title_" + UUID.randomUUID().toString();
         talk.newTalk(secondTestTitle,"second description","second venue","28/09/2012","11:45 AM");
+        talk.assertCreationSuccess();
 
         talk.loadTalkDetails(testTitle);
 
