@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class FeedbackMapperTest extends IntegrationTest {
 
@@ -44,15 +46,14 @@ public class FeedbackMapperTest extends IntegrationTest {
         feedbackMapper.insertFeedback(feedback3);
         feedbackMapper.insertFeedback(feedback4);
         feedbackMapper.insertFeedback(feedback);
-        ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
-        feedbackList.add(feedback4);
-        feedbackList.add(feedback3);
-        feedbackList.add(feedback2);
-        feedbackList.add(feedback1);
         //When
         List<Feedback> result = feedbackMapper.getFeedbackByTalkId(talk_id);
         //Then
-        Assert.assertEquals(feedbackList, result);
+        assertTrue(result.contains(feedback4));
+        assertTrue(result.contains(feedback3));
+        assertTrue(result.contains(feedback2));
+        assertTrue(result.contains(feedback1));
+        assertFalse(result.contains(feedback));
 
     }
 }

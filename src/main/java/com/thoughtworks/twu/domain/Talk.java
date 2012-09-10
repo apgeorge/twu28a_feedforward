@@ -1,5 +1,6 @@
 package com.thoughtworks.twu.domain;
 
+import com.thoughtworks.twu.utils.ApplicationClock;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -73,5 +74,9 @@ public class Talk {
         result = 31 * result + (presentation != null ? presentation.hashCode() : 0);
         result = 31 * result + (venue != null ? venue.hashCode() : 0);
         return result;
+    }
+
+    public Boolean isUpcoming() {
+       return dateTime.isAfter(new ApplicationClock().now());
     }
 }
