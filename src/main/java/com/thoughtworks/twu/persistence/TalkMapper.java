@@ -9,16 +9,16 @@ import java.util.List;
 
 public interface TalkMapper {
 
-    @Insert("INSERT INTO talk (presentation_id,venue, time_of_talk, time_of_creation) VALUES(#{presentation.id}, #{venue}, #{dateTime},#{timeOfCreation})")
+    @Insert("INSERT INTO talk (presentation_id,venue, time_of_talk, last_modified_at) VALUES(#{presentation.id}, #{venue}, #{dateTime},#{lastModifiedAt})")
     int insert(Talk talk);
 
 
-    @Select("SELECT talk_id, presentation_id, venue, time_of_talk, time_of_creation FROM talk WHERE talk_id =  #{talkId}")
+    @Select("SELECT talk_id, presentation_id, venue, time_of_talk, last_modified_at FROM talk WHERE talk_id =  #{talkId}")
     @Results(value = {
             @Result(property="talkId", column="talk_id"),
             @Result(property="venue", column="venue"),
             @Result(property="dateTime", column="time_of_talk"),
-            @Result(property="timeOfCreation", column = "time_of_creation"),
+            @Result(property="lastModifiedAt", column = "last_modified_at"),
             @Result(property="presentation", column="presentation_id", javaType=Presentation.class, one=@One(select="selectPresentation"))
     })
     Talk getTalk(int talkId);
