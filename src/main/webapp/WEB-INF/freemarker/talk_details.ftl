@@ -21,22 +21,22 @@
                         </b>
                     </p>
                     <p>
-                        <b>
+                        <b id="venue">
                             Venue : ${talk.venue}
                         </b>
                     </p>
                     <p>
-                        <b>
+                        <b id="date">
                             Date : ${talk.dateTime.toString("dd/MM/YYYY")}
                         </b>
                     </p>
                     <p>
-                        <b>
+                        <b id="time">
                             Time : ${talk.dateTime.toString("hh:mm a")}
                         </b>
                     </p>
                     <p>
-                        <b>
+                        <b id="email">
                             Contact me: <a href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a>
                         </b>
                     </p>
