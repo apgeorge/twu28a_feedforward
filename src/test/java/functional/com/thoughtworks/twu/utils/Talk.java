@@ -3,65 +3,43 @@ package functional.com.thoughtworks.twu.utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-import java.util.UUID;
-
-import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
-import static org.joda.time.DateTime.now;
-import static org.testng.Assert.assertTrue;
+import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
 
 public class Talk {
-    public String getTalkTitle() {
-        return title;
+    private WebDriver webDriver;
+
+    public Talk(WebDriver webDriver) {
+        this.webDriver = webDriver;
     }
 
-    private String title;
-    private String description;
-    private String venue;
-    private String date;
-    private  String time;
 
-    public Talk()
-    {
-        this.title= UUID.randomUUID().toString();
-        this.description= "Seven wise men";
-        this.venue="Ajanta Ellora";
-        this.date="$('#datepicker').val('28/07/2012')";
-        this.time="$('#timepicker').val('11:42 AM')";
-    }
+    public void newTalk(String title, String description, String venue, String date, String time){
 
-    public Talk(String title, String description, String venue, String date, String time)
-    {
-        this.title=title;
-        this.description= description;
-        this.venue=venue;
-        this.date="$('#datepicker').val('"+date+"')";
-        this.time="$('#timepicker').val('"+time+"')";
-    }
+        waitForElement(webDriver,"my_talks_button").click();
+        waitForElement(webDriver,"new_talk").click();
 
-    public void newTalk(WebDriver webDriver){
-        WebElement myTalksButton = webDriver.findElement(By.id("my_talks_button"));
-        myTalksButton.click();
-        try {
-            waitForAjax(webDriver);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
-        webDriver.findElement(By.id("new_talk")).click();
-        try {
-            waitForAjax(webDriver);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertTrue(webDriver.findElement(By.id("title")).isDisplayed());
-        webDriver.findElement(By.id("title")).sendKeys(title);
-        webDriver.findElement(By.id("description")).sendKeys(description);
-        webDriver.findElement(By.id("venue")).sendKeys(venue);
+        waitForElement(webDriver, "title").sendKeys(title);
+        waitForElement(webDriver, "description").sendKeys(description);
+        waitForElement(webDriver, "venue").sendKeys(venue);
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
-        javascriptExecutor.executeScript(date);
-        javascriptExecutor.executeScript(time);
-        webDriver.findElement(By.id("new_talk_submit")).click();
+        javascriptExecutor.executeScript("$('#datepicker').val('"+date+"')");
+        javascriptExecutor.executeScript("$('#timepicker').val('"+time+"')");
+        javascriptExecutor.executeScript("$('#new_talk_submit').click()");
+        waitForElement(webDriver, "message_box_success");
+    }
+
+    public void loadTalkDetails(String testTitle) {
+        waitForElement(webDriver,"my_talks_button").click();
+
+        waitForElement(webDriver, "my_talks_list");
+
+        webDriver.findElement(By.linkText(testTitle)).click();
+
+        waitForElement(webDriver,"talk_details");
+    }
+
+    public String getHeaderDescription() {
+        return webDriver.findElement(By.xpath("//div[@id='talk_details']//span[@class='ui-btn-text']")).getText();
     }
 }

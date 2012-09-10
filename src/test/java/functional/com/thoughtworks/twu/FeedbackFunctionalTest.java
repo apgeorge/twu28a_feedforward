@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -26,14 +27,16 @@ public class FeedbackFunctionalTest {
     private WebDriver webDriver;
     private EnterFeedback enterFeedback;
     private Talk talk;
+    String title;
 
     @Before
     public void setUp() {
         webDriver = new FirefoxDriver();
         webDriver.get(HTTP_BASE_URL);
         Cas.login(webDriver);
-        talk = new Talk();
-        talk.newTalk(webDriver);
+        talk = new Talk(webDriver);
+        title = UUID.randomUUID().toString();
+        talk.newTalk(title,"Seven wise men","Ajanta Ellora","28/07/2012","11:42 AM");
         enterFeedback = new EnterFeedback();
 
 
@@ -43,7 +46,7 @@ public class FeedbackFunctionalTest {
     public void shouldNotBeAbleToSubmitBlankFeedbackOnTalk() throws Exception {
 
         WaitHelper.waitForAjax(webDriver);
-        WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(talk.getTalkTitle())));
+        WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(title)));
         talkLink.click();
         WaitHelper.waitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains("Past Feedback"));
@@ -61,7 +64,7 @@ public class FeedbackFunctionalTest {
     public void shouldBeAbleToEnterFeedbackOnTalk() throws InterruptedException {
 
         WaitHelper.waitForAjax(webDriver);
-        WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(talk.getTalkTitle())));
+        WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(title)));
         talkLink.click();
         WaitHelper.waitForAjax(webDriver);
         assertTrue(webDriver.getPageSource().contains("Past Feedback"));

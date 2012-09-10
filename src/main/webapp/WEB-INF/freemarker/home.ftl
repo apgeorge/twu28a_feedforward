@@ -12,6 +12,8 @@
     <script type="text/javascript" src="static/js/mobiscroll-2.0.2.full.min.js"></script>
     <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"/>
     <script type="text/javascript" src="static/js/home.js"></script>
+    <script type="text/javascript" src="static/js/404.js"></script>
+
     <style>
         .dw {font-size: 15px;}
         .compulsory {color: red;font-weight: bold;}
