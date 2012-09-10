@@ -16,7 +16,7 @@
                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                     </div>
                     <p>
-                        <b style=" word-wrap: break-word; ">
+                        <b id="description_area" style=" word-wrap: break-word; ">
                         ${talk.presentation.description}
                         </b>
                     </p>
@@ -52,4 +52,6 @@
     <div id="feedback_container">
     </div>
 </div>
+<script type="text/javascript" src="static/js/talk_details.js"></script>
 </#escape>
+

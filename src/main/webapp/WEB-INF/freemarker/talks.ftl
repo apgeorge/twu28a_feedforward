@@ -7,11 +7,11 @@
             </li>
             <#list talksList as recentTalk>
                 <li data-theme="c">
-                    <a id="${recentTalk.talkId}" role="talk" data-transition="slide" style="line-height: 30px;">
+                    <a id="${recentTalk.talkId}" role="talk" data-transition="slide" >
                         <span style="font-size: 18px;" > ${recentTalk.presentation.title} </span>
                         <br />
                      	<i style="font-weight: bold;color: grey;">
-                     	   &nbsp; &nbsp; &nbsp; &nbsp; - by <span style="font-size: 18px;" >${recentTalk.presentation.owner} </span>
+                     	   &nbsp; &nbsp; &nbsp; - by <span style="font-size: 18px;" >${recentTalk.presentation.owner} </span>
                      	</i>
                     </a>
                 </li>

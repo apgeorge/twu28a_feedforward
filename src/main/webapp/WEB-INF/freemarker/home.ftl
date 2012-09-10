@@ -20,9 +20,15 @@
 <body lang="en">
 <div data-role="page" id="page3">
     <div data-theme="d" data-role="header">
-            <a data-rel="back" data-icon="back" data-theme="b">back</a>
-            <h2 >    Welcome ${username}!    </h2>
-            <a id="logout" href="logout" data-ajax="false" data-theme="b" >Logout </a>
+            <div style="textalign: center; height: 25px">
+
+                        <h2 style="text-align:center; padding-left: 2%; font-size: 18px;">
+                            Welcome ${username}!
+                            <a id="logout" href="logout" data-ajax="false" data-role="external" data-theme="b" id="logout"
+                               style="float: right; padding-right: 2%; font-size: 15px;">Logout
+                            </a>
+                        </h2>
+            </div>
     </div>
         <div data-role="navbar" data-iconpos="top">
             <ul>
@@ -32,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a id="upcoming_talks_button" data-theme="" class="ui-btn-active" data-icon="calendar">
+                    <a id="upcoming_talks_button" data-theme=""  data-icon="calendar">
                         Upcoming Talks
                     </a>
                 </li>
