@@ -56,4 +56,5 @@
     <div id="feedback_container">
     </div>
 </div>
+<script type="text/javascript" src="static/js/talk_details.js"></script>
 </#escape>
