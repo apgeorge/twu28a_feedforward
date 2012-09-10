@@ -38,11 +38,11 @@ public class ViewListOfMyTalksTest {
 
         talk.loadTalkDetails(testTitle);
 
-        assertThat(talk.getHeaderDescription(), StringContains.containsString(TEST_USERNAME));
+        assertThat(talk.getHeader(), StringContains.containsString(TEST_USERNAME));
 
         talk.loadTalkDetails(secondTestTitle);
 
-        assertThat(talk.getHeaderDescription(), StringContains.containsString(TEST_USERNAME));
+        assertThat(talk.getHeader(), StringContains.containsString(TEST_USERNAME));
 
     }
 
