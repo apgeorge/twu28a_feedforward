@@ -25,9 +25,9 @@ $('#add_feedback_container').ready(function(){
                 $('#feedback_text').val('');
                 $('#add_feedback_container').html(data).trigger('create');
                 $('html,body').animate({
-                    delay: 800,
-                    scrollTop: $("#start_of_feedback_list").offset().top
-                })
+                   delay: 800,
+                   scrollTop: $("#start_of_feedback_list").offset().top
+               }) ;
             });
     });
 });
