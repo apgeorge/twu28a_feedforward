@@ -35,17 +35,17 @@ public class ViewRecentTalksTest {
     @Test
     public void shouldDisplayPastTalkWithinTwoDays() throws InterruptedException {
         DateTime dateTime= DateTime.now().minusDays(1);
-        String title1  = "title_" + UUID.randomUUID().toString();
+        String title1  = "Title_" + UUID.randomUUID().toString();
         Talk pastTalkWithinTwoDays=new Talk(webDriver);
         pastTalkWithinTwoDays.newTalk(title1,"1 day back","here",dateTime.toString("dd/MM/YYYY"),"11:00 AM");
 
         dateTime=DateTime.now().minusDays(3);
-        String title2  = "title_" + UUID.randomUUID().toString();
+        String title2  = "Title_" + UUID.randomUUID().toString();
         Talk pastTalkNotWithinTwoDays = new Talk(webDriver);
         pastTalkNotWithinTwoDays.newTalk(title2,"3 days back","somewhere",dateTime.toString("dd/MM/YYYY"),"01:00 PM");
 
         dateTime=DateTime.now().plusDays(1);
-        String title3  = "title_" + UUID.randomUUID().toString();
+        String title3  = "Title_" + UUID.randomUUID().toString();
         Talk upcomingTalk=new Talk(webDriver);
         upcomingTalk.newTalk(title3,"1 day later","here",dateTime.toString("dd/MM/YYYY"),"03:00 PM");
 

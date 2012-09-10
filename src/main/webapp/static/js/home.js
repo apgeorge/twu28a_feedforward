@@ -17,7 +17,7 @@ $.ajaxSetup({
 });
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.beforeSend = function () {
-            $.mobile.showPageLoadingMsg();
+            $.mobile.showPageLoadingMsg()
             if ($.isFunction(originalOptions.beforeSend))
                 originalOptions.beforeSend();
         };
@@ -28,10 +28,8 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 originalOptions.complete();
         };
         options.success = function () {
-            feedback_button_fn();
             if ($.isFunction(originalOptions.success))
                 originalOptions.success();
-            feedback_button_fn();
         };
         options.error = function(jqXHR, textStatus){
             popup_ajax_error_box(textStatus);
@@ -67,7 +65,6 @@ $(function () {
             url:"talks.html"
         })
             .done(function (data) {
-                $('#data_container').html(data);
                 $('#data_container').html(data).trigger('create');
             });
     });
@@ -78,12 +75,10 @@ $(function () {
             url:"upcoming_talks.html"
         })
             .done(function (data) {
-                $('#data_container').html(data);
                 $('#data_container').html(data).trigger('create');
             });
     });
     $('#my_talks_button').bind("click", function (event, message) {
-        $.mobile.showPageLoadingMsg();
         $.ajax({
             method:"GET",
             url:"talk_tab.html"
@@ -93,7 +88,6 @@ $(function () {
                 $('#message_box_success').html(message);
                 $('#new_talk').ready(function () {
                     $('#new_talk').click(function () {
-                        $.mobile.showPageLoadingMsg();
                         $.ajax({
                             method:"GET",
                             url:"new_talk.html"

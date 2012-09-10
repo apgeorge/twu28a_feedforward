@@ -36,7 +36,7 @@ public class ViewTalkDetailsFunctionalTest {
         Assert.assertTrue(webDriver.findElement(By.id("new_talk")).isDisplayed());
         webDriver.findElement(By.id("new_talk")).click();
         waitForAjax(webDriver);
-        String testTitle = "title_" + UUID.randomUUID().toString();
+        String testTitle = "Title_" + UUID.randomUUID().toString();
 
         webDriver.findElement(By.id("title")).sendKeys(testTitle);
         webDriver.findElement(By.id("description")).sendKeys("test description");
