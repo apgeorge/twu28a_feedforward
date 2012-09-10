@@ -5,11 +5,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 
 public class Talk {
-    public Talk(Presentation presentation, String venue, DateTime dateTime, DateTime timeOfCreation) {
+    public Talk(Presentation presentation, String venue, DateTime dateTime, DateTime lastModifiedAt) {
         this.presentation = presentation;
         this.dateTime = dateTime;
         this.venue = venue;
-        this.timeOfCreation = timeOfCreation;
+        this.lastModifiedAt = lastModifiedAt;
     }
 
     private DateTime dateTime;
@@ -22,15 +22,15 @@ public class Talk {
     int talkId;
     String venue;
 
-    DateTime timeOfCreation;
+    DateTime lastModifiedAt;
 
     public int getTalkId() {
         return talkId;
     }
 
 
-    public DateTime getTimeOfCreation() {
-        return timeOfCreation;
+    public DateTime getLastModifiedAt() {
+        return lastModifiedAt;
     }
 
     public Presentation getPresentation() {

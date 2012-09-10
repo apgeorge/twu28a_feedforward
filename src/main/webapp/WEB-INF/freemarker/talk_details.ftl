@@ -42,7 +42,7 @@
                     </p>
                     <p>
                         <b id="last_modified_time" style="word-wrap: break-word;">
-                          Last Modified : ${talk.timeOfCreation.toString("dd MMM YYYY hh:mm a")}
+                          Last Modified : ${talk.lastModifiedAt.toString("dd MMM YYYY hh:mm a")}
                         </b>
                     </p>
                 </div>
