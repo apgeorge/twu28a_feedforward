@@ -36,18 +36,18 @@ public class ViewRecentTalksTest {
     public void shouldDisplayPastTalkWithinTwoDays() throws InterruptedException {
         DateTime dateTime= DateTime.now().minusDays(1);
         String title1  = "title_" + UUID.randomUUID().toString();
-        Talk pastTalkWithinTwoDays=new Talk(title1,"1 day back","here",dateTime.toString("dd/MM/YYYY"),"11:00 AM");
-        pastTalkWithinTwoDays.newTalk(webDriver);
+        Talk pastTalkWithinTwoDays=new Talk(webDriver);
+        pastTalkWithinTwoDays.newTalk(title1,"1 day back","here",dateTime.toString("dd/MM/YYYY"),"11:00 AM");
 
         dateTime=DateTime.now().minusDays(3);
         String title2  = "title_" + UUID.randomUUID().toString();
-        Talk pastTalkNotWithinTwoDays = new Talk(title2,"3 days back","somewhere",dateTime.toString("dd/MM/YYYY"),"1:00 PM");
-        pastTalkNotWithinTwoDays.newTalk(webDriver);
+        Talk pastTalkNotWithinTwoDays = new Talk(webDriver);
+        pastTalkNotWithinTwoDays.newTalk(title2,"3 days back","somewhere",dateTime.toString("dd/MM/YYYY"),"01:00 PM");
 
         dateTime=DateTime.now().plusDays(1);
         String title3  = "title_" + UUID.randomUUID().toString();
-        Talk upcomingTalk=new Talk(title3,"1 day later","here",dateTime.toString("dd/MM/YYYY"),"3:00 PM");
-        upcomingTalk.newTalk(webDriver);
+        Talk upcomingTalk=new Talk(webDriver);
+        upcomingTalk.newTalk(title3,"1 day later","here",dateTime.toString("dd/MM/YYYY"),"03:00 PM");
 
         WebElement recentTalksButton= webDriver.findElement(By.id("talks_button"));
         recentTalksButton.click();

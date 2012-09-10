@@ -55,7 +55,7 @@ public class TalkService {
     }
 
     public Boolean isUpcomingTalk(Talk talk) {
-        return (talk.getDateTime().isAfter(new ApplicationClock().now()));
+        return (talk.isUpcoming());
 
     }
 }
