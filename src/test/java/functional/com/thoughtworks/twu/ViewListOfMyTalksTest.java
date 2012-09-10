@@ -30,19 +30,19 @@ public class ViewListOfMyTalksTest {
 
     @Test
     public void shouldDisplayListOfTalksOnlyByLoggedInUser() throws Exception {
+
         String testTitle = "Title_" + UUID.randomUUID().toString();
         talk.newTalk(testTitle,"Seven wise men","Ajanta Ellora","28/09/2012","11:42 AM");
-
         String secondTestTitle = "Title_" + UUID.randomUUID().toString();
         talk.newTalk(secondTestTitle,"second description","second venue","28/09/2012","11:45 AM");
 
         talk.loadTalkDetails(testTitle);
 
-        assertThat(talk.getHeaderDescription(), StringContains.containsString(TEST_USERNAME));
+        talk.assertHeaderMatch(testTitle,TEST_USERNAME);
 
         talk.loadTalkDetails(secondTestTitle);
 
-        assertThat(talk.getHeaderDescription(), StringContains.containsString(TEST_USERNAME));
+        talk.assertHeaderMatch(secondTestTitle,TEST_USERNAME);
 
     }
 
