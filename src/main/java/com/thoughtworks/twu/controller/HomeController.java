@@ -24,7 +24,7 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("home");
         String username = httpServletRequest.getUserPrincipal().getName();
 
-        modelAndView.addObject("username", username);
+        modelAndView.addObject("username", username.toLowerCase());
         return modelAndView;
 
     }

@@ -10,6 +10,8 @@ function textCounter( field, countfield, maxlimit ) {
     }
 }
 $('#add_feedback_container').ready(function(){
+
+    $('#feedback_text').focus();
     $('#add_feedback_submit').click(function(){
         if(validateFeedback()==false){
             return false;
