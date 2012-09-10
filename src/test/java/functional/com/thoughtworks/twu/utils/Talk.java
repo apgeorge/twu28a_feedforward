@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 
 import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class Talk {
@@ -49,7 +50,7 @@ public class Talk {
 
         webDriver.findElement(By.linkText(testTitle)).click();
 
-        waitForElement(webDriver,"talk_details");
+        waitForElement(webDriver, "talk_details");
     }
 
     public String getHeader() {
@@ -85,6 +86,10 @@ public class Talk {
         return webDriver.findElement(By.xpath("//*[@id='email']")).getText();
     }
 
+    public String getLastModifiedTime() {
+        return webDriver.findElement(By.xpath("//*[@id='last_modified_time']")).getText();
+    }
+
     public void assertDetailsMatch(String description, String venue, String date, String time, String email) {
         waitForElement(webDriver,"talk_details");
         assertThat(getDescription(), StringContains.containsString(description));
@@ -92,10 +97,11 @@ public class Talk {
         assertThat(getDate(), StringContains.containsString(date));
         assertThat(getTime(), StringContains.containsString(time));
         assertThat(getContact(), StringContains.containsString(email));
+        assertFalse(getLastModifiedTime().isEmpty());
     }
 
     public void assertHeaderMatch(String testTitle, String owner) {
-        waitForElement(webDriver,"talk_details");
+        waitForElement(webDriver, "talk_details");
         assertThat(getHeader(), StringContains.containsString(testTitle));
         assertThat(getHeader(), StringContains.containsString(owner));
     }

@@ -10,9 +10,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 public class ViewTalkDetailsFunctionalTest {
     public static final int HTTP_PORT = 9191;
     public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
