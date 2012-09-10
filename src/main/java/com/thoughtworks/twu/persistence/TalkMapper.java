@@ -13,11 +13,12 @@ public interface TalkMapper {
     int insert(Talk talk);
 
 
-    @Select("SELECT talk_id, presentation_id, venue, time_of_talk FROM talk WHERE talk_id =  #{talkId}")
+    @Select("SELECT talk_id, presentation_id, venue, time_of_talk, time_of_creation FROM talk WHERE talk_id =  #{talkId}")
     @Results(value = {
             @Result(property="talkId", column="talk_id"),
             @Result(property="venue", column="venue"),
             @Result(property="dateTime", column="time_of_talk"),
+            @Result(property="timeOfCreation", column = "time_of_creation"),
             @Result(property="presentation", column="presentation_id", javaType=Presentation.class, one=@One(select="selectPresentation"))
     })
     Talk getTalk(int talkId);
@@ -58,6 +59,4 @@ public interface TalkMapper {
     @Delete("DELETE FROM talk WHERE talk_id=#{talkId}")
     int deleteById(int talkId);
 
-    @Select("SELECT time_of_creation FROM talk WHERE talk_id=#{talkId}")
-    DateTime getCreationTimeById(int talkId);
 }

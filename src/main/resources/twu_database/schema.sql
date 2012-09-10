@@ -19,7 +19,7 @@ create table if not exists talk(
     presentation_id int,
     venue varchar(50),
     time_of_talk TIMESTAMP,
-    time_of_creation TIMESTAMP
+    time_of_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 create table if not exists feedback(

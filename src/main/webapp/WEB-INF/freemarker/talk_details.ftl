@@ -36,6 +36,11 @@
                             Contact me: <a href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a>
                         </b>
                     </p>
+                    <p>
+                        <b id="last_modified_time" style="word-wrap: break-word;">
+                          Last Modified : ${talk.timeOfCreation.toString("dd MMM YYYY hh:mm a")}
+                        </b>
+                    </p>
                 </div>
             <#else>
             <h3>

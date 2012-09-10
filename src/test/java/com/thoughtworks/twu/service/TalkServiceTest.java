@@ -112,18 +112,6 @@ public class TalkServiceTest {
         assertThat(expected.contains(originalTalk), is(true));
     }
 
-    @Test
-    public void shouldCheckForTheCorrectCreationTime(){
-        talkService.createTalkWithNewPresentation(presentation,"venue",DATE,TIME);
-        int talkId=0;
-        DateTime now = testClock.now();
-        Talk originalTalk = new Talk(presentation, "venue", new DateParser(DATE, TIME).convertToDateTime(), now);
-        when(mockTalkMapper.getCreationTimeById(talkId)).thenReturn(now);
-        assertThat(talkService.getCreationTime(originalTalk), is(now));
-        verify(mockTalkMapper).getCreationTimeById(talkId);
-
-
-    }
 }
 
 

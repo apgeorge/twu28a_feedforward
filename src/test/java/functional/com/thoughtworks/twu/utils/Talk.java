@@ -1,12 +1,12 @@
 package functional.com.thoughtworks.twu.utils;
 
-import functional.com.thoughtworks.twu.ViewTalkDetailsFunctionalTest;
 import org.junit.internal.matchers.StringContains;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class Talk {
@@ -75,12 +75,17 @@ public class Talk {
         return webDriver.findElement(By.xpath("//*[@id='email']")).getText();
     }
 
+    public String getLastModifiedTime() {
+        return webDriver.findElement(By.xpath("//*[@id='last_modified_time']")).getText();
+    }
+
     public void assertDetailsMatch(String description, String venue, String date, String time, String email) {
         assertThat(getDescription(), StringContains.containsString(description));
         assertThat(getVenue(), StringContains.containsString(venue));
         assertThat(getDate(), StringContains.containsString(date));
         assertThat(getTime(), StringContains.containsString(time));
         assertThat(getContact(), StringContains.containsString(email));
+        assertFalse(getLastModifiedTime().isEmpty());
     }
 
     public void assertHeaderMatch(String testTitle, String owner) {

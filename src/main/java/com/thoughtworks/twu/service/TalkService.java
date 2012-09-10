@@ -30,7 +30,6 @@ public class TalkService {
     public int createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
         presentationMapper.insertPresentation(presentation);
         presentation = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
-
         return talkMapper.insert(new Talk(presentation, venue, new DateParser(date,time).convertToDateTime(), clock.now()));
     }
 
@@ -61,7 +60,4 @@ public class TalkService {
 
     }
 
-    public DateTime getCreationTime(Talk talk) {
-        return talkMapper.getCreationTimeById(talk.getTalkId());
-    }
 }

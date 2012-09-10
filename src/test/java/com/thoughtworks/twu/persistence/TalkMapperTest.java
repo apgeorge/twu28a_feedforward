@@ -186,15 +186,4 @@ public class TalkMapperTest extends IntegrationTest {
         assertThat(talkMapper.deleteById(talkId), is(0));
     }
 
-    @Test
-    public void shouldGetCreationTime() {
-        presentationMapper.insertPresentation(presentation);
-        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
-        Talk talk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now(), testClock.now());
-        talkMapper.insert(talk);
-        int talkId = talkMapper.getLastId();
-        DateTime expected = testClock.now().toDateTime(DateTimeZone.UTC);
-
-        assertThat(talkMapper.getCreationTimeById(talkId), is(expected));
-    }
 }
