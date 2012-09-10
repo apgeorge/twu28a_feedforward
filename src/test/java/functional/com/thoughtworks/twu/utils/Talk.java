@@ -76,6 +76,7 @@ public class Talk {
     }
 
     public void assertDetailsMatch(String description, String venue, String date, String time, String email) {
+        waitForElement(webDriver,"talk_details");
         assertThat(getDescription(), StringContains.containsString(description));
         assertThat(getVenue(), StringContains.containsString(venue));
         assertThat(getDate(), StringContains.containsString(date));
@@ -84,6 +85,7 @@ public class Talk {
     }
 
     public void assertHeaderMatch(String testTitle, String owner) {
+        waitForElement(webDriver,"talk_details");
         assertThat(getHeader(), StringContains.containsString(testTitle));
         assertThat(getHeader(), StringContains.containsString(owner));
     }
