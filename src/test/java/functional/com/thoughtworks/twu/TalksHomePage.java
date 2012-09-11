@@ -1,29 +1,20 @@
 package functional.com.thoughtworks.twu;
 
-import functional.com.thoughtworks.twu.utils.Cas;
+import functional.com.thoughtworks.twu.utils.BaseFunctionalTest;
 import functional.com.thoughtworks.twu.utils.Talk;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.UUID;
 
-public class TalksHomePage {
-    public static final int HTTP_PORT = 9191;
-    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
-    private WebDriver webDriver;
+public class TalksHomePage extends BaseFunctionalTest {
     Talk talk;
     String testTitle;
 
-    @Before
+    @BeforeMethod
     public void setUp() {
-        webDriver = new FirefoxDriver();
         talk = new Talk(webDriver);
         testTitle = UUID.randomUUID().toString();
-        webDriver.get(HTTP_BASE_URL);
-        Cas.login(webDriver);
     }
 
     @Test
@@ -62,10 +53,5 @@ public class TalksHomePage {
         talk.assertCreationFailForElement("timepicker");
     }
 
-    @After
-    public void tearDown() {
-        Cas.logout(webDriver);
-        webDriver.close();
-    }
 
 }
