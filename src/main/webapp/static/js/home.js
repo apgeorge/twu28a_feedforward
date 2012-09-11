@@ -61,7 +61,7 @@ $(function(){
 
         var hash=location.hash;
         hash=(hash.replace(/^#/,''));
-        var temp = "id_"+hash.substring(3);
+        var talk_details_page_hash = "id_"+hash.substring(3);
 
         switch(hash)
         {
@@ -111,7 +111,7 @@ $(function(){
                                         });
                                  break;
 
-            case temp:
+            case talk_details_page_hash:
                                  reset_all_talk_tabs();
                                  var current_talk_id=hash.substring(3);
                                  ajax_call({url:"talk_details.html?talk_id=" + current_talk_id},
@@ -124,6 +124,14 @@ $(function(){
                                                    });
                                              }
                                    });
+                                 break;
+            default:
+                                 reset_all_talk_tabs();
+                                 $('#talks_button').addClass('ui-btn-active ui-state-persist');
+                                 ajax_call({url:"talks.html"},
+                                 function (data) {
+                                     $('#data_container').html(data).trigger('create');
+                                 });
                                  break;
         }
     })
@@ -138,7 +146,7 @@ $(function () {
     $('#talks_button').click(function () {
         window.location.hash='recent_talks';
     });
-    $('#talks_button').click();
+
 
     $('#upcoming_talks_button').click(function () {
     window.location.hash='upcoming_talks';
