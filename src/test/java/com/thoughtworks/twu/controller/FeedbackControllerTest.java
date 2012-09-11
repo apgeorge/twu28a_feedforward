@@ -3,9 +3,8 @@ package com.thoughtworks.twu.controller;
 import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.service.FeedbackService;
+import com.thoughtworks.twu.utils.FeedbackList;
 import org.hamcrest.CoreMatchers;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -66,16 +65,9 @@ public class FeedbackControllerTest {
     @Test
     public void shouldShowListOfPreviousFeedbackByTalkIdOrderedByMostRecent() throws Exception {
         //Given
-        int talkId = 1;
-        Feedback feedback = new Feedback(talkId, "comment1", "Vegeta", "vegeta@dragon.ball", new DateTime(2008, DateTimeZone.UTC));
-        Feedback feedback2 = new Feedback(talkId, "comment2", "Vegeta", "vegeta@dragon.ball", new DateTime(2009, DateTimeZone.UTC));
-        Feedback feedback3 = new Feedback(talkId, "comment3", "Vegeta", "vegeta@dragon.ball", new DateTime(2010, DateTimeZone.UTC));
-        Feedback feedback4 = new Feedback(talkId, "comment4", "Vegeta", "vegeta@dragon.ball", new DateTime(2011, DateTimeZone.UTC));
-        ArrayList<Feedback> feedbackArrayList = new ArrayList<Feedback>();
-        feedbackArrayList.add(feedback);
-        feedbackArrayList.add(feedback2);
-        feedbackArrayList.add(feedback3);
-        feedbackArrayList.add(feedback4);
+        int talkId = 9;
+        FeedbackList feedbackList = new FeedbackList();
+        ArrayList<Feedback> feedbackArrayList = feedbackList.feedbackListInitial();
         when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
         //When
         ModelAndView result = feedbackController.getListOfPastFeedback(talkId);
