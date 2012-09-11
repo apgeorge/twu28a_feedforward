@@ -48,6 +48,20 @@ public class FeedbackControllerTest {
         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
     }
+    @Test
+    public void shouldConvertUpCaseOwnerNameToLowerCase() {
+        UserPrincipal upCaseUserPrincipal = new UserPrincipal("TEST.TWU");
+        request.setUserPrincipal(upCaseUserPrincipal);
+        int talkId = 9;
+        ArrayList<Feedback> feedbackArrayList = new ArrayList<Feedback>();
+        when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
+
+        ModelAndView result = feedbackController.enterFeedback(request, talkId, "Feedback comment");
+
+        verify(feedbackService).enterFeedback(talkId, "Feedback comment", "test.twu", "test.twu@thoughtworks.com");
+        verify(feedbackService).retrieveFeedbackByTalkId(talkId);
+        assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
+    }
 
     @Test
     public void shouldShowListOfPreviousFeedbackByTalkIdOrderedByMostRecent() throws Exception {
@@ -71,6 +85,9 @@ public class FeedbackControllerTest {
         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
 
     }
+
+
+
 
 
 }

@@ -9,11 +9,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ExportServiceTest {
     private FeedbackService mockFeedbackService;
@@ -37,8 +33,8 @@ public class ExportServiceTest {
         when(mockTalkService.getTalk(42)).thenReturn(talk);
 
         ArrayList<Feedback> feedbackList = new ArrayList<Feedback>() {{
-           add(new Feedback(42, "hi how are you\ndone", "testUser", "testUser@example.com", date));
-           add(new Feedback(42, "not so bad!\nactually great!", "anotherUser", "anotherUser@example.com", date));
+           add(new Feedback(42, "hi how are you\ndone", "testuser", "testuser@example.com", date));
+           add(new Feedback(42, "not so bad!\nactually great!", "anotheruser", "anotheruser@example.com", date));
         }};
         when(mockFeedbackService.retrieveFeedbackByTalkId(42)).thenReturn(feedbackList);
 

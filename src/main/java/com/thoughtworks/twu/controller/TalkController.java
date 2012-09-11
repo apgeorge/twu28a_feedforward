@@ -89,7 +89,7 @@ public class TalkController {
     @RequestMapping(value = "/my_talks.htm*", method = RequestMethod.GET)
     public ModelAndView getMyTalksPage(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("my_talks");
-        String user = request.getUserPrincipal().getName();
+        String user = request.getUserPrincipal().getName().toLowerCase();
 
 
         modelAndView.addObject("myTalksList", talkService.getMyTalks(user));

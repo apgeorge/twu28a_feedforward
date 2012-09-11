@@ -186,4 +186,19 @@ public class TalkControllerTest {
         verify(talkService).editTalk(talkId, title, description, "venue", "date", "time");
     }
 
+    @Test
+    public void shouldCreateNewTalkWithLowercaseOwnerName() throws Exception {
+        String title = "title";
+        String description = "description";
+        when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
+        UserPrincipal uppercaseUserPrincipal = new UserPrincipal("TEST.TWU");
+        MockHttpServletRequest uppercaseRequest = new MockHttpServletRequest();
+        uppercaseRequest.setUserPrincipal(uppercaseUserPrincipal);
+
+        talkController.newTalksFormSubmit(uppercaseRequest, title, description, "venue", "date", "time");
+
+        verify(talkService).validate(title, "venue", "date", "time");
+        verify(talkService).createTalkWithNewPresentation(new Presentation(title, description, "test.twu"), "venue", "date", "time");
+    }
+
 }
