@@ -1,13 +1,13 @@
 package functional.com.thoughtworks.twu.utils;
 
-import functional.com.thoughtworks.twu.TalksHomePage;
-import functional.com.thoughtworks.twu.ViewTalkDetailsFunctionalTest;
-import org.hamcrest.CoreMatchers;
 import org.junit.internal.matchers.StringContains;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
 import static org.hamcrest.CoreMatchers.is;
@@ -18,7 +18,6 @@ public class Talk {
     private WebDriver webDriver;
     private static final String SUCCESS_MESSAGE = "New Talk Successfully Created";
     private static final String ERROR_CSS_VALUE = "rgb(255, 0, 0) 0px 0px 12px 0px";
-
     public Talk(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -58,6 +57,7 @@ public class Talk {
     }
 
     public void clickTitle(String title) {
+        new WebDriverWait(webDriver, 5);
         webDriver.findElement(By.linkText(title)).click();
     }
 
@@ -108,5 +108,12 @@ public class Talk {
 
     public void assertCreationFailForElement(String elementId) {
         assertThat(webDriver.findElement(By.id(elementId)).getCssValue("box-shadow"), is(ERROR_CSS_VALUE));
+    }
+
+    public void enterFeedbackToTalk(String feedbackComment) {
+        WebElement feedbackTextBox = waitForElement(webDriver, "feedback_text");
+        feedbackTextBox.sendKeys("");
+        WebElement feedbackSubmitButton = waitForElement(webDriver, "add_feedback_submit");
+        feedbackSubmitButton.click();
     }
 }
