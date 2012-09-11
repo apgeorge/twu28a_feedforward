@@ -10,25 +10,19 @@ function textCounter( field, countfield, maxlimit ) {
     }
 }
 $('#add_feedback_container').ready(function(){
-
-    $('#feedback_text').focus();
     $('#add_feedback_submit').click(function(){
         if(validateFeedback()==false){
             return false;
         }
-        $.ajax({
-            type: "POST",
-            url: "add_feedback.html",
-            data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}
-        })
-            .done(function(data){
-                $('#feedback_text').val('');
-                $('#add_feedback_container').html(data).trigger('create');
-                $('html,body').animate({
-                   delay: 800,
-                   scrollTop: $("#start_of_feedback_list").offset().top
-               }) ;
-            });
+        ajax_call({type: "POST", url: "add_feedback.html", data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}},
+                  function(data){
+                    $('#feedback_text').val('');
+                    $('#add_feedback_container').html(data).trigger('create');
+                    $('html,body').animate({
+                       delay: 800,
+                       scrollTop: $("#start_of_feedback_list").offset().top
+                    }) ;
+                  });
     });
 });
 function validateFeedback(){
