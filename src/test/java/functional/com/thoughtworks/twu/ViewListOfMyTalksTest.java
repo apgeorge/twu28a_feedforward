@@ -1,28 +1,19 @@
 package functional.com.thoughtworks.twu;
 
-import functional.com.thoughtworks.twu.utils.Cas;
+import functional.com.thoughtworks.twu.utils.BaseFunctionalTest;
 import functional.com.thoughtworks.twu.utils.Talk;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.UUID;
 
-public class ViewListOfMyTalksTest {
-    public static final int HTTP_PORT = 9191;
-    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
+public class ViewListOfMyTalksTest extends BaseFunctionalTest {
     public static final String TEST_USERNAME = "test.twu";
-    WebDriver webDriver;
     Talk talk;
 
-    @Before
+    @BeforeMethod
     public void setUp() {
-        webDriver = new FirefoxDriver();
         talk=new Talk(webDriver);
-        webDriver.get(HTTP_BASE_URL);
-        Cas.login(webDriver);
     }
 
     @Test
@@ -46,9 +37,4 @@ public class ViewListOfMyTalksTest {
 
     }
 
-    @After
-    public void tearDown() {
-        Cas.logout(webDriver);
-        webDriver.close();
-    }
 }
