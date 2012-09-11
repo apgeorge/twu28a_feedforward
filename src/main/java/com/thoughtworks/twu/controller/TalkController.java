@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -68,7 +69,7 @@ public class TalkController {
         try {
 
             resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             return addFailureMessageToModelAndView(modelAndView);
         }
         if (resultOfInsertion == 0)
