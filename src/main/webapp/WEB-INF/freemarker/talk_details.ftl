@@ -9,7 +9,7 @@
     <div id="talk_details" data-role="collapsible-set" data-theme="" data-content-theme="">
         <div data-role="collapsible" data-collapsed="<#if isUpcoming =="isAnUpcomingTalk">false<#else> true</#if>">
             <#if talk??>
-                <h4 style="word-wrap: break-word;"><span style="font-size: 18px;">${talk.presentation.title}</span> &nbsp; <i style="font-weight: bold;color: grey;">- by <span style="font-size: 18px;" >${talk.presentation.owner}</span></i></h4>
+                <h4 style="word-wrap: break-word;"><span style="font-size: 18px;">${talk.presentation.title}</span> &nbsp; <i style="font-weight: bold;color: grey;"><span style="font-size: 16px;">- by ${talk.presentation.owner}</span></i></h4>
                 <div>
                     <div style="float: right;">
                            <a  href="https://twitter.com/share?text=Hey ThoughtWorkers," class="twitter-share-button" data-lang="en">Tweet</a>
@@ -31,7 +31,7 @@
                         <b id="date">
                             <span style="font-size: 18px;font-weight: bold;color: grey;" >
                                 Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; &nbsp;
-                            </span> ${talk.dateTime.toString("dd/MM/YYYY")}
+                            </span> ${talk.dateTime.toString("dd MMMM YYYY")}
                         </b>
                     </p>
                     <p>
@@ -48,7 +48,7 @@
                     </p>
                     <p>
                         <b id="last_modified_time" style="word-wrap: break-word;">
-                          <span style="font-size: 18px;font-weight: bold;color: grey;" > Last Modified : &nbsp;</span>${talk.lastModifiedAt.toString("dd MMM YYYY hh:mm a")}
+                          <span style="font-size: 18px;font-weight: bold;color: grey;" > Last Modified : &nbsp;</span>${talk.lastModifiedAt.toString("dd/MM/YYYY hh:mm a")}
                         </b>
                     </p>
                 </div>

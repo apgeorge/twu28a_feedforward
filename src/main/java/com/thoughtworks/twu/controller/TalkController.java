@@ -41,6 +41,7 @@ public class TalkController {
         ModelAndView modelAndView = new ModelAndView("talks");
         List<Talk> recentTalks = talkService.getRecentTalks();
         modelAndView.addObject("talksList", recentTalks);
+        modelAndView.addObject("titleList", "Recent talks");
         return modelAndView;
     }
 
@@ -50,6 +51,7 @@ public class TalkController {
 
         ModelAndView modelAndView = new ModelAndView("talks");
         modelAndView.addObject("talksList", upcomingTalks);
+        modelAndView.addObject("titleList", "Upcoming talks");
         return modelAndView;
     }
 
