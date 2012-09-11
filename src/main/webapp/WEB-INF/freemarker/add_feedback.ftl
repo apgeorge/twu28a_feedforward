@@ -49,15 +49,13 @@
             <#if retrieved_feedback_list?has_content>
                 <#list retrieved_feedback_list as feedback>
                     <span style="display:none;"> --------------------------------------</span>
-                    <li id="feedback_messages" class="ui-li ui-li-static ui-body-c feedback-item">
+                <li id="feedback_messages" class="ui-li ui-li-static ui-body-c feedback-item">
                     <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%; font-size: 15px; font-style: normal; font-weight: 500;">
-                            <@nl2br>${feedback.feedbackComment}</@nl2br>
+                        <@nl2br>${feedback.feedbackComment}</@nl2br>
+                        &nbsp; &nbsp; &nbsp; <a
+                            href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a> on ${feedback.timeAtCreation.toString("dd MMMM YYYY,  hh:mm a")}
                     </h4>
 
-                        <p style="font-size: 15px">&nbsp; &nbsp; &nbsp; <a
-                                href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a>
-                            on ${feedback.timeAtCreation.toString("dd MMMM YYYY,  hh:mm a")}
-                        </p>
                 </#list>
             <#else>
                 <div style="font-size: 25px; color: gray; text-shadow: 1px 1px 0px #BAD3ED;font-weight: bold;text-align: center;">
