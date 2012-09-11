@@ -27,7 +27,7 @@ public class ViewTalkDetailsFunctionalTest extends BaseFunctionalTest {
 
         talk.expandDetails();
 
-        talk.assertDetailsMatch("test description", "test venue", "06/09/2012", "10:00 AM", "test.twu@thoughtworks.com");
+        talk.assertDetailsMatch("test description", "test venue", "06 September 2012", "10:00 AM", "test.twu@thoughtworks.com");
     }
 
 }
