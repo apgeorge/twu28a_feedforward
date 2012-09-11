@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="static/css/jquery.mobile-1.1.1.min.css"/>
     <link rel="stylesheet" href="static/css/jqm-datebox.min.css"/>
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.history.js"></script>
     <script type="text/javascript" src="static/js/jquery.mobile-1.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/mobiscroll-2.0.2.full.min.js"></script>
     <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"/>
     <script type="text/javascript" src="static/js/home.js"></script>
-    <script type="text/javascript" src="static/js/404.js"></script>
-
     <style>
         .dw {font-size: 15px;}
         .compulsory {color: red;font-weight: bold;}
@@ -32,20 +31,20 @@
                 </a>
             </h2>
         </div>
-        <div data-role="navbar" data-iconpos="top">
+        <div data-role="navbar"   data-iconpos="top">
             <ul>
                 <li>
-                    <a id="talks_button" data-theme="" data-icon="" class="ui-btn-active ui-state-persist">
-                        Recent Talks
+                    <a id="talks_button"  data-theme="" data-icon="" class="ui-btn-active ui-state-persist">
+                       Recent Talks
                     </a>
                 </li>
                 <li>
-                    <a id="upcoming_talks_button" data-theme="" class="ui-btn-active" data-icon="">
+                    <a id="upcoming_talks_button"  data-theme="" data-icon="">
                         Upcoming Talks
                     </a>
                 </li>
                 <li>
-                    <a id="my_talks_button" data-theme="" data-icon="">
+                    <a id="my_talks_button" data-theme="" data-icon="" >
                         My Talks
                     </a>
                 </li>

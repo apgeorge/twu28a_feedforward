@@ -60,57 +60,105 @@ var feedback_button_fn = function () {
             });
     });
 };
+
+
+
 $(function () {
-    $('#talks_button').click(function () {
-        $.ajax({
-            method:"GET",
-            url:"talks.html"
-        })
-            .done(function (data) {
-                $('#data_container').html(data);
-                $('#data_container').html(data).trigger('create');
-            });
-    });
-    $('#talks_button').click();
-    $('#upcoming_talks_button').click(function () {
-        $.ajax({
-            method:"GET",
-            url:"upcoming_talks.html"
-        })
-            .done(function (data) {
-                $('#data_container').html(data);
-                $('#data_container').html(data).trigger('create');
-            });
-    });
-    $('#my_talks_button').bind("click", function (event, message) {
-        $.mobile.showPageLoadingMsg();
-        $.ajax({
-            method:"GET",
-            url:"talk_tab.html"
-        })
-            .done(function (data) {
-                $('#data_container').html(data).trigger('create');
-                $('#message_box_success').html(message);
-                $('#new_talk').ready(function () {
-                    $('#new_talk').click(function () {
-                        $.mobile.showPageLoadingMsg();
-                        $.ajax({
-                            method:"GET",
-                            url:"new_talk.html"
-                        })
-                            .done(function (data) {
-                                $('#data_container').html(data).trigger('create');
-                            });
-                    });
+    function callback(hash)
+    {
+        if(hash=="" || hash=="talks_button")
+        {
+            $('#upcoming_talks_button').removeClass("ui-btn-active ui-state-persist");
+            $('#talks_button').addClass("ui-btn-active ui-state-persist");
+            $('#my_talks_button').removeClass("ui-btn-active ui-state-persist");
+            $('#talks_button').load();
+        }
+        if(hash=="upcoming_talks_button"){
+            $('#upcoming_talks_button').addClass("ui-btn-active ui-state-persist");
+            $('#talks_button').removeClass("ui-btn-active ui-state-persist");
+            $('#my_talks_button').removeClass("ui-btn-active ui-state-persist");
+            $('#upcoming_talks_button').load();
+
+        }
+        if(hash=="my_talks_button"){
+            $('#upcoming_talks_button').removeClass("ui-btn-active ui-state-persist");
+            $('#talks_button').removeClass("ui-btn-active ui-state-persist");
+            $('#my_talks_button').addClass("ui-btn-active ui-state-persist");
+            $('#my_talks_button').load();
+        }
+
+
+        $('#talks_button').load(function () {
+            $.ajax({
+                method:"GET",
+                url:"talks.html"
+            })
+                .done(function (data) {
+                    $('#data_container').html(data);
+                    $('#data_container').html(data).trigger('create');
                 });
-                $.ajax({
-                    method:"GET",
-                    url:"my_talks.html"
-                })
-                    .done(function (data) {
-                        $('#talk_container').html(data);
-                        $('#data_container').trigger('create');
+        });
+
+
+        $('#upcoming_talks_button').load(function () {
+            $.ajax({
+                method:"GET",
+                url:"upcoming_talks.html"
+            })
+                .done(function (data) {
+
+                    $('#data_container').html(data);
+                    $('#data_container').html(data).trigger('create');
+                });
+        });
+
+
+
+        $('#my_talks_button').bind("load", function (event, message) {
+            $.mobile.showPageLoadingMsg();
+            $.ajax({
+                method:"GET",
+                url:"talk_tab.html"
+            })
+                .done(function (data) {
+                    $('#data_container').html(data).trigger('create');
+                    $('#message_box_success').html(message);
+                    $('#new_talk').ready(function () {
+                        $('#new_talk').click(function () {
+                            $.mobile.showPageLoadingMsg();
+                            $.ajax({
+                                method:"GET",
+                                url:"new_talk.html"
+                            })
+                                .done(function (data) {
+                                    $('#data_container').html(data).trigger('create');
+                                });
+                        });
                     });
-            });
+                    $.ajax({
+                        method:"GET",
+                        url:"my_talks.html"
+                    })
+                        .done(function (data) {
+                            $('#talk_container').html(data);
+                            $('#data_container').trigger('create');
+                        });
+                });
+
+        });
+
+    }
+    $(document).ready(function() {
+        $.history.init(callback);
+        $('#talks_button').load();
+        $("a").click(function(){
+            var url = $(this).attr('id');
+            url = url.replace(/^.*#/, '');
+            $.history.load(url);
+            return false;
+        });
     });
+
 });
+
+
