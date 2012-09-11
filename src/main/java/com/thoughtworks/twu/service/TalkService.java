@@ -60,4 +60,8 @@ public class TalkService {
 
     }
 
+
+    public int editTalk(int talkId, String description, String venue, String date, String time) {
+        return 0;
+    }
 }
