@@ -6,7 +6,6 @@ import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
 import com.thoughtworks.twu.utils.ApplicationClock;
 import com.thoughtworks.twu.utils.DateParser;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +60,7 @@ public class TalkService {
     }
 
 
-    public int editTalk(int talkId, String description, String venue, String date, String time) {
+    public int editTalk(int talkId, String title, String description, String venue, String date, String time) {
         return 0;
     }
 }

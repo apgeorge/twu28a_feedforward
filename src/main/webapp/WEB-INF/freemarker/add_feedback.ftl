@@ -40,12 +40,12 @@
 
     <!-- $('#list_of_feedbacks').text().replace(/[ ]/gi,'').replace(/\n\n\n/gi,'\n') -->
 
-    <div id="start_of_feedback_list" data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r"
-         data-expanded-icon="arrow-d">
-        <h2>
-            Feedback
-        </h2>
-        <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list">
+    <div id="start_of_feedback_list" data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+        <h3>
+            Past Feedback
+        </h3>
+        <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list" >
+            <#if retrieved_feedback_list?has_content>
             <#list retrieved_feedback_list as feedback>
                 <span style="display:none;"> --------------------------------------</span>
                 <li id="feedback_messages" class="ui-li ui-li-static ui-body-c feedback-item"
@@ -56,13 +56,24 @@
                     </p>
                 </h4>
 
+            <li>
                 <p style="font-size: 15px">&nbsp; &nbsp; &nbsp; <a
                         href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a>
                 on ${feedback.timeAtCreation.toString("dd MMMM YYYY,  hh:mm a")}
                 </p>
                 </li>
-            </#list>
-        </ul>
+             </#list>
+             <#else>
+                 <div style="font-size: 25px; color: gray; text-shadow: 1px 1px 0px #BAD3ED;font-weight: bold;text-align: center;">
+                             <img src="static/images/sad_cat.png">
+                             <br>
+                             No feedback received yet.
+                 </div>
+
+            </#if>
+
+
+         </ul>
     </div>
     <div id="result">
         <#if result_message??>

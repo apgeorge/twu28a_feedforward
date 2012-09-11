@@ -1,9 +1,10 @@
 package functional.com.thoughtworks.twu;
 
+import functional.com.thoughtworks.twu.utils.BaseFunctionalTest;
 import functional.com.thoughtworks.twu.utils.Cas;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,14 +15,13 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class LoginFunctionalTest {
-    public static final int HTTP_PORT = 9191;
-    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/";
+    public static final String HTTP_BASE_URL = "http://localhost:" + BaseFunctionalTest.HTTP_PORT + "/twu/";
     private WebDriver webDriver;
     private String passwordErrorMessage;
     private String usernameErrorMessage;
 
 
-    @Before
+    @BeforeMethod
     public void setUp() {
         webDriver = new FirefoxDriver();
         webDriver.get(HTTP_BASE_URL);
@@ -53,7 +53,7 @@ public class LoginFunctionalTest {
         assertThat(text.getText(), is(passwordErrorMessage));
     }
 
-    @After
+    @AfterMethod
     public void tearDown() {
         webDriver.close();
     }

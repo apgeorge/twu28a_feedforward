@@ -176,10 +176,14 @@ public class TalkControllerTest {
     public void shouldUpdateTalkWithEnteredDetails() throws Exception {
         int talkId = 0;
         String description = "description not needed";
-        when(talkService.validate(description, "venue", "date", "time")).thenReturn(true);
-        talkController.editTalksFormSubmit(talkId, description, "venue", "date", "time");
-        verify(talkService).validate(description, "venue", "date", "time");
-        verify(talkService).editTalk(talkId, description, "venue", "date", "time");
+
+        String title = "edited title";
+        when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
+        when(talkService.editTalk(talkId, title, description, "venue", "date", "time")).thenReturn(1);
+
+        talkController.editTalksFormSubmit(talkId, title, description, "venue", "date", "time");
+        verify(talkService).validate(title, "venue", "date", "time");
+        verify(talkService).editTalk(talkId, title, description, "venue", "date", "time");
     }
 
 }

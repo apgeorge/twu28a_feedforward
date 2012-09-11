@@ -70,7 +70,7 @@ public class TalkController {
         try {
 
             resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return addFailureMessageToModelAndView(modelAndView);
         }
         if (resultOfInsertion == 0)
@@ -109,7 +109,7 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/edit_talk.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalkDetailsForEditing(int talkId) {
+    public ModelAndView getTalkDetailsForEditing(@RequestParam(value = "talk_id", defaultValue = "-1")  int talkId) {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("edit_talk");
         modelAndView.addObject("talk", talk);
@@ -117,7 +117,8 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/edit_talk_submit.htm*", method = RequestMethod.GET)
-    public ModelAndView editTalksFormSubmit(@RequestParam(value = "talkId", defaultValue = "") int talkId,
+    public ModelAndView editTalksFormSubmit(@RequestParam(value = "talkId", defaultValue = "-1") int talkId,
+                                            @RequestParam(value = "title", defaultValue = "") String title,
                                             @RequestParam(value = "description", defaultValue = "") String description,
                                             @RequestParam(value = "venue", defaultValue = "") String venue,
                                             @RequestParam(value = "date", defaultValue = "") String date,
@@ -125,12 +126,12 @@ public class TalkController {
 
         ModelAndView modelAndView = new ModelAndView("message");
         int resultOfUpdate;
-        if (!talkService.validate("description not needed", venue, date, time)) {
+        if (!talkService.validate(title, venue, date, time)) {
             return addFailureMessageToModelAndView(modelAndView);
         }
         try {
 
-            resultOfUpdate = talkService.editTalk(talkId, description, venue, date, time);
+            resultOfUpdate = talkService.editTalk(talkId, title, description, venue, date, time);
         } catch (Exception e) {
             return addFailureMessageToModelAndView(modelAndView);
         }

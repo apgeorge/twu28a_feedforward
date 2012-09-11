@@ -98,6 +98,9 @@ test {
 
 task functionalTest(type: Test, dependsOn: [test, generateTemplateFilesCI]) {
     include '**/functional/com/thoughtworks/**'
+    useTestNG()
+    options.suites("src/test/java/functional/com/thoughtworks/twu/resources/testng.xml")
+
 }
 
 functionalTest.doFirst {

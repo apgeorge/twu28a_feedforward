@@ -32,36 +32,31 @@ public class FeedbackControllerTest {
     }
 
     @Test
-    public void shouldLoadAddFeedbackWhenClickedATalk()
-    {
+    public void shouldLoadAddFeedbackWhenClickedATalk() {
         assertThat(feedbackController.enterFeedback(request, 0, "").getViewName(), is("add_feedback"));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void shouldEnterAFeedback() {
-        // Given
         int talkId = 9;
-        ArrayList<Feedback> feedbackArrayList=new ArrayList<Feedback>();
+        ArrayList<Feedback> feedbackArrayList = new ArrayList<Feedback>();
         when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
-        // When
-        ModelAndView result = feedbackController.enterFeedback(request, talkId,"Feedback comment");
-        // Then
 
-         verify(feedbackService).enterFeedback(talkId, "Feedback comment", "test.twu", "test.twu@thoughtworks.com");
-         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
-         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
+        ModelAndView result = feedbackController.enterFeedback(request, talkId, "Feedback comment");
+
+        verify(feedbackService).enterFeedback(talkId, "Feedback comment", "test.twu", "test.twu@thoughtworks.com");
+        verify(feedbackService).retrieveFeedbackByTalkId(talkId);
+        assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void shouldShowListOfPreviousFeedbackByTalkIdOrderedByMostRecent() throws Exception {
         //Given
-        int talkId=1;
+        int talkId = 1;
         Feedback feedback = new Feedback(talkId, "comment1", "Vegeta", "vegeta@dragon.ball", new DateTime(2008, DateTimeZone.UTC));
-        Feedback feedback2 = new Feedback(talkId, "comment2", "Vegeta", "vegeta@dragon.ball", new DateTime(2009,DateTimeZone.UTC));
-        Feedback feedback3 = new Feedback(talkId, "comment3", "Vegeta", "vegeta@dragon.ball", new DateTime(2010,DateTimeZone.UTC));
-        Feedback feedback4 = new Feedback(talkId, "comment4", "Vegeta", "vegeta@dragon.ball", new DateTime(2011,DateTimeZone.UTC));
+        Feedback feedback2 = new Feedback(talkId, "comment2", "Vegeta", "vegeta@dragon.ball", new DateTime(2009, DateTimeZone.UTC));
+        Feedback feedback3 = new Feedback(talkId, "comment3", "Vegeta", "vegeta@dragon.ball", new DateTime(2010, DateTimeZone.UTC));
+        Feedback feedback4 = new Feedback(talkId, "comment4", "Vegeta", "vegeta@dragon.ball", new DateTime(2011, DateTimeZone.UTC));
         ArrayList<Feedback> feedbackArrayList = new ArrayList<Feedback>();
         feedbackArrayList.add(feedback);
         feedbackArrayList.add(feedback2);
