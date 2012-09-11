@@ -69,6 +69,7 @@ public class FeedbackFunctionalTest {
         int countInitial = feedbacksPage.countNoOfFeedbacks();
         String feedbackCreationTime = now().toString();
         feedbacksPage.submitFeedback(feedbackCreationTime);
+        waitForElement(webDriver, "start_of_feedback_list");
         int countNewFeedbacks = feedbacksPage.countNoOfFeedbacks() - countInitial;
         assertThat(countNewFeedbacks, is(1));
         assertThat(webDriver.getPageSource(), StringContains.containsString(feedbackCreationTime));
