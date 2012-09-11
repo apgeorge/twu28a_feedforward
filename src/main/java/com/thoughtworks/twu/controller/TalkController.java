@@ -68,7 +68,7 @@ public class TalkController {
         try {
 
             resultOfInsertion = talkService.createTalkWithNewPresentation(presentation, venue, date, time);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return addFailureMessageToModelAndView(modelAndView);
         }
         if (resultOfInsertion == 0)

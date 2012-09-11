@@ -14,19 +14,16 @@ function validate_new_talk_form() {
         array['venue'] = 'true';
     return array;
 }
+function reset_element(element){
+    element.css('-moz-box-shadow', ' none');
+    element.css('-webkit-box-shadow', 'none');
+    element.css('box-shadow', ' none');
+}
 function resetAll() {
-    $('#title').css('-moz-box-shadow', ' none');
-    $('#title').css('-webkit-box-shadow', 'none');
-    $('#title').css('box-shadow', ' none');
-    $('#datepicker').css('-moz-box-shadow', ' none');
-    $('#datepicker').css('-webkit-box-shadow', 'none');
-    $('#datepicker').css('box-shadow', ' none');
-    $('#timepicker').css('-moz-box-shadow', ' none');
-    $('#timepicker').css('-webkit-box-shadow', 'none');
-    $('#timepicker').css('box-shadow', ' none');
-    $('#venue').css('-moz-box-shadow', ' none');
-    $('#venue').css('-webkit-box-shadow', 'none');
-    $('#venue').css('box-shadow', ' none');
+    reset_element($('#title'));
+    reset_element($('#datepicker'));
+    reset_element($('#timepicker'));
+    reset_element($('#venue'));
 }
 $('#new_talk_submit').ready(function () {
     $('#new_talk_submit').click(function () {
@@ -48,17 +45,14 @@ $('#new_talk_submit').ready(function () {
             "&venue=" + $('#venue').val() +
             "&date=" + $('#datepicker').val() +
             "&time=" + $('#timepicker').val();
-        $.ajax({
-            method:"GET",
-            url:url
-        })
-            .done(function (data) {
-                if (data.indexOf("true") != -1) {
-                    $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
-                } else {
-                    $('#message_box_error').html('Cannot create talk with duplicate title');
-                }
-            });
+        ajax_call({url:url},
+                    function (data) {
+                        if (data.indexOf("true") != -1) {
+                            $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
+                        } else {
+                            $('#message_box_error').html('Cannot create talk with duplicate title');
+                        }
+                    });
     });
     $("#datepicker").scroller({ preset:'date', dateOrder:'ddmmyy', minDate:new Date(), dateFormat:'dd/mm/yyyy'});
     $("#timepicker").scroller({ preset:'time', stepMinute:5 });

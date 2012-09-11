@@ -1,6 +1,8 @@
 function replaceURLWithHTMLLinks(text) {
-    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    return text.replace(exp,"<a href='$1'>$1</a>");
+    return text.replace(/(ftp|http|https|file):\/\/[\S]+(\b|$)/gim,
+    '<a href="$&" target="_blank">$&</a>')
+        .replace(/([^\/])(www[\S]+(\b|$))/gim,
+    '$1<a href="http://$2" target="_blank">$2</a>');
 }
 $('#description').ready( function(){
 var text = $('#description').html();

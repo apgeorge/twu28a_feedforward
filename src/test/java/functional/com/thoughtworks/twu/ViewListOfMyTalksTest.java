@@ -5,13 +5,10 @@ import functional.com.thoughtworks.twu.utils.Talk;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.matchers.StringContains;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.UUID;
-
-import static org.junit.Assert.assertThat;
 
 public class ViewListOfMyTalksTest {
     public static final int HTTP_PORT = 9191;

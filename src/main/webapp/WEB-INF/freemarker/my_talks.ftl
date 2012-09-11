@@ -10,6 +10,7 @@
                     <a id="${myTalk.talkId}" role="talk" data-transition="slide"  style="line-height: 30px;">
                     <span style="font-size: 18px;" > ${myTalk.presentation.title} </a>
                     </a>
+
                 </li>
             </#list>
         </ul>

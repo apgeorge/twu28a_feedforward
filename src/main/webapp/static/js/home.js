@@ -13,7 +13,8 @@ $.ajaxSetup({
     cache : 'false',
     dataType :"html",
     successThreshold : '3000',
-    timeout:7000
+    timeout:7000,
+    method: "GET"
 });
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.beforeSend = function () {
@@ -37,74 +38,56 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 originalOptions.complete();
         };
 });
+var ajax_call = function(settings, done_callback){
+   $.ajax(settings).done(done_callback);
+};
 var feedback_button_fn = function () {
     $('a[role="talk"]').click(function () {
         current_talk_id = this.id;
-        $.ajax({
-            method:"GET",
-            url:"talk_details.html?talk_id=" + current_talk_id
-        })
-            .done(function (data) {
-                $('#data_container').html(data).trigger('create');
-                if(data.indexOf("isNotAnUpcomingTalk") != -1){
-                    $.ajax({
-                        method:"GET",
-                        url:"add_feedback.html?talk_id=" + current_talk_id
-                    })
-                        .done(function (data) {
-                            $('#feedback_container').html(data).trigger('create');
-                        });
-                }
-            });
+        ajax_call({url:"talk_details.html?talk_id=" + current_talk_id},
+                  function (data) {
+                        $('#data_container').html(data).trigger('create');
+                            if(data.indexOf("isNotAnUpcomingTalk") != -1){
+                                ajax_call({url:"add_feedback.html?talk_id=" + current_talk_id},
+                                          function (data) {
+                                                $('#feedback_container').html(data).trigger('create');
+                                          });
+                            }
+                  });
     });
 };
 $(function () {
     $('#talks_button').click(function () {
-        $.ajax({
-            method:"GET",
-            url:"talks.html"
-        })
-            .done(function (data) {
-                $('#data_container').html(data).trigger('create');
-            });
+        ajax_call({url:"talks.html"},
+                    function (data) {
+                        $('#data_container').html(data).trigger('create');
+                    });
     });
     $('#talks_button').click();
     $('#upcoming_talks_button').click(function () {
-        $.ajax({
-            method:"GET",
-            url:"upcoming_talks.html"
-        })
-            .done(function (data) {
-                $('#data_container').html(data).trigger('create');
-            });
+        ajax_call({url:"upcoming_talks.html"},
+                    function (data) {
+                        $('#data_container').html(data).trigger('create');
+                    });
     });
     $('#my_talks_button').bind("click", function (event, message) {
-        $.ajax({
-            method:"GET",
-            url:"talk_tab.html"
-        })
-            .done(function (data) {
-                $('#data_container').html(data).trigger('create');
-                $('#message_box_success').html(message);
-                $('#new_talk').ready(function () {
-                    $('#new_talk').click(function () {
-                        $.ajax({
-                            method:"GET",
-                            url:"new_talk.html"
-                        })
-                            .done(function (data) {
-                                $('#data_container').html(data).trigger('create');
+        ajax_call({url:"talk_tab.html"},
+                    function (data) {
+                        $('#data_container').html(data).trigger('create');
+                        $('#message_box_success').html(message);
+                        $('#new_talk').ready(function () {
+                            $('#new_talk').click(function () {
+                            ajax_call({url:"new_talk.html"},
+                                      function (data) {
+                                        $('#data_container').html(data).trigger('create');
+                                      });
                             });
+                        });
+                        ajax_call({url:"my_talks.html"},
+                                  function (data) {
+                                    $('#talk_container').html(data);
+                                    $('#data_container').trigger('create');
+                                  });
                     });
-                });
-                $.ajax({
-                    method:"GET",
-                    url:"my_talks.html"
-                })
-                    .done(function (data) {
-                        $('#talk_container').html(data);
-                        $('#data_container').trigger('create');
-                    });
-            });
     });
 });
