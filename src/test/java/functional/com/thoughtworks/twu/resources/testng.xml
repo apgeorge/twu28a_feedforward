@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Function Tests" verbose="2">
+
+    <test name="Main Functional Tests">
+        <packages>
+            <package name="functional.com.thoughtworks.twu.*"/>
+        </packages>
+    </test>
+</suite>
