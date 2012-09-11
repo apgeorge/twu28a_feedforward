@@ -51,10 +51,9 @@
                     <span style="display:none;"> --------------------------------------</span>
                 <li id="feedback_messages" class="ui-li ui-li-static ui-body-c feedback-item">
                     <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%; font-size: 15px; font-style: normal; font-weight: 500;">
-                        <@nl2br>${feedback.feedbackComment}</@nl2br>
-                        &nbsp; &nbsp; &nbsp; <a
-                            href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a>
-                        on ${feedback.timeAtCreation.toString("dd MMMM YYYY,  hh:mm a")}
+                        <@nl2br>${feedback.feedbackComment}</@nl2br>&nbsp; &nbsp; &nbsp; <font
+                            style="white-space: pre-line; word-wrap: break-word; width: 95%; font-size: 12px; font-style: normal; font-weight: 500;">
+                        <a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a> on ${feedback.timeAtCreation.toString("dd MMM YYYY,  hh:mm a")} </font>
                     </h4>
 
                 </#list>
