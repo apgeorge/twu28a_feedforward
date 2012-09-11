@@ -3,11 +3,16 @@
     <#if talksList?has_content>
         <ul data-role="listview" data-divider-theme="b" data-inset="true">
             <li data-role="list-divider" role="heading">
+                Recent Talks
             </li>
             <#list talksList as recentTalk>
                 <li data-theme="c">
-                    <a id="${recentTalk.talkId}" role="talk" data-transition="slide">
-                    ${recentTalk.presentation.title} by ${recentTalk.presentation.owner}
+                    <a id="${recentTalk.talkId}" role="talk" data-transition="slide" >
+                        <span style="font-size: 18px;" > ${recentTalk.presentation.title} </span>
+                        <br />
+                     	<i style="font-weight: bold;color: grey;">
+                     	   &nbsp; &nbsp; &nbsp; - by <span style="font-size: 18px;" >${recentTalk.presentation.owner} </span>
+                     	</i>
                     </a>
                 </li>
             </#list>

@@ -98,6 +98,9 @@ test {
 
 task functionalTest(type: Test, dependsOn: [test, generateTemplateFilesCI]) {
     include '**/functional/com/thoughtworks/**'
+    useTestNG()
+    options.suites("src/test/java/functional/com/thoughtworks/twu/resources/testng.xml")
+
 }
 
 functionalTest.doFirst {
@@ -115,15 +118,15 @@ functionalTest.doLast {
 
 
 task warQA(type: War, dependsOn: generateTemplateFilesQA) {
-    archiveName = 'feedForward-QA.war'
+    archiveName = 'feedforward-QA.war'
 }
 
 task warCI(type: War, dependsOn: generateTemplateFilesCI) {
-    archiveName = 'feedForward-CI.war'
+    archiveName = 'feedforward-CI.war'
 }
 
 task warProduction(type: War, dependsOn: generateTemplateFilesProduction) {
-    archiveName = 'feedForward.war'
+    archiveName = 'feedforward.war'
 }
 
 

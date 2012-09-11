@@ -1,12 +1,17 @@
 package com.thoughtworks.twu.domain;
 
 import com.thoughtworks.twu.utils.ApplicationClock;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.joda.time.DateTime;
 
 public class Talk {
+    public Talk(Presentation presentation, String venue, DateTime dateTime, DateTime lastModifiedAt) {
+        this.presentation = presentation;
+        this.dateTime = dateTime;
+        this.venue = venue;
+        this.lastModifiedAt = lastModifiedAt;
+    }
+
     private DateTime dateTime;
 
     public void setTalkId(int talkId) {
@@ -17,9 +22,15 @@ public class Talk {
     int talkId;
     String venue;
 
+    DateTime lastModifiedAt;
 
     public int getTalkId() {
         return talkId;
+    }
+
+
+    public DateTime getLastModifiedAt() {
+        return lastModifiedAt;
     }
 
     public Presentation getPresentation() {
@@ -32,13 +43,6 @@ public class Talk {
     }
 
     public Talk() {
-    }
-
-    public Talk(Presentation presentation, String venue, DateTime dateTime) {
-        this.presentation=presentation;
-        this.venue=venue;
-        this.dateTime =dateTime;
-
     }
 
     public int getId() {

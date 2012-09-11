@@ -29,7 +29,7 @@ public class TalkService {
     public int createTalkWithNewPresentation(Presentation presentation, String venue, String date, String time) {
         presentationMapper.insertPresentation(presentation);
         presentation = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
-        return talkMapper.insert(new Talk(presentation, venue, new DateParser(date,time).convertToDateTime()));
+        return talkMapper.insert(new Talk(presentation, venue, new DateParser(date,time).convertToDateTime(), clock.now()));
     }
 
     public Talk getTalk(int talkId) {
@@ -57,5 +57,10 @@ public class TalkService {
     public Boolean isUpcomingTalk(Talk talk) {
         return (talk.isUpcoming());
 
+    }
+
+
+    public int editTalk(int talkId, String title, String description, String venue, String date, String time) {
+        return 0;
     }
 }

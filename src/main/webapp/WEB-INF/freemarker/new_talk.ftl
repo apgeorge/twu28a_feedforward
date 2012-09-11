@@ -24,8 +24,8 @@
         <fieldset data-role="controlgroup">
             <label for="description">
             </label>
-            <input name="description" id="description" maxlength="500" placeholder="Description" value="" type="text"
-                   style="width: 100%;">
+            <textarea name="description" id="description" maxlength="500"  placeholder="Description"
+                   style="width: 100%;"></textarea>
         </fieldset>
     </div>
     <div data-role="fieldcontain" style="width: 100%;">

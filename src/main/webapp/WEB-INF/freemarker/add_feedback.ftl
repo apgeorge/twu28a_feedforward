@@ -29,28 +29,36 @@
         </center>
     </div>
     </form>
-    <div id="start_of_feedback_list" data-role="collapsible" data-collapsed="false" data-icon="refresh">
+
+   <!-- $('#list_of_feedbacks').text().replace(/[ ]/gi,'').replace(/\n\n\n/gi,'\n') -->
+
+    <div id="start_of_feedback_list" data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
         <h3>
             Past Feedback
         </h3>
-        <ul data-role="listview" class="ui-listview" id="feedback-list">
-
-
-    <#list retrieved_feedback_list as feedback>
-        <li id="feedback_messages"class="ui-li ui-li-static ui-body-c feedback-item" ">
-
-                <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%;">
-                    <@nl2br>
-            ${feedback.feedbackComment}
-            </@nl2br>
-                </h4>
-
-                <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
-
-                <p align="right" style="font-size: 15px"><a
-                        href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
+        <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list" >
+            <#if retrieved_feedback_list?has_content>
+            <#list retrieved_feedback_list as feedback>
+                <span style="display:none;" > --------------------------------------</span>
+                <li id="feedback_messages" class="ui-li ui-li-static ui-body-c feedback-item" ">
+                        <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%;">
+                            <@nl2br>${feedback.feedbackComment}</@nl2br>
+                        </h4>
+                        <p class="ui-li-aside"><strong>${feedback.timeAtCreation.toString("dd/MM/YYYY  hh:mm a")}</strong></p>
+                        <p align="right" style="font-size: 15px"><a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
                 </li>
-            </#list>
+             </#list>
+             <#else>
+                 <div style="font-size: 25px; color: gray; text-shadow: 1px 1px 0px #BAD3ED;font-weight: bold;text-align: center;">
+                             <img src="static/images/sad_cat.png">
+                             <br>
+                             No feedback received yet.
+                 </div>
+
+            </#if>
+
+
+         </ul>
     </div>
     <div id="result">
         <#if result_message??>

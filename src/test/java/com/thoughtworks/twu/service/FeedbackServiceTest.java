@@ -44,25 +44,14 @@ public class FeedbackServiceTest {
 
     @Test
     public void shouldRetrieveFeedbackListByTalkId() {
-        //Given
         int talk_id = 1;
-        Feedback feedback1 = new Feedback(talk_id, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(DateTimeZone.UTC));
-        Feedback feedback2 = new Feedback(talk_id, "feedbackComment2", "attendee2", "attendeeMail 2",new DateTime(DateTimeZone.UTC));
-        Feedback feedback3 = new Feedback(talk_id, "feedbackComment3", "attendee3", "attendeeMail 3",new DateTime(DateTimeZone.UTC));
-        Feedback feedback = new Feedback(2, "feedbackComment1", "attendee1", "attendeeMail 1",new DateTime(DateTimeZone.UTC));
-        feedbackService.enterFeedback(1,feedback1.toString(), "Goku", "goku@dragon.ball");
-        feedbackService.enterFeedback(1,feedback2.toString(), "Goku", "goku@dragon.ball");
-        feedbackService.enterFeedback(1,feedback3.toString(), "Goku", "goku@dragon.ball");
-        feedbackService.enterFeedback(1,feedback.toString(), "Goku", "goku@dragon.ball");
-        ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
-        feedbackList.add(feedback3);
-        feedbackList.add(feedback2);
-        feedbackList.add(feedback1);
-        //When
-        List<Feedback> result = feedbackService.retrieveFeedbackByTalkId(talk_id);
-        //Then
-        verify(mockFeedbackMapper).getFeedbackByTalkId(talk_id);
+        ArrayList<Feedback> feedbacks = new ArrayList<Feedback>();
+        when(mockFeedbackMapper.getFeedbackByTalkId(talk_id)).thenReturn(feedbacks);
 
+        ArrayList<Feedback> result = feedbackService.retrieveFeedbackByTalkId(talk_id);
+
+        verify(mockFeedbackMapper).getFeedbackByTalkId(talk_id);
+        assertThat(result, is(feedbacks));
     }
 
     @Test

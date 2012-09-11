@@ -15,6 +15,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/*</url-pattern>
@@ -45,6 +46,7 @@
             <param-name>artifactParameterName</param-name>
             <param-value>SAMLart</param-value>
         </init-param>
+
     </filter>
 
     <filter>
