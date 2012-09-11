@@ -37,6 +37,7 @@
             Past Feedback
         </h3>
         <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list" >
+            <#if retrieved_feedback_list?has_content>
             <#list retrieved_feedback_list as feedback>
                 <span style="display:none;" > --------------------------------------</span>
                 <li id="feedback_messages" class="ui-li ui-li-static ui-body-c feedback-item" ">
@@ -47,6 +48,16 @@
                         <p align="right" style="font-size: 15px"><a href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a></p>
                 </li>
              </#list>
+             <#else>
+                 <div style="font-size: 25px; color: gray; text-shadow: 1px 1px 0px #BAD3ED;font-weight: bold;text-align: center;">
+                             <img src="static/images/sad_cat.png">
+                             <br>
+                             No feedback received yet.
+                 </div>
+
+            </#if>
+
+
          </ul>
     </div>
     <div id="result">

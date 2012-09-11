@@ -1,13 +1,11 @@
 package functional.com.thoughtworks.twu;
 
 import functional.com.thoughtworks.twu.utils.BaseFunctionalTest;
-import functional.com.thoughtworks.twu.utils.Cas;
 import functional.com.thoughtworks.twu.utils.FeedbacksPage;
 import functional.com.thoughtworks.twu.utils.Talk;
 import org.junit.internal.matchers.StringContains;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
