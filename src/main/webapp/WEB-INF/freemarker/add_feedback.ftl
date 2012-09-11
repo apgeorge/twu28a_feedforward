@@ -53,7 +53,8 @@
                     <h4 style="white-space: pre-line; word-wrap: break-word; width: 95%; font-size: 15px; font-style: normal; font-weight: 500;">
                         <@nl2br>${feedback.feedbackComment}</@nl2br>
                         &nbsp; &nbsp; &nbsp; <a
-                            href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a> on ${feedback.timeAtCreation.toString("dd MMMM YYYY,  hh:mm a")}
+                            href="mailto:${feedback.attendeeMail}">${feedback.attendeeMail}</a>
+                        on ${feedback.timeAtCreation.toString("dd MMMM YYYY,  hh:mm a")}
                     </h4>
 
                 </#list>
@@ -75,4 +76,10 @@
         </#if>
     </div>
     <script type="text/javascript" src="static/js/add_feedback.js"></script>
+    <style>
+        .ui-icon-loading {
+            opacity: 0;
+        }
+    </style>
 </#escape>
+
