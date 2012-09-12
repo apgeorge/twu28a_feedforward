@@ -40,5 +40,12 @@ public class FeedbackController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/feedback_list.htm*", method = RequestMethod.GET)
+    public ModelAndView getUpdatedListOfFeedbackForTalk(@RequestParam(value = "talk_id", defaultValue = "0")int talkId) {
+        ArrayList<Feedback> updatedFeedbackArrayList = feedbackService.retrieveFeedbackByTalkId(talkId);
+        ModelAndView modelAndView = new ModelAndView("feedback_list");
+        modelAndView.addObject("updated_feedback_list",updatedFeedbackArrayList);
+        return modelAndView;
+    }
 }
 

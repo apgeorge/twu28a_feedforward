@@ -1,3 +1,4 @@
+<script type="text/javascript" src="static/js/add_feedback.js"></script>
 <#include "/macros.ftl">
 <#escape x as x?html>
 <style type="text/css">
@@ -45,6 +46,7 @@
         <h3>
             Feedback
         </h3>
+    <div id="feedback_content">
         <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list">
             <#if retrieved_feedback_list?has_content>
                 <#list retrieved_feedback_list as feedback>
@@ -65,16 +67,14 @@
                 </div>
 
             </#if>
-
-
         </ul>
+       </div>
     </div>
     <div id="result">
         <#if result_message??>
             <h1>${result_message}</h1>
         </#if>
     </div>
-    <script type="text/javascript" src="static/js/add_feedback.js"></script>
     <style>
         .ui-icon-loading {
             opacity: 0;
