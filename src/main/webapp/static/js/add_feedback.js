@@ -24,6 +24,8 @@ $('#add_feedback_container').ready(function(){
                     }) ;
                   });
     });
+
+
 });
 
 function validateFeedback(){
@@ -31,12 +33,16 @@ function validateFeedback(){
     return !($('#feedback_text').val()=="");
 }
 
+$('#feedback_content').ready(function(){
+    current_talk_id= $('#add_feedback_submit').attr('talk-id');
+    if(current_talk_id!=undefined){
+        setInterval( function reloadFeedbacks(){
 
- setInterval( function reloadFeedbacks(){
-      current_talk_id= $('#add_feedback_submit').attr('talk-id');
-      ajax_call({url:"feedback_list.html?talk_id=" + current_talk_id},
-        function (data) {
-          $('#feedback_content').html(data).trigger('create');
-        });
-  },30000);
+            ajax_call({url:"feedback_list.html?talk_id=" + current_talk_id},
+                function (data) {
+                    $('#feedback_content').html(data).trigger('create');
+                });
+        },30000);
+    }
 
+});
