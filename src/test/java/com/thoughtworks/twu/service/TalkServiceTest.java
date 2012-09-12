@@ -100,20 +100,6 @@ public class TalkServiceTest {
 
     }
 
-    @Test
-    public void shouldMakeTalkWithLowercaseOwnerName() {
-        Presentation upperCasePresentation = new Presentation("test title", "test description", "TEST_PRESENTER");
-        talkService.createTalkWithNewPresentation(upperCasePresentation, "venue", DATE, TIME);
-        Talk originalTalk = new Talk(upperCasePresentation, "venue", new DateParser(DATE, TIME).convertToDateTime(), testClock.now());
-        ArrayList<Talk> originalTalkList = new ArrayList<Talk>();
-        originalTalkList.add(originalTalk);
-        when(mockTalkMapper.getTalksByUsername("test_presenter")).thenReturn(originalTalkList);
-        List<Talk> expected = talkService.getMyTalks("TEST_PRESENTER");
-        assertThat(expected.contains(originalTalk), is(true));
-    }
-
-
-
 }
 
 

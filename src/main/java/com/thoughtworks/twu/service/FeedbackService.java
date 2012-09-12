@@ -21,7 +21,7 @@ public class FeedbackService {
     }
 
     public int enterFeedback(int talkId, String feedbackComment, String feedbackGiver, String feedbackGiverEmail) {
-        Feedback feedback = new Feedback( talkId, feedbackComment, feedbackGiver.toLowerCase(), feedbackGiverEmail.toLowerCase(), clock.now());
+        Feedback feedback = new Feedback( talkId, feedbackComment, feedbackGiver, feedbackGiverEmail, clock.now());
         return feedbackMapper.insertFeedback(feedback);
 
     }
