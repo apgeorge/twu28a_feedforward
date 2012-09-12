@@ -12,8 +12,12 @@ function textCounter( field, countfield, maxlimit ) {
 $('#add_feedback_container').ready(function(){
     $('#add_feedback_submit').click(function(){
         if(validateFeedback()==false){
+            $('#feedback_text').css('-moz-box-shadow', '0 0 12px red');
+            $('#feedback_text').css('-webkit-box-shadow', '0 0 12px red');
+            $('#feedback_text').css('box-shadow', '0 0 12px red');
             return false;
         }
+
         ajax_call({type: "POST", url: "add_feedback.html", data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}},
                   function(data){
                     $('#feedback_text').val('');
