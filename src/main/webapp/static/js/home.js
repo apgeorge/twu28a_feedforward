@@ -115,13 +115,13 @@ $(function(){
                                  reset_all_talk_tabs();
                                  var current_talk_id=hash.substring(3);
                                  ajax_call({url:"talk_details.html?talk_id=" + current_talk_id},
-                                       function (data) {
-                                         $('#data_container').html(data).trigger('create');
-                                             if(data.indexOf("isNotAnUpcomingTalk") != -1){
-                                                 ajax_call({url:"add_feedback.html?talk_id=" + current_talk_id},
-                                                   function (data) {
-                                                         $('#feedback_container').html(data).trigger('create');
-                                                   });
+                                   function (data) {
+                                     $('#data_container').html(data).trigger('create');
+                                         if(data.indexOf("isNotAnUpcomingTalk") != -1){
+                                             ajax_call({url:"add_feedback.html?talk_id=" + current_talk_id},
+                                               function (data) {
+                                                     $('#feedback_container').html(data).trigger('create');
+                                               });
                                              }
                                    });
                                  break;
