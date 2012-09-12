@@ -25,7 +25,18 @@ $('#add_feedback_container').ready(function(){
                   });
     });
 });
+
 function validateFeedback(){
     $('#feedback_text').val($.trim($('#feedback_text').val()));
     return !($('#feedback_text').val()=="");
 }
+
+
+ setInterval( function reloadFeedbacks(){
+      current_talk_id= $('#add_feedback_submit').attr('talk-id');
+      ajax_call({url:"feedback_list.html?talk_id=" + current_talk_id},
+        function (data) {
+          $('#feedback_content').html(data).trigger('create');
+        });
+  },30000);
+

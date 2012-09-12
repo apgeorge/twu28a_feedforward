@@ -39,7 +39,7 @@ public class FeedbackFunctionalTest extends BaseFunctionalTest {
         WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(title)));
         talkLink.click();
         waitForElement(webDriver, "start_of_feedback_list");
-        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
+        assertTrue(webDriver.getPageSource().contains("Feedback"));
         int countInitial = feedbacksPage.countNoOfFeedbacks();
         feedbacksPage.submitFeedback("");
         int countNewFeedbacks = feedbacksPage.countNoOfFeedbacks() - countInitial;
@@ -52,9 +52,10 @@ public class FeedbackFunctionalTest extends BaseFunctionalTest {
         WebElement talkLink = (new WebDriverWait(webDriver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(title)));
         talkLink.click();
         waitForElement(webDriver, "start_of_feedback_list");
-        assertTrue(webDriver.getPageSource().contains("Past Feedback"));
+        assertTrue(webDriver.getPageSource().contains("Feedback"));
         int countInitial = feedbacksPage.countNoOfFeedbacks();
         String feedbackCreationTime = now().toString();
+        waitForElement(webDriver,"feedback_text");
         feedbacksPage.submitFeedback(feedbackCreationTime);
         waitForElement(webDriver, "start_of_feedback_list");
         int countNewFeedbacks = feedbacksPage.countNoOfFeedbacks() - countInitial;

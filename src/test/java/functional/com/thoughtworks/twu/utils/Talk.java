@@ -6,7 +6,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
@@ -57,8 +56,10 @@ public class Talk {
     }
 
     public void clickTitle(String title) {
-        new WebDriverWait(webDriver, 5);
-        webDriver.findElement(By.linkText(title)).click();
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver, 5);
+        WebElement webElement = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(title)));
+        webElement.click();
+//        webDriver.findElement(By.linkText(title)).click();
     }
 
     public void expandDetails() {
