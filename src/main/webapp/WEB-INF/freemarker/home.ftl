@@ -1,3 +1,4 @@
+
 <#escape x as x?html>
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,7 @@
     <script type="text/javascript" src="static/js/mobiscroll-2.0.2.full.min.js"></script>
     <link rel="stylesheet" href="static/css/mobiscroll-2.0.2.full.min.css"/>
     <script type="text/javascript" src="static/js/home.js"></script>
-    <script type="text/javascript" src="static/js/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="static/js/jquery.ba-hashchange.js"></script>
     <style>
         .dw {font-size: 15px;}
         .compulsory {color: red;font-weight: bold;}

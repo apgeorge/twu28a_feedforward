@@ -81,5 +81,15 @@ public class FeedbackControllerTest {
 
 
 
+    @Test
+    public void shouldReturnListOfFeedbackForATalk() throws Exception {
+        int talkId=1;
+        ArrayList<Feedback> feedbackArrayList = new ArrayList<Feedback>();
+        when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
+        ModelAndView result =  feedbackController.getUpdatedListOfFeedbackForTalk(talkId);
+        assertThat(result.getViewName(),is("feedback_list"));
+        assertThat((ArrayList<Feedback>)result.getModel().get("updated_feedback_list"),is(feedbackArrayList));
+        verify(feedbackService).retrieveFeedbackByTalkId(talkId);
 
+    }
 }
