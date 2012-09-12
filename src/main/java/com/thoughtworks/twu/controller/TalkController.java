@@ -107,11 +107,17 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/edit_talk.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalkDetailsForEditing(@RequestParam(value = "talk_id", defaultValue = "-1")  int talkId) {
+    public ModelAndView getTalkDetailsForEditing(HttpServletRequest request,
+                                                 @RequestParam(value = "talk_id", defaultValue = "-1")  int talkId) {
         Talk talk = talkService.getTalk(talkId);
-        ModelAndView modelAndView = new ModelAndView("edit_talk");
-        modelAndView.addObject("talk", talk);
-        return modelAndView;
+        ModelAndView modelAndView;
+        if(talk.getPresentation().getOwner() == request.getUserPrincipal().getName().toLowerCase()) {
+            modelAndView = new ModelAndView("edit_talk");
+            modelAndView.addObject("talk", talk);
+            return modelAndView;
+
+        }else
+            return getTalkDetails(talkId);
     }
 
     @RequestMapping(value = "/edit_talk_submit.htm*", method = RequestMethod.GET)

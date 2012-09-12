@@ -14,7 +14,7 @@ $.ajaxSetup({
     dataType :"html",
     successThreshold : '3000',
     timeout:7000,
-    method: "GET"
+    type: "GET"
 });
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.beforeSend = function () {

@@ -6,7 +6,6 @@ import com.thoughtworks.twu.utils.ApplicationClock;
 import com.thoughtworks.twu.utils.DateParser;
 import com.thoughtworks.twu.utils.TestClock;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,4 +185,23 @@ public class TalkMapperTest extends IntegrationTest {
         assertThat(talkMapper.deleteById(talkId), is(0));
     }
 
+
+    @Test
+    public void shouldBeAbleToEditTalkVenueAndDateTime() throws Exception {
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(8), testClock.now());
+        talkMapper.insert(firstTalk);
+
+        DateTime newDateTime = new ApplicationClock().now().plusDays(2);
+        Talk talkToEdit=new Talk(null,"new venue", newDateTime, testClock.now());
+        talkToEdit.setTalkId(talkMapper.getLastId());
+
+        talkMapper.editTalk(talkToEdit);
+
+        Talk editedTalk=talkMapper.getTalk(talkToEdit.getTalkId());
+
+        assertThat(editedTalk.getVenue(),is("new venue"));
+        assertThat(editedTalk.getDateTime(),is(newDateTime));
+    }
 }

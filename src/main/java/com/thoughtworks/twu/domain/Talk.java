@@ -14,6 +14,8 @@ public class Talk {
 
     private DateTime dateTime;
 
+
+
     public void setTalkId(int talkId) {
         this.talkId = talkId;
     }
@@ -83,4 +85,6 @@ public class Talk {
     public Boolean isUpcoming() {
        return dateTime.isAfter(new ApplicationClock().now());
     }
+
+
 }
