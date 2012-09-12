@@ -40,11 +40,13 @@
 
     <!-- $('#list_of_feedbacks').text().replace(/[ ]/gi,'').replace(/\n\n\n/gi,'\n') -->
 
-    <div id="start_of_feedback_list" data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r"
-         data-expanded-icon="arrow-d">
-        <h3>
-            Feedback
-        </h3>
+    <div id="start_of_feedback_list">
+        <div class="ui-bar ui-bar-d">
+            <div class="ui-grid-a">
+                <div class="ui-block-a" ><h3 style="margin-top: 0.75em">Feedback</h3></div>
+                <div class="ui-block-b"><input type="button" id="export_feedback_button" value="Email Export" data-theme="c" data-mini="true" data-icon="arrow-r" data-iconpos="right"/></div>
+            </div>
+        </div>
         <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list">
             <#if retrieved_feedback_list?has_content>
                 <#list retrieved_feedback_list as feedback>

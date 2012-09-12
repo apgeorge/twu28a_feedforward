@@ -2,6 +2,7 @@ package com.thoughtworks.twu.controller;
 
 import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Feedback;
+import com.thoughtworks.twu.service.ExportService;
 import com.thoughtworks.twu.service.FeedbackService;
 import org.hamcrest.CoreMatchers;
 import org.joda.time.DateTime;
@@ -21,11 +22,13 @@ public class FeedbackControllerTest {
     private FeedbackController feedbackController;
     private FeedbackService feedbackService;
     private MockHttpServletRequest request;
+    private ExportService mockExportService;
 
     @Before
     public void setUp() throws Exception {
         feedbackService = mock(FeedbackService.class);
-        feedbackController = new FeedbackController(feedbackService);
+        mockExportService=mock(ExportService.class);
+        feedbackController = new FeedbackController(feedbackService, mockExportService);
         UserPrincipal userPrincipal = new UserPrincipal("test.twu");
         request = new MockHttpServletRequest();
         request.setUserPrincipal(userPrincipal);
@@ -71,6 +74,18 @@ public class FeedbackControllerTest {
         verify(feedbackService).retrieveFeedbackByTalkId(talkId);
 
     }
+
+    @Test
+    public void shouldExportFeedback() {
+        int talkId=1;
+
+        ModelAndView result = feedbackController.exportTalkWithFeedback(talkId);
+
+        assertThat(result.getViewName(), is("message"));
+        assertThat((String)result.getModel().get("status"), is("true"));
+        verify(mockExportService).exportTalkWithFeedback(talkId);
+    }
+
 
 
 }

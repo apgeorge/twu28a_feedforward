@@ -3,14 +3,18 @@ package com.thoughtworks.twu.service;
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 public class ExportService {
     private FeedbackService feedbackService;
     private TalkService talkService;
     private MailService mailService;
 
+    @Autowired
     public ExportService(FeedbackService feedbackService, TalkService talkService, MailService mailService) {
         this.feedbackService = feedbackService;
         this.talkService = talkService;

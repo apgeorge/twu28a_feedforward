@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import java.util.UUID;
 
+import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
 import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
 import static org.hamcrest.CoreMatchers.is;
 import static org.joda.time.DateTime.now;
@@ -55,8 +56,10 @@ public class FeedbackFunctionalTest extends BaseFunctionalTest {
         assertTrue(webDriver.getPageSource().contains("Feedback"));
         int countInitial = feedbacksPage.countNoOfFeedbacks();
         String feedbackCreationTime = now().toString();
+
         feedbacksPage.submitFeedback(feedbackCreationTime);
         waitForElement(webDriver, "start_of_feedback_list");
+        waitForAjax(webDriver);
         int countNewFeedbacks = feedbacksPage.countNoOfFeedbacks() - countInitial;
         assertThat(countNewFeedbacks, is(1));
         assertThat(webDriver.getPageSource(), StringContains.containsString(feedbackCreationTime));

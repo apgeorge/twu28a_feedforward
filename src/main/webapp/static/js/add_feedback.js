@@ -24,7 +24,24 @@ $('#add_feedback_container').ready(function(){
                     }) ;
                   });
     });
+
+//    $('#export_feedback_button').click(function(){
+//            ajax_call({type: "POST", url: "export_feedback.html", data: { talkId: $(this).attr('talk-id')}},
+//                      function(data){
+//                          if (data.indexOf("true") != -1) {
+//                                    $('#add_feedback_container').html(data).trigger('create', ['Worked!']);
+////                              $('#my_talks_button').trigger('click', ['New Talk Successfully Created']);
+//                          } else {
+//                              $('#message_box_error').html('Cannot create talk with duplicate title');
+//                          }
+//                      });
+//
+//
+//                      });
+//        });
 });
+
+
 function validateFeedback(){
     $('#feedback_text').val($.trim($('#feedback_text').val()));
     return !($('#feedback_text').val()=="");
