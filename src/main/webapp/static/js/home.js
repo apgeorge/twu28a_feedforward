@@ -34,8 +34,9 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         };
         options.error = function(jqXHR, textStatus){
             popup_ajax_error_box(textStatus);
+            if(textStatus == "")
             if ($.isFunction(originalOptions.complete))
-                originalOptions.complete();
+                originalOptions.error();
         };
 });
 var ajax_call = function(settings, done_callback){

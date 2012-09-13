@@ -11,7 +11,8 @@ function textCounter( field, countfield, maxlimit ) {
 }
 $('#add_feedback_container').ready(function(){
     $('#add_feedback_submit').click(function(){
-        if(validateFeedback()==false){
+        if(!validateFeedback()){
+            document.getElementById('counter').innerHTML=0;
             $('#feedback_text').css('-moz-box-shadow', '0 0 12px red');
             $('#feedback_text').css('-webkit-box-shadow', '0 0 12px red');
             $('#feedback_text').css('box-shadow', '0 0 12px red');
