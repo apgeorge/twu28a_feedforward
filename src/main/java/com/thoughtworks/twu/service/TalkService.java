@@ -57,7 +57,9 @@ public class TalkService {
 
     public Boolean isUpcomingTalk(Talk talk) {
         return (talk.isUpcoming());
+
     }
+
 
     public int editTalk(int talkId, String title, String description, String venue, String date, String time) {
         Presentation presentation = new Presentation(title, description, "");
@@ -68,9 +70,4 @@ public class TalkService {
         presentationMapper.editPresentation(presentation);
         return talkMapper.editTalk(talkToBeUpdated);
     }
-
-    public boolean isMyTalk(Talk talk,String username) {
-        return (talk.isMyTalk(username));
-    }
-
 }

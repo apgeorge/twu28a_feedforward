@@ -25,7 +25,6 @@ public class FeedbacksPage {
     public void submitFeedback(String feedbackComment) {
         WebElement feedbackTextBox = webDriver.findElement(By.id("feedback_text"));
         feedbackTextBox.sendKeys(feedbackComment);
-        waitForElement(webDriver,"add_feedback_submit");
         WebElement feedbackSubmitButton= webDriver.findElement(By.id("add_feedback_submit"));
         feedbackSubmitButton.click();
         waitForElement(webDriver,"start_of_feedback_list");
@@ -34,8 +33,7 @@ public class FeedbacksPage {
     public int countNoOfFeedbacks()
     {
         waitForElement(webDriver,"list_of_feedbacks");
-       // List<WebElement> feedbackList= webDriver.findElements(By.className("feedback-item"));
-        List<WebElement> feedbackList=webDriver.findElements(By.id("feedback_messages"));
+        List<WebElement> feedbackList= webDriver.findElements(By.className("feedback-item"));
         return feedbackList.size();
     }
 }

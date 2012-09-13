@@ -3,7 +3,7 @@
     <#if myTalksList?has_content>
         <ul data-role="listview" data-divider-theme="b" data-inset="true">
             <li data-role="list-divider" role="heading">
-
+                My talks
             </li>
             <#list myTalksList as myTalk>
                 <li data-theme="c">
