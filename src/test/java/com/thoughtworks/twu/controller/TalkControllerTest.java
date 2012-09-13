@@ -160,33 +160,5 @@ public class TalkControllerTest {
     }
 
 
-    @Test
-    public void shouldUpdateTalkWithEnteredDetails() throws Exception {
-        int talkId = 0;
-        String description = "description not needed";
-
-        String title = "edited title";
-        when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
-        when(talkService.editTalk(talkId, title, description, "venue", "date", "time")).thenReturn(1);
-
-        talkController.editTalksFormSubmit(talkId, title, description, "venue", "date", "time");
-        verify(talkService).validate(title, "venue", "date", "time");
-        verify(talkService).editTalk(talkId, title, description, "venue", "date", "time");
-    }
-
-    @Test
-    public void shouldNotEditTalkIfNotRequestedByOwner(){
-        Talk talk = new Talk(new Presentation("title", "desc","owner" ),"venue", DateTime.now(), DateTime.now());
-        int talkId = 1;
-        UserPrincipal userPrincipal = new UserPrincipal("non existing user");
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setUserPrincipal(userPrincipal);
-        when(talkService.getTalk(talkId)).thenReturn(talk);
-        ModelAndView modelAndView = talkController.getTalkDetailsForEditing(request,talkId);
-
-        assertThat(modelAndView.getViewName(), is("talk_details"));
-
-
-    }
 
 }

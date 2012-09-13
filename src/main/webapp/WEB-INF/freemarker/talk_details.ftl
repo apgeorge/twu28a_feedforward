@@ -17,8 +17,7 @@
                     </div>
                     <p>
                         <b id="description" style="word-wrap: break-word;">
-                           &nbsp; &nbsp; &nbsp; ${talk.presentation.description}
-                        </b>
+                           &nbsp; &nbsp; &nbsp; ${talk.presentation.description}</b>
                     </p>
                     <p>
                         <b id="venue">

@@ -186,22 +186,4 @@ public class TalkMapperTest extends IntegrationTest {
     }
 
 
-    @Test
-    public void shouldBeAbleToEditTalkVenueAndDateTime() throws Exception {
-        presentationMapper.insertPresentation(presentation);
-        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
-        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(8), testClock.now());
-        talkMapper.insert(firstTalk);
-
-        DateTime newDateTime = new ApplicationClock().now().plusDays(2);
-        Talk talkToEdit=new Talk(null,"new venue", newDateTime, testClock.now());
-        talkToEdit.setTalkId(talkMapper.getLastId());
-
-        talkMapper.editTalk(talkToEdit);
-
-        Talk editedTalk=talkMapper.getTalk(talkToEdit.getTalkId());
-
-        assertThat(editedTalk.getVenue(),is("new venue"));
-        assertThat(editedTalk.getDateTime(),is(newDateTime));
-    }
 }
