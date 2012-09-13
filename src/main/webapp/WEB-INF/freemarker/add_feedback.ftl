@@ -6,7 +6,6 @@
     }
 </style>
 <div id="add_feedback_container">
-
     <h4 id="feedback_status_message">
     </h4>
 
@@ -85,6 +84,7 @@
 
 
         </ul>
+       </div>
     </div>
     <div id="result">
         <#if result_message??>

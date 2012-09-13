@@ -105,4 +105,45 @@ public class TalkController {
     public ModelAndView getTalkTabPage() {
         return new ModelAndView("talk_tab");
     }
+
+    @RequestMapping(value = "/edit_talk.htm*", method = RequestMethod.GET)
+    public ModelAndView getTalkDetailsForEditing(HttpServletRequest request,
+                                                 @RequestParam(value = "talk_id", defaultValue = "-1")  int talkId) {
+        Talk talk = talkService.getTalk(talkId);
+        ModelAndView modelAndView;
+        if(talk.getPresentation().getOwner() == request.getUserPrincipal().getName().toLowerCase()) {
+            modelAndView = new ModelAndView("edit_talk");
+            modelAndView.addObject("talk", talk);
+            return modelAndView;
+
+        }else
+            return getTalkDetails(talkId);
+    }
+
+    @RequestMapping(value = "/edit_talk_submit.htm*", method = RequestMethod.GET)
+    public ModelAndView editTalksFormSubmit(@RequestParam(value = "talkId", defaultValue = "-1") int talkId,
+                                            @RequestParam(value = "title", defaultValue = "") String title,
+                                            @RequestParam(value = "description", defaultValue = "") String description,
+                                            @RequestParam(value = "venue", defaultValue = "") String venue,
+                                            @RequestParam(value = "date", defaultValue = "") String date,
+                                            @RequestParam(value = "time", defaultValue = "") String time) {
+
+        ModelAndView modelAndView = new ModelAndView("message");
+        int resultOfUpdate;
+        if (!talkService.validate(title, venue, date, time)) {
+            return addFailureMessageToModelAndView(modelAndView);
+        }
+        try {
+
+            resultOfUpdate = talkService.editTalk(talkId, title, description, venue, date, time);
+        } catch (Exception e) {
+            return addFailureMessageToModelAndView(modelAndView);
+        }
+        if (resultOfUpdate == 0)
+            return addFailureMessageToModelAndView(modelAndView);
+
+        modelAndView.addObject("status", "true");
+        return modelAndView;
+    }
+
 }
