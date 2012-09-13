@@ -15,9 +15,10 @@
                            <a  href="https://twitter.com/share?text=Hey ThoughtWorkers," class="twitter-share-button" data-lang="en">Tweet</a>
                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                     </div>
-                    <p>
+                    <br />
+                    <p align="justify">
                         <b id="description" style="word-wrap: break-word;">
-                           &nbsp; &nbsp; &nbsp; ${talk.presentation.description}
+                           ${talk.presentation.description}
                         </b>
                     </p>
                     <p>
@@ -43,7 +44,7 @@
                     </p>
                     <p>
                         <b id="email">
-                            <span style="font-size: 18px;font-weight: bold;color: grey;" > Contact me &nbsp; &nbsp;: &nbsp;</span> <i><a href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a> </i>
+                            <span style="font-size: 18px;font-weight: bold;color: grey;" > Contact me &nbsp; &nbsp;: &nbsp;</span> <i><a target="_blank" href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a> </i>
                         </b>
                     </p>
                     <p>

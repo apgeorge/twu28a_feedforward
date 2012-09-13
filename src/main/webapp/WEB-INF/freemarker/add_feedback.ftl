@@ -39,7 +39,6 @@
         </div>
     </form>
 
-    <!-- $('#list_of_feedbacks').text().replace(/[ ]/gi,'').replace(/\n\n\n/gi,'\n') -->
 
     <div id="start_of_feedback_list" data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r"
          data-expanded-icon="arrow-d">
