@@ -1,4 +1,3 @@
-<script type="text/javascript" src="static/js/add_feedback.js"></script>
 <#include "/macros.ftl">
 <#escape x as x?html>
 <style type="text/css">
@@ -39,14 +38,28 @@
         </div>
     </form>
 
-    <!-- $('#list_of_feedbacks').text().replace(/[ ]/gi,'').replace(/\n\n\n/gi,'\n') -->
 
-    <div id="start_of_feedback_list" data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r"
-         data-expanded-icon="arrow-d">
-        <h3>
-            Feedback
-        </h3>
-    <div id="feedback_content">
+    <div style="font-weight: bold;
+                        color: red;
+                        text-align: center;">
+            <p id="message_box_success_feedback" style="color:green">
+
+            <p>
+            <p id="message_box_error_feedback">
+
+            <p>
+    </div>
+
+    <div id="start_of_feedback_list">
+        <div class="ui-bar ui-bar-d">
+            <div class="ui-grid-a">
+                <div class="ui-block-a" ><h3 style="margin-top: 0.75em">Feedback</h3></div>
+                <#if isOwner??>
+                     <div class="ui-block-b" id="export_feedback_div"><input type="button" id="export_feedback_button" value="Email Feedback" data-theme="c" data-mini="true"  talk-id="${talk_id}"></div>
+                </#if>
+
+            </div>
+        </div>
         <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list">
             <#if retrieved_feedback_list?has_content>
                 <#list retrieved_feedback_list as feedback>
@@ -67,6 +80,8 @@
                 </div>
 
             </#if>
+
+
         </ul>
        </div>
     </div>
@@ -75,6 +90,7 @@
             <h1>${result_message}</h1>
         </#if>
     </div>
+    <script type="text/javascript" src="static/js/add_feedback.js"></script>
     <style>
         .ui-icon-loading {
             opacity: 0;

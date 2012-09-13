@@ -19,7 +19,7 @@ $('#add_feedback_container').ready(function(){
             return false;
         }
 
-        ajax_call({type: "POST", url: "add_feedback.html", data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}},
+        ajax_call({type: "POST", url: "add_feedback.html", data: { talk_id: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}},
                   function(data){
                     $('#feedback_text').val('');
                     $('#add_feedback_container').html(data).trigger('create');

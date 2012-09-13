@@ -112,16 +112,6 @@ public class TalkServiceTest {
         assertThat(expected.contains(originalTalk), is(true));
     }
 
-    @Test
-    public void shouldEditTalk(){
-        Presentation presentation1 = new Presentation("test title", "test description", "TEST_PRESENTER");
-        talkService.createTalkWithNewPresentation(presentation1, "venue", DATE, TIME);
-        Talk talk=new Talk(presentation1,"venue",new DateParser(DATE,TIME).convertToDateTime(),DateTime.now());
-        int talkId=0;
-        when(mockTalkMapper.editTalk(talk)).thenReturn(1);
-
-        assertThat(talkService.editTalk(talkId,"title","description","venue",DATE,TIME),is(0));
-    }
 
 
 

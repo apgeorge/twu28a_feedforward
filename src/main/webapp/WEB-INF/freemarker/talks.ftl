@@ -9,14 +9,12 @@
                 <li data-theme="c">
                     <a id="${recentTalk.talkId}" role="talk" data-transition="slide">
                         <span style="font-size: 18px;"> ${recentTalk.presentation.title} </span>
-
                         <div>
                             <i style="font-weight: bold;color: grey;">
                                 <span
                                     style="font-size: 16px;">${recentTalk.presentation.owner} </span>
                             </i>
                         </div>
-
                     </a>
                 </li>
             </#list>

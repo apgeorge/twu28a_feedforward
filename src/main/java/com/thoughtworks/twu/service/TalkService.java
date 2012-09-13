@@ -60,14 +60,8 @@ public class TalkService {
 
     }
 
-
-    public int editTalk(int talkId, String title, String description, String venue, String date, String time) {
-        Presentation presentation = new Presentation(title, description, "");
-        int presentationId=talkMapper.getPresentationId(talkId);
-        presentation.setId(presentationId);
-        Talk talkToBeUpdated = new Talk(presentation,venue,new DateParser(date,time).convertToDateTime(), DateTime.now());
-        talkToBeUpdated.setTalkId(talkId);
-        presentationMapper.editPresentation(presentation);
-        return talkMapper.editTalk(talkToBeUpdated);
+    public boolean isMyTalk(Talk talk,String username) {
+        return (talk.isMyTalk(username));
     }
+
 }

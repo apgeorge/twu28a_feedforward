@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -29,10 +28,10 @@ public class TalkController {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk", talk);
-        if (talkService.isUpcomingTalk(talk)) {
-            return modelAndView.addObject("isUpcoming", "isAnUpcomingTalk");
+        if(talkService.isUpcomingTalk(talk)){
+         return modelAndView.addObject("isUpcoming","isAnUpcomingTalk");
         }
-        return modelAndView.addObject("isUpcoming", "isNotAnUpcomingTalk");
+        return  modelAndView.addObject("isUpcoming","isNotAnUpcomingTalk");
 
     }
 
@@ -41,7 +40,6 @@ public class TalkController {
         ModelAndView modelAndView = new ModelAndView("talks");
         List<Talk> recentTalks = talkService.getRecentTalks();
         modelAndView.addObject("talksList", recentTalks);
-        modelAndView.addObject("titleList", "Recent talks");
         return modelAndView;
     }
 
@@ -51,7 +49,6 @@ public class TalkController {
 
         ModelAndView modelAndView = new ModelAndView("talks");
         modelAndView.addObject("talksList", upcomingTalks);
-        modelAndView.addObject("titleList", "Upcoming talks");
         return modelAndView;
     }
 
@@ -109,44 +106,6 @@ public class TalkController {
         return new ModelAndView("talk_tab");
     }
 
-    @RequestMapping(value = "/edit_talk.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalkDetailsForEditing(HttpServletRequest request,
-                                                 @RequestParam(value = "talk_id", defaultValue = "-1")  int talkId) {
-        Talk talk = talkService.getTalk(talkId);
-        ModelAndView modelAndView;
-        if(talk.getPresentation().getOwner() == request.getUserPrincipal().getName().toLowerCase()) {
-            modelAndView = new ModelAndView("edit_talk");
-            modelAndView.addObject("talk", talk);
-            return modelAndView;
 
-        }else
-            return getTalkDetails(talkId);
-    }
-
-    @RequestMapping(value = "/edit_talk_submit.htm*", method = RequestMethod.GET)
-    public ModelAndView editTalksFormSubmit(@RequestParam(value = "talkId", defaultValue = "-1") int talkId,
-                                            @RequestParam(value = "title", defaultValue = "") String title,
-                                            @RequestParam(value = "description", defaultValue = "") String description,
-                                            @RequestParam(value = "venue", defaultValue = "") String venue,
-                                            @RequestParam(value = "date", defaultValue = "") String date,
-                                            @RequestParam(value = "time", defaultValue = "") String time) {
-
-        ModelAndView modelAndView = new ModelAndView("message");
-        int resultOfUpdate;
-        if (!talkService.validate(title, venue, date, time)) {
-            return addFailureMessageToModelAndView(modelAndView);
-        }
-        try {
-
-            resultOfUpdate = talkService.editTalk(talkId, title, description, venue, date, time);
-        } catch (Exception e) {
-            return addFailureMessageToModelAndView(modelAndView);
-        }
-        if (resultOfUpdate == 0)
-            return addFailureMessageToModelAndView(modelAndView);
-
-        modelAndView.addObject("status", "true");
-        return modelAndView;
-    }
 
 }
