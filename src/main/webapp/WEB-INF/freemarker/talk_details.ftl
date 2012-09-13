@@ -48,7 +48,7 @@
                     </p>
                     <p>
                         <b id="last_modified_time" style="word-wrap: break-word;">
-                          <span style="font-size: 18px;font-weight: bold;color: grey;" > Last Modified : &nbsp;</span>${talk.lastModifiedAt.toString("dd MMMM YYYY hh:mm a")}
+                          <span style="font-size: 18px;font-weight: bold;color: grey;" > Last Modified : &nbsp;</span>${talk.lastModifiedAt.toString("dd/MM/YYYY hh:mm a")}
                         </b>
                     </p>
                 </div>

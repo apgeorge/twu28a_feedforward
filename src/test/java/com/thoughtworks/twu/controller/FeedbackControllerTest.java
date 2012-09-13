@@ -4,9 +4,11 @@ import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Feedback;
 import com.thoughtworks.twu.service.ExportService;
 import com.thoughtworks.twu.service.FeedbackService;
+import com.thoughtworks.twu.service.TalkService;
 import org.hamcrest.CoreMatchers;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -17,38 +19,41 @@ import java.util.ArrayList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class FeedbackControllerTest {
     private FeedbackController feedbackController;
-    private FeedbackService feedbackService;
-    private MockHttpServletRequest request;
+    private FeedbackService mockFeedbackService;
     private ExportService mockExportService;
+    private TalkService mockTalkService;
+    private MockHttpServletRequest mockHttpServletRequest;
 
     @Before
     public void setUp() throws Exception {
-        feedbackService = mock(FeedbackService.class);
+        mockFeedbackService = mock(FeedbackService.class);
         mockExportService=mock(ExportService.class);
-        feedbackController = new FeedbackController(feedbackService, mockExportService);
+        mockTalkService=mock(TalkService.class);
+        feedbackController = new FeedbackController(mockFeedbackService, mockExportService,mockTalkService);
         UserPrincipal userPrincipal = new UserPrincipal("test.twu");
-        request = new MockHttpServletRequest();
-        request.setUserPrincipal(userPrincipal);
+        mockHttpServletRequest = new MockHttpServletRequest();
+        mockHttpServletRequest.setUserPrincipal(userPrincipal);
     }
 
     @Test
     public void shouldLoadAddFeedbackWhenClickedATalk() {
-        assertThat(feedbackController.enterFeedback(request, 0, "").getViewName(), is("add_feedback"));
+        assertThat(feedbackController.enterFeedback(mockHttpServletRequest, 0, "").getViewName(), is("add_feedback"));
     }
 
     @Test
     public void shouldEnterAFeedback() {
         int talkId = 9;
         ArrayList<Feedback> feedbackArrayList = new ArrayList<Feedback>();
-        when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
+        when(mockFeedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
 
-        ModelAndView result = feedbackController.enterFeedback(request, talkId, "Feedback comment");
+        ModelAndView result = feedbackController.enterFeedback(mockHttpServletRequest, talkId, "Feedback comment");
 
-        verify(feedbackService).enterFeedback(talkId, "Feedback comment", "test.twu", "test.twu@thoughtworks.com");
-        verify(feedbackService).retrieveFeedbackByTalkId(talkId);
+        verify(mockFeedbackService).enterFeedback(talkId, "Feedback comment", "test.twu", "test.twu@thoughtworks.com");
+        verify(mockFeedbackService).retrieveFeedbackByTalkId(talkId);
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
     }
 
@@ -65,27 +70,33 @@ public class FeedbackControllerTest {
         feedbackArrayList.add(feedback2);
         feedbackArrayList.add(feedback3);
         feedbackArrayList.add(feedback4);
-        when(feedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
+        when(mockFeedbackService.retrieveFeedbackByTalkId(talkId)).thenReturn(feedbackArrayList);
         //When
-        ModelAndView result = feedbackController.getListOfPastFeedback(talkId);
+        ModelAndView result = feedbackController.getListOfPastFeedback(mockHttpServletRequest,talkId);
         //Then
         assertThat(result.getViewName(), CoreMatchers.is("add_feedback"));
         assertThat((ArrayList<Feedback>) result.getModel().get("retrieved_feedback_list"), CoreMatchers.is(feedbackArrayList));
-        verify(feedbackService).retrieveFeedbackByTalkId(talkId);
+        verify(mockFeedbackService).retrieveFeedbackByTalkId(talkId);
 
     }
 
     @Test
     public void shouldExportFeedback() {
         int talkId=1;
+        String username= mockHttpServletRequest.getUserPrincipal().getName();
+        when(mockExportService.exportTalkWithFeedback(talkId,username)).thenReturn(true);
+        boolean expected=mockExportService.exportTalkWithFeedback(talkId,username);
 
-        ModelAndView result = feedbackController.exportTalkWithFeedback(talkId);
+        ModelAndView result = feedbackController.exportTalkWithFeedback(mockHttpServletRequest,talkId);
 
         assertThat(result.getViewName(), is("message"));
-        assertThat((String)result.getModel().get("status"), is("true"));
-        verify(mockExportService).exportTalkWithFeedback(talkId);
+        String status = (String) result.getModel().get("status");
+        Assert.assertTrue(expected);
+        assertThat(status,is("isExported"));
+
     }
 
 
 
 }
+

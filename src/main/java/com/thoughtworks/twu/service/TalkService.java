@@ -56,11 +56,14 @@ public class TalkService {
 
     public Boolean isUpcomingTalk(Talk talk) {
         return (talk.isUpcoming());
-
     }
-
 
     public int editTalk(int talkId, String title, String description, String venue, String date, String time) {
         return 0;
     }
+
+    public boolean isMyTalk(Talk talk,String username) {
+        return (talk.isMyTalk(username));
+    }
+
 }

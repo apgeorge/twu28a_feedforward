@@ -158,32 +158,5 @@ public class TalkControllerTest {
 
     }
 
-    @Test
-    public void shouldReturnEditFeedbackPage() throws Exception {
-
-        Talk talk = new Talk();
-        int talkId = 1;
-        when(talkService.getTalk(talkId)).thenReturn(talk);
-
-        ModelAndView result = talkController.getTalkDetailsForEditing(talkId);
-
-
-        assertThat(result.getViewName(), is("edit_talk"));
-        assertThat((Talk) result.getModel().get("talk"), is(talk));
-    }
-
-    @Test
-    public void shouldUpdateTalkWithEnteredDetails() throws Exception {
-        int talkId = 0;
-        String description = "description not needed";
-
-        String title = "edited title";
-        when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
-        when(talkService.editTalk(talkId, title, description, "venue", "date", "time")).thenReturn(1);
-
-        talkController.editTalksFormSubmit(talkId, title, description, "venue", "date", "time");
-        verify(talkService).validate(title, "venue", "date", "time");
-        verify(talkService).editTalk(talkId, title, description, "venue", "date", "time");
-    }
 
 }

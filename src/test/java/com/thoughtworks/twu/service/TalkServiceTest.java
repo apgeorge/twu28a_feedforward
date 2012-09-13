@@ -112,8 +112,6 @@ public class TalkServiceTest {
         assertThat(expected.contains(originalTalk), is(true));
     }
 
-
-
 }
 
 
