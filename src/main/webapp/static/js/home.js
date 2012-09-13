@@ -14,7 +14,7 @@ $.ajaxSetup({
     dataType :"html",
     successThreshold : '3000',
     timeout:7000,
-    method: "GET"
+    type: "GET"
 });
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.beforeSend = function () {
@@ -39,8 +39,6 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 originalOptions.error();
         };
 });
-
-
 var ajax_call = function(settings, done_callback){
    $.ajax(settings).done(done_callback);
 };
@@ -64,7 +62,7 @@ $(function(){
 
         var hash=location.hash;
         hash=(hash.replace(/^#/,''));
-        var talk_details_page_hash = "id_"+ hash.substring(3);
+        var talk_details_page_hash = "id_"+hash.substring(3);
 
         switch(hash)
         {
@@ -161,4 +159,3 @@ $(function () {
     });
 
 });
-

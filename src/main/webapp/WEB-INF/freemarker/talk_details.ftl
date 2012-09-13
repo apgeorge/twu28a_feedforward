@@ -44,7 +44,7 @@
                     </p>
                     <p>
                         <b id="email">
-                            <span style="font-size: 18px;font-weight: bold;color: grey;" > Contact me &nbsp; &nbsp;: &nbsp;</span> <i><a target="_blank" href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a> </i>
+                            <span style="font-size: 18px;font-weight: bold;color: grey;" > Contact me &nbsp; &nbsp;: &nbsp;</span> <i><a href="mailto:${talk.presentation.owner}@thoughtworks.com">${talk.presentation.owner}@thoughtworks.com</a> </i>
                         </b>
                     </p>
                     <p>

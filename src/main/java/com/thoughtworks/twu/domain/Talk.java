@@ -14,6 +14,8 @@ public class Talk {
 
     private DateTime dateTime;
 
+
+
     public void setTalkId(int talkId) {
         this.talkId = talkId;
     }
@@ -84,7 +86,8 @@ public class Talk {
        return dateTime.isAfter(new ApplicationClock().now());
     }
 
+
     public Boolean isMyTalk(String username) {
-        return (username==presentation.getOwner());
+        return username.equals(presentation.getOwner());
     }
 }
