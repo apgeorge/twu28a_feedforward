@@ -9,6 +9,7 @@
     <h4 id="feedback_status_message">
     </h4>
 
+
     <form id="feedback_form">
         <div data-role="fieldcontain">
             <center>
@@ -60,6 +61,8 @@
 
             </div>
         </div>
+
+       <div id="feedback_content">
         <ul id="list_of_feedbacks" data-role="listview" class="ui-listview" id="feedback-list">
             <#if retrieved_feedback_list?has_content>
                 <#list retrieved_feedback_list as feedback>
@@ -83,6 +86,7 @@
 
 
         </ul>
+        </div>
        </div>
     </div>
     <div id="result">
