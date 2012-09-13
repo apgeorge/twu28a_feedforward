@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import java.util.UUID;
 
+import static com.thoughtworks.twu.utils.WaitHelper.waitForAjax;
 import static com.thoughtworks.twu.utils.WaitHelper.waitForElement;
 import static org.hamcrest.CoreMatchers.is;
 import static org.joda.time.DateTime.now;

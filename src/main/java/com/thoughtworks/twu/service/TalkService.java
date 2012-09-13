@@ -60,5 +60,8 @@ public class TalkService {
 
     }
 
+    public boolean isMyTalk(Talk talk,String username) {
+        return (talk.isMyTalk(username));
+    }
 
 }

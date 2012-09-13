@@ -82,12 +82,11 @@ public class Talk {
         return result;
     }
 
-    public Boolean isUpcoming() {
+    public boolean isUpcoming() {
        return dateTime.isAfter(new ApplicationClock().now());
     }
 
-
-    public Boolean isMyTalk(String username) {
+    public boolean isMyTalk(String username) {
         return username.equals(presentation.getOwner());
     }
 }

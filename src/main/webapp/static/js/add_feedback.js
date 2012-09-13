@@ -11,14 +11,10 @@ function textCounter( field, countfield, maxlimit ) {
 }
 $('#add_feedback_container').ready(function(){
     $('#add_feedback_submit').click(function(){
-        if(validateFeedback()==false){
-            $('#feedback_text').css('-moz-box-shadow', '0 0 12px red');
-            $('#feedback_text').css('-webkit-box-shadow', '0 0 12px red');
-            $('#feedback_text').css('box-shadow', '0 0 12px red');
+        if(!validateFeedback()){
             return false;
         }
-
-        ajax_call({type: "POST", url: "add_feedback.html", data: { talkId: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}},
+        ajax_call({type: "POST", url: "add_feedback.html", data: { talk_id: $(this).attr('talk-id'), feedbackComment: $('#feedback_text').val()}},
                   function(data){
                     $('#feedback_text').val('');
                     $('#add_feedback_container').html(data).trigger('create');
@@ -29,9 +25,18 @@ $('#add_feedback_container').ready(function(){
                   });
     });
 
-
+    $('#export_feedback_button').click(function(){
+            ajax_call({type: "POST", url: "export_feedback.html", data: { talk_id: $(this).attr('talk-id')}},
+                      function(data){
+                          if (data.indexOf("isExported") != -1) {
+                              $('#message_box_success_feedback').html('Feedback has been emailed to you.');
+                          } else {
+                              $('#message_box_error_feedback').html('Unable to email feedback.');
+                          }
+                          $.mobile.hidePageLoadingMsg();
+          });
+     });
 });
-
 function validateFeedback(){
     $('#feedback_text').val($.trim($('#feedback_text').val()));
     return !($('#feedback_text').val()=="");

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -29,10 +28,10 @@ public class TalkController {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk", talk);
-        if (talkService.isUpcomingTalk(talk)) {
-            return modelAndView.addObject("isUpcoming", "isAnUpcomingTalk");
+        if(talkService.isUpcomingTalk(talk)){
+         return modelAndView.addObject("isUpcoming","isAnUpcomingTalk");
         }
-        return modelAndView.addObject("isUpcoming", "isNotAnUpcomingTalk");
+        return  modelAndView.addObject("isUpcoming","isNotAnUpcomingTalk");
 
     }
 
@@ -41,7 +40,6 @@ public class TalkController {
         ModelAndView modelAndView = new ModelAndView("talks");
         List<Talk> recentTalks = talkService.getRecentTalks();
         modelAndView.addObject("talksList", recentTalks);
-        modelAndView.addObject("titleList", "Recent talks");
         return modelAndView;
     }
 
@@ -51,7 +49,6 @@ public class TalkController {
 
         ModelAndView modelAndView = new ModelAndView("talks");
         modelAndView.addObject("talksList", upcomingTalks);
-        modelAndView.addObject("titleList", "Upcoming talks");
         return modelAndView;
     }
 
