@@ -7,8 +7,10 @@ import org.springframework.dao.DuplicateKeyException;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class PresentationMapperTest extends IntegrationTest {
 
@@ -52,16 +54,22 @@ public class PresentationMapperTest extends IntegrationTest {
     assertTrue(presentationMapper.getPresentationsByOwner(owner).contains(p));
 }
 
-    /*
-@Test
-public void shouldInsertPresentationAndReflectItInTheObject(){
 
-   Presentation presentation = new Presentation("pechaKucha", "Today at 8", "prateek");
-   presentation.setId(100);
-   presentationMapper.insertPresentation(presentation);
+    @Test
+    public void shouldBeAbleToEditPresentation(){
+        Presentation presentation = new Presentation("pechaKucha", "Today at 8", "prateek");
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
 
-   assertThat(presentation.getId(), not(100));
-}     */
+        Presentation presentationToEdit = new Presentation("new title", "new desc", "");
+        presentationToEdit.setId(presentationWithID.getId());
 
+        presentationMapper.editPresentation(presentationToEdit);
+
+        Presentation edittedPresentation = presentationMapper.getPresentation(presentationToEdit.getTitle(), presentation.getOwner());
+
+        assertThat(edittedPresentation.getTitle(), is(presentationToEdit.getTitle()));
+        assertThat(edittedPresentation.getDescription(), is(presentationToEdit.getDescription()));
+    }
 
 }

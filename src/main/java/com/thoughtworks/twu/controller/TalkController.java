@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -29,10 +28,10 @@ public class TalkController {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk", talk);
-        if (talkService.isUpcomingTalk(talk)) {
-            return modelAndView.addObject("isUpcoming", "isAnUpcomingTalk");
+        if(talkService.isUpcomingTalk(talk)){
+         return modelAndView.addObject("isUpcoming","isAnUpcomingTalk");
         }
-        return modelAndView.addObject("isUpcoming", "isNotAnUpcomingTalk");
+        return  modelAndView.addObject("isUpcoming","isNotAnUpcomingTalk");
 
     }
 
@@ -41,7 +40,6 @@ public class TalkController {
         ModelAndView modelAndView = new ModelAndView("talks");
         List<Talk> recentTalks = talkService.getRecentTalks();
         modelAndView.addObject("talksList", recentTalks);
-        modelAndView.addObject("titleList", "Recent talks");
         return modelAndView;
     }
 
@@ -51,7 +49,6 @@ public class TalkController {
 
         ModelAndView modelAndView = new ModelAndView("talks");
         modelAndView.addObject("talksList", upcomingTalks);
-        modelAndView.addObject("titleList", "Upcoming talks");
         return modelAndView;
     }
 
@@ -90,7 +87,7 @@ public class TalkController {
     @RequestMapping(value = "/my_talks.htm*", method = RequestMethod.GET)
     public ModelAndView getMyTalksPage(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("my_talks");
-        String user = request.getUserPrincipal().getName().toLowerCase();
+        String user = request.getUserPrincipal().getName();
 
 
         modelAndView.addObject("myTalksList", talkService.getMyTalks(user));
@@ -110,11 +107,17 @@ public class TalkController {
     }
 
     @RequestMapping(value = "/edit_talk.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalkDetailsForEditing(@RequestParam(value = "talk_id", defaultValue = "-1")  int talkId) {
+    public ModelAndView getTalkDetailsForEditing(HttpServletRequest request,
+                                                 @RequestParam(value = "talk_id", defaultValue = "-1")  int talkId) {
         Talk talk = talkService.getTalk(talkId);
-        ModelAndView modelAndView = new ModelAndView("edit_talk");
-        modelAndView.addObject("talk", talk);
-        return modelAndView;
+        ModelAndView modelAndView;
+        if(talk.getPresentation().getOwner() == request.getUserPrincipal().getName().toLowerCase()) {
+            modelAndView = new ModelAndView("edit_talk");
+            modelAndView.addObject("talk", talk);
+            return modelAndView;
+
+        }else
+            return getTalkDetails(talkId);
     }
 
     @RequestMapping(value = "/edit_talk_submit.htm*", method = RequestMethod.GET)

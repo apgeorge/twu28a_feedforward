@@ -4,6 +4,7 @@ import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.service.TalkService;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -158,19 +159,6 @@ public class TalkControllerTest {
 
     }
 
-    @Test
-    public void shouldReturnEditFeedbackPage() throws Exception {
-
-        Talk talk = new Talk();
-        int talkId = 1;
-        when(talkService.getTalk(talkId)).thenReturn(talk);
-
-        ModelAndView result = talkController.getTalkDetailsForEditing(talkId);
-
-
-        assertThat(result.getViewName(), is("edit_talk"));
-        assertThat((Talk) result.getModel().get("talk"), is(talk));
-    }
 
     @Test
     public void shouldUpdateTalkWithEnteredDetails() throws Exception {
@@ -187,18 +175,18 @@ public class TalkControllerTest {
     }
 
     @Test
-    public void shouldCreateNewTalkWithLowercaseOwnerName() throws Exception {
-        String title = "title";
-        String description = "description";
-        when(talkService.validate(title, "venue", "date", "time")).thenReturn(true);
-        UserPrincipal uppercaseUserPrincipal = new UserPrincipal("TEST.TWU");
-        MockHttpServletRequest uppercaseRequest = new MockHttpServletRequest();
-        uppercaseRequest.setUserPrincipal(uppercaseUserPrincipal);
+    public void shouldNotEditTalkIfNotRequestedByOwner(){
+        Talk talk = new Talk(new Presentation("title", "desc","owner" ),"venue", DateTime.now(), DateTime.now());
+        int talkId = 1;
+        UserPrincipal userPrincipal = new UserPrincipal("non existing user");
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setUserPrincipal(userPrincipal);
+        when(talkService.getTalk(talkId)).thenReturn(talk);
+        ModelAndView modelAndView = talkController.getTalkDetailsForEditing(request,talkId);
 
-        talkController.newTalksFormSubmit(uppercaseRequest, title, description, "venue", "date", "time");
+        assertThat(modelAndView.getViewName(), is("talk_details"));
 
-        verify(talkService).validate(title, "venue", "date", "time");
-        verify(talkService).createTalkWithNewPresentation(new Presentation(title, description, "test.twu"), "venue", "date", "time");
+
     }
 
 }

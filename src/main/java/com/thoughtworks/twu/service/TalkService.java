@@ -6,6 +6,7 @@ import com.thoughtworks.twu.persistence.PresentationMapper;
 import com.thoughtworks.twu.persistence.TalkMapper;
 import com.thoughtworks.twu.utils.ApplicationClock;
 import com.thoughtworks.twu.utils.DateParser;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class TalkService {
     }
 
     public List<Talk> getMyTalks(String owner) {
-        return talkMapper.getTalksByUsername(owner);
+        return talkMapper.getTalksByUsername(owner.toLowerCase());
     }
 
     public List<Talk> getRecentTalks() {
@@ -56,11 +57,20 @@ public class TalkService {
 
     public Boolean isUpcomingTalk(Talk talk) {
         return (talk.isUpcoming());
-
     }
-
 
     public int editTalk(int talkId, String title, String description, String venue, String date, String time) {
-        return 0;
+        Presentation presentation = new Presentation(title, description, "");
+        int presentationId=talkMapper.getPresentationId(talkId);
+        presentation.setId(presentationId);
+        Talk talkToBeUpdated = new Talk(presentation,venue,new DateParser(date,time).convertToDateTime(), DateTime.now());
+        talkToBeUpdated.setTalkId(talkId);
+        presentationMapper.editPresentation(presentation);
+        return talkMapper.editTalk(talkToBeUpdated);
     }
+
+    public boolean isMyTalk(Talk talk,String username) {
+        return (talk.isMyTalk(username));
+    }
+
 }

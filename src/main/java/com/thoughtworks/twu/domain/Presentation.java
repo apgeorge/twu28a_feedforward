@@ -14,7 +14,7 @@ public class Presentation {
     public Presentation(String title, String description, String owner) {
         this.title = title;
         this.description = description;
-        this.owner = owner;
+        this.owner = owner.toLowerCase();
     }
 
     public int getId() {
