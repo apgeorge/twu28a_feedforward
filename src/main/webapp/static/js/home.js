@@ -13,12 +13,12 @@ $.ajaxSetup({
     cache : 'false',
     dataType :"html",
     successThreshold : '3000',
-    timeout:10000,
+    timeout:7000,
     method: "GET"
 });
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.beforeSend = function () {
-            $.mobile.showPageLoadingMsg();
+            $.mobile.showPageLoadingMsg()
             if ($.isFunction(originalOptions.beforeSend))
                 originalOptions.beforeSend();
         };
@@ -34,8 +34,9 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         };
         options.error = function(jqXHR, textStatus){
             popup_ajax_error_box(textStatus);
+            if(textStatus == "")
             if ($.isFunction(originalOptions.complete))
-                originalOptions.complete();
+                originalOptions.error();
         };
 });
 
