@@ -87,4 +87,7 @@ public class Talk {
     }
 
 
+    public Boolean isMyTalk(String username) {
+        return username.equals(presentation.getOwner());
+    }
 }
