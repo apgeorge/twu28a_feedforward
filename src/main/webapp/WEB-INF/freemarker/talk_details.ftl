@@ -12,14 +12,15 @@
                 <h4 style="word-wrap: break-word;"><span style="font-size: 18px;">${talk.presentation.title}</span> &nbsp; <i style="font-weight: bold;color: grey;"><span style="font-size: 16px;">- by ${talk.presentation.owner}</span></i></h4>
                 <div>
                     <div style="float: right;">
-                           <a  href="https://twitter.com/share?text=Hey ThoughtWorkers," class="twitter-share-button" data-lang="en">Tweet</a>
-                           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                        <a data-text="Check out this interesting talk." data-url="" data-hashtags="FeedForward,ThoughtWorks" href="https://twitter.com/share" class="twitter-share-button" data-via="${talk.presentation.owner}" data-size="large" data-hashtags="Feed">Tweet This</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                     </div>
                     <br />
                     <p align="justify">
                         <b id="description" style="word-wrap: break-word;">
                            ${talk.presentation.description}
                         </b>
+                        <a id="edit_talk_description" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                     </p>
                     <p>
                         <b id="venue">
@@ -27,6 +28,7 @@
                                 Venue &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; &nbsp;
                             </span> ${talk.venue}
                         </b>
+                        <a id="edit_talk_venue" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                     </p>
                     <p>
                         <b id="date">
@@ -34,6 +36,7 @@
                                 Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; &nbsp;
                             </span> ${talk.dateTime.toString("dd MMMM YYYY")}
                         </b>
+                        <a id="edit_talk_date" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                     </p>
                     <p>
                         <b id="time">
@@ -41,6 +44,7 @@
                                 Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;
                             </span> ${talk.dateTime.toString("hh:mm a")}
                         </b>
+                        <a id="edit_talk_time" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                     </p>
                     <p>
                         <b id="email">

@@ -1,7 +1,8 @@
 var display_message;
 var popup_ajax_error_box = function(status){
-    $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><strong>Error loading the page. Try again.</strong></div>")
-        .css({  "padding":"20px", "border-width": "2px","border-color":"grey", "display":"block", "opacity":0.96, "top": $(window).scrollTop() + 150 })
+    $('#ajax_error_box').remove();
+    $("<div id=\"ajax_error_box\" class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><strong>Error loading the page. Try again.</strong></div>")
+        .css({  "padding":"20px", "border-width": "2px","border-color":"grey", "display":"block", "opacity":0.96, "top": "50%", "text-align": "center", "position": "relative", "margin-left": "25%", "margin-right": "25%", "left":"0"})
         .appendTo( $("body") )
         .delay( 5000 )
         .fadeOut( 800, function(){
@@ -13,8 +14,8 @@ $.ajaxSetup({
     cache : 'false',
     dataType :"html",
     successThreshold : '3000',
-    timeout:10000,
-    method: "GET"
+    timeout : 10000,
+    method : "GET"
 });
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.beforeSend = function () {
