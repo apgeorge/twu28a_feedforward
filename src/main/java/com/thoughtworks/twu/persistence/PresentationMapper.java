@@ -14,7 +14,7 @@ public interface PresentationMapper {
     Presentation getPresentation(@Param("title")String title, @Param("owner")String owner);
 
     @Insert("INSERT INTO presentation (title, description, owner) VALUES(#{title}, #{description}, #{owner})")
-    void insertPresentation(Presentation presentation);
+    int insertPresentation(Presentation presentation);
 
     @Select("SELECT title,description,owner FROM presentation where owner = #{owner} ORDER BY time_stamp DESC")
     List<Presentation> getPresentationsByOwner(String owner);

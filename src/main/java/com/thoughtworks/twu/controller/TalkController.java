@@ -109,6 +109,23 @@ public class TalkController {
         return new ModelAndView("talk_tab");
     }
 
+    @RequestMapping(value = "/edit_talk.htm*", method = RequestMethod.POST)
+    public ModelAndView editTalkDetails(HttpServletRequest request,
+                                        @RequestParam(value = "type", defaultValue = "") String type,
+                                        @RequestParam(value = "talk_id", defaultValue = "-1") int talkId,
+                                        @RequestParam(value = "update_value", defaultValue = "") String updateValue) {
+        Talk talk = talkService.getTalk(talkId);
+        if(!talk.isMyTalk(request.getUserPrincipal().getName()))
+            return null;
+        if (type.equals("description")) {
+            talkService.editTalkDescription(talkId, updateValue);
+        }
+
+        ModelAndView message = new ModelAndView("message");
+        message.addObject("status",updateValue);
+        return message;
+    }
+
 
 
 }

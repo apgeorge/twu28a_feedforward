@@ -59,4 +59,6 @@ public interface TalkMapper {
     @Delete("DELETE FROM talk WHERE talk_id=#{talkId}")
     int deleteById(int talkId);
 
+    @Update("UPDATE presentation SET description=#{newDescription} WHERE id=(SELECT presentation_id FROM talk WHERE talk_id=#{talkId})")
+    int editTalkDescription(@Param("talkId") int talkId, @Param("newDescription") String newDescription);
 }

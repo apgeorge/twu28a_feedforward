@@ -185,5 +185,18 @@ public class TalkMapperTest extends IntegrationTest {
         assertThat(talkMapper.deleteById(talkId), is(0));
     }
 
+    @Test
+    public void shouldEditDescriptionOfTalk(){
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(1), testClock.now());
+
+        talkMapper.insert(firstTalk);
+        int talkId = talkMapper.getLastId();
+
+        assertThat(talkMapper.editTalkDescription(talkId, "New Desc"), is(1));
+
+    }
+
 
 }

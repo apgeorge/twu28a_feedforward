@@ -169,6 +169,14 @@ public class TalkControllerTest {
         assertThat((String) modelAndView.getModel().get("isEditable"), is("true"));
     }
 
-
+   @Test
+    public void shouldEditDescriptionOfTalk(){
+       int talkId = 42;
+       Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), null, null, null);
+       when(talkService.getTalk(talkId)).thenReturn(talk);
+       when(talkService.editTalkDescription(talkId, "Edited desc")).thenReturn(1);
+       ModelAndView modelAndView = talkController.editTalkDetails(request, "description", talkId, "Edited desc");
+       assertThat((String)modelAndView.getModel().get("status"), is("Edited desc"));
+   }
 
 }

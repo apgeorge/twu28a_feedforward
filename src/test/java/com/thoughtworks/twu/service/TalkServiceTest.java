@@ -112,6 +112,20 @@ public class TalkServiceTest {
         assertThat(expected.contains(originalTalk), is(true));
     }
 
+    @Test
+    public void shouldEditTalkDescription(){
+        Presentation presentation = new Presentation("test title", "test description", "owner");
+        presentation.setId(0);
+        Talk talk = new Talk(presentation,null, null, null);
+        when(mockPresentationMapper.insertPresentation(presentation)).thenReturn(1);
+        when(mockPresentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner())).thenReturn(presentation);
+        when(mockTalkMapper.insert(talk)).thenReturn(1);
+        talkService.createTalkWithNewPresentation(presentation, "venue", DATE, TIME);
+        int talkId = mockTalkMapper.getLastId();
+        when(mockTalkMapper.editTalkDescription(talkId,"editted_description")).thenReturn(1);
+        assertThat(talkService.editTalkDescription(talkId, "editted_description"), is(1));
+    }
+
 
 
 

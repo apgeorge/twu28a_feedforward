@@ -64,4 +64,7 @@ public class TalkService {
         return (talk.isMyTalk(username));
     }
 
+    public int editTalkDescription(int talkId, String editted_description) {
+        return talkMapper.editTalkDescription(talkId, editted_description);
+    }
 }

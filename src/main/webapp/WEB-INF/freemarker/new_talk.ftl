@@ -41,7 +41,7 @@
             <label for="timepicker">
             </label>
             <input name="time" id="timepicker" placeholder="Time *" maxlength="50" value="" type="text"
-                   style="width: 100%;">
+                                               style="width: 100%;">
         </fieldset>
     </div>
 

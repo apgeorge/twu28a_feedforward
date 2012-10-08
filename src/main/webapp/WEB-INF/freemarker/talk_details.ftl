@@ -6,7 +6,7 @@
     <div style="display: none;">
         ${isUpcoming}
     </div>
-    <div id="talk_details" data-role="collapsible-set" data-theme="" data-content-theme="">
+    <div id="talk_details" talk-id="${talk.id}" data-role="collapsible-set" data-theme="" data-content-theme="">
         <div data-role="collapsible" data-collapsed="<#if isUpcoming =="isAnUpcomingTalk">false<#else> true</#if>">
             <#if talk??>
                 <h4 style="word-wrap: break-word;"><span style="font-size: 18px;">${talk.presentation.title}</span> &nbsp; <i style="font-weight: bold;color: grey;"><span style="font-size: 16px;">- by ${talk.presentation.owner}</span></i></h4>
@@ -16,42 +16,42 @@
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                     </div>
                     <br />
-                    <p align="justify">
-                        <b id="description" style="word-wrap: break-word;">
+                    <p align="justify" style="padding: 1%;">
+                        <b id="description" style="word-wrap: break-word; padding: 20px;">
                            ${talk.presentation.description}
                         </b>
                         <#if isEditable??>
-                            <a id="${talk.id}" name="edit_talk_description" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                            <a id="edit_talk_description" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                         </#if>
                     </p>
                     <p>
-                        <b id="venue">
+                        <b >
                             <span style="font-size: 18px;font-weight: bold;color: grey;" >
                                 Venue &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; &nbsp;
-                            </span> ${talk.venue}
+                            </span><span id="venue"> ${talk.venue}  </span>
                         </b>
                         <#if isEditable??>
-                            <a id="${talk.id}" name="edit_talk_venue" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                            <a id="edit_talk_venue" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                         </#if>
                     </p>
                     <p>
-                        <b id="date">
+                        <b >
                             <span style="font-size: 18px;font-weight: bold;color: grey;" >
                                 Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; &nbsp;
-                            </span> ${talk.dateTime.toString("dd MMMM YYYY")}
+                            </span> <span id="date">${talk.dateTime.toString("dd MMMM YYYY")}   </span>
                         </b>
                         <#if isEditable??>
-                            <a id="${talk.id}" name="edit_talk_date" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                            <a id="edit_talk_date" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                         </#if>
                     </p>
                     <p>
-                        <b id="time">
+                        <b >
                             <span style="font-size: 18px;font-weight: bold;color: grey;" >
                                 Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;
-                            </span> ${talk.dateTime.toString("hh:mm a")}
+                            </span> <span id="time">${talk.dateTime.toString("hh:mm a")} </span>
                         </b>
                         <#if isEditable??>
-                            <a id="${talk.id}" name="edit_talk_time" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                            <a id="edit_talk_time" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
                         </#if>
                     </p>
                     <p>
