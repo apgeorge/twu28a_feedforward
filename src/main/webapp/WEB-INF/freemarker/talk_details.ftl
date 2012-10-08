@@ -20,7 +20,9 @@
                         <b id="description" style="word-wrap: break-word;">
                            ${talk.presentation.description}
                         </b>
-                        <a id="edit_talk_description" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        <#if isEditable??>
+                            <a id="${talk.id}" name="edit_talk_description" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        </#if>
                     </p>
                     <p>
                         <b id="venue">
@@ -28,7 +30,9 @@
                                 Venue &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; &nbsp;
                             </span> ${talk.venue}
                         </b>
-                        <a id="edit_talk_venue" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        <#if isEditable??>
+                            <a id="${talk.id}" name="edit_talk_venue" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        </#if>
                     </p>
                     <p>
                         <b id="date">
@@ -36,7 +40,9 @@
                                 Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp; &nbsp;
                             </span> ${talk.dateTime.toString("dd MMMM YYYY")}
                         </b>
-                        <a id="edit_talk_date" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        <#if isEditable??>
+                            <a id="${talk.id}" name="edit_talk_date" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        </#if>
                     </p>
                     <p>
                         <b id="time">
@@ -44,7 +50,9 @@
                                 Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;
                             </span> ${talk.dateTime.toString("hh:mm a")}
                         </b>
-                        <a id="edit_talk_time" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        <#if isEditable??>
+                            <a id="${talk.id}" name="edit_talk_time" data-role="button" data-theme="c" data-icon="edit" data-iconpos="notext" data-inline="true" style="float: right;border-top-width: 0px;margin-top: 0px;vertical-align: top;"></a>
+                        </#if>
                     </p>
                     <p>
                         <b id="email">

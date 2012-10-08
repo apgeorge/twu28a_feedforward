@@ -24,10 +24,13 @@ public class TalkController {
 
 
     @RequestMapping(value = "/talk_details.htm*", method = RequestMethod.GET)
-    public ModelAndView getTalkDetails(@RequestParam(value = "talk_id", defaultValue = "-1") int talkId) {
+    public ModelAndView getTalkDetails(HttpServletRequest request, @RequestParam(value = "talk_id", defaultValue = "-1") int talkId) {
         Talk talk = talkService.getTalk(talkId);
         ModelAndView modelAndView = new ModelAndView("talk_details");
         modelAndView.addObject("talk", talk);
+        if(talk.isMyTalk(request.getUserPrincipal().getName()))
+            modelAndView.addObject("isEditable","true");
+
         if(talkService.isUpcomingTalk(talk)){
          return modelAndView.addObject("isUpcoming","isAnUpcomingTalk");
         }

@@ -4,7 +4,6 @@ import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.service.TalkService;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -36,10 +35,10 @@ public class TalkControllerTest {
     @Test
     public void shouldReturnTalkDetailsViewForAnId() {
         int talkId = 42;
-        Talk talk = new Talk();
+        Talk talk = new Talk(new Presentation(null, null, "test.twu"), null, null, null);
         when(talkService.getTalk(talkId)).thenReturn(talk);
 
-        ModelAndView result = talkController.getTalkDetails(talkId);
+        ModelAndView result = talkController.getTalkDetails(request, talkId);
 
         assertThat(result.getViewName(), is("talk_details"));
         assertThat((Talk) result.getModel().get("talk"), is(talk));
@@ -132,11 +131,11 @@ public class TalkControllerTest {
     @Test
     public void shouldReturnTalkDetailsPageWithoutFeedback() throws Exception {
 
-        Talk talk = new Talk();
+        Talk talk = new Talk(new Presentation(null, null, "test.twu"), null, null, null);
         when(talkService.isUpcomingTalk(talk)).thenReturn(true);
         int talkId = 1;
         when(talkService.getTalk(talkId)).thenReturn(talk);
-        ModelAndView modelAndView = talkController.getTalkDetails(talkId);
+        ModelAndView modelAndView = talkController.getTalkDetails(request, talkId);
         assertThat(modelAndView.getViewName(), is("talk_details"));
         verify(talkService).isUpcomingTalk(talk);
         assertThat((String) modelAndView.getModel().get("isUpcoming"), is("isAnUpcomingTalk"));
@@ -147,16 +146,27 @@ public class TalkControllerTest {
     @Test
     public void shouldReturnTalkDetailsPageWithFeedbackForRecentTalk() throws Exception {
 
-        Talk talk = new Talk();
+        Talk talk = new Talk(new Presentation(null, null, "test.twu"), null, null, null);
         when(talkService.isUpcomingTalk(talk)).thenReturn(false);
         int talkId = 1;
         when(talkService.getTalk(talkId)).thenReturn(talk);
-        ModelAndView modelAndView = talkController.getTalkDetails(talkId);
+        ModelAndView modelAndView = talkController.getTalkDetails(request, talkId);
         assertThat(modelAndView.getViewName(), is("talk_details"));
         verify(talkService).isUpcomingTalk(talk);
         assertThat((String) modelAndView.getModel().get("isUpcoming"), is("isNotAnUpcomingTalk"));
 
 
+    }
+
+
+    @Test
+    public void shouldShowEditTalkDetailsIconForOwner() throws Exception {
+
+        Talk talk = new Talk(new Presentation(null, null, "test.twu"), null, null, null);
+        when(talkService.getTalk(0)).thenReturn(talk);
+        when(talkService.isUpcomingTalk(talk)).thenReturn(true);
+        ModelAndView modelAndView = talkController.getTalkDetails(request, 0);
+        assertThat((String) modelAndView.getModel().get("isEditable"), is("true"));
     }
 
 

@@ -7,4 +7,9 @@ function replaceURLWithHTMLLinks(text) {
 $('#description').ready( function(){
 var text = $('#description').html();
         $('#description').html(replaceURLWithHTMLLinks(text));
+
+
+    $('#edit_taklk_*').click(function(){
+
+    });
 });
