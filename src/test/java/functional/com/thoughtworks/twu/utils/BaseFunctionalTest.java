@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeSuite;
 
 public class BaseFunctionalTest {
     public static final int HTTP_PORT = 9191;
-    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT + "/twu/home.html";
+    public static final String HTTP_BASE_URL = "http://localhost:" + HTTP_PORT ;
     protected static WebDriver webDriver;
 
     @BeforeSuite

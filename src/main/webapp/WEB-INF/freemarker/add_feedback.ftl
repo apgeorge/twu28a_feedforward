@@ -56,7 +56,7 @@
             <div class="ui-grid-a">
                 <div class="ui-block-a" ><h3 style="margin-top: 0.75em">Feedback</h3></div>
                 <#if isOwner??>
-                     <div class="ui-block-b" id="export_feedback_div"><input type="button" id="export_feedback_button" value="Email Feedback" data-theme="c" data-mini="true"  talk-id="${talk_id}"></div>
+                     <div class="ui-block-b" id="export_feedback_div"><input type="button" id="export_feedback_button" data-icon="email" value="Email Feedback" data-theme="c" data-mini="true"  talk-id="${talk_id}"></div>
                 </#if>
 
             </div>

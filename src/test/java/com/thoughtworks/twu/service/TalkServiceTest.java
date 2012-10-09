@@ -126,6 +126,36 @@ public class TalkServiceTest {
         assertThat(talkService.editTalkDescription(talkId, "editted_description"), is(1));
     }
 
+    @Test
+    public void shouldEditTalkVenue(){
+        Presentation presentation = new Presentation("test title", "test description", "owner");
+        presentation.setId(0);
+        Talk talk = new Talk(presentation,"venue", null, null);
+        when(mockPresentationMapper.insertPresentation(presentation)).thenReturn(1);
+        when(mockPresentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner())).thenReturn(presentation);
+        when(mockTalkMapper.insert(talk)).thenReturn(1);
+        talkService.createTalkWithNewPresentation(presentation, "new venue", DATE, TIME);
+        int talkId = mockTalkMapper.getLastId();
+        when(mockTalkMapper.editTalkVenue(talkId,"new venue")).thenReturn(1);
+        assertThat(talkService.editTalkVenue(talkId, "new venue"), is(1));
+    }
+
+    @Test
+    public void shouldEditTalkDateTime(){
+        Presentation presentation = new Presentation("test title", "test description", "owner");
+        presentation.setId(0);
+        Talk talk = new Talk(presentation,"venue", null, null);
+        when(mockPresentationMapper.insertPresentation(presentation)).thenReturn(1);
+        when(mockPresentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner())).thenReturn(presentation);
+        when(mockTalkMapper.insert(talk)).thenReturn(1);
+        talkService.createTalkWithNewPresentation(presentation, "new venue", DATE, TIME);
+        int talkId = mockTalkMapper.getLastId();
+        DateTime now = DateTime.now();
+        when(mockTalkMapper.editTalkDateTime(talkId,now)).thenReturn(1);
+        assertThat(talkService.editTalkDateTime(talkId, now), is(1));
+    }
+
+
 
 
 

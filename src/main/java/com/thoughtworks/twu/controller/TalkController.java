@@ -3,6 +3,8 @@ package com.thoughtworks.twu.controller;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.service.TalkService;
+import com.thoughtworks.twu.utils.DateParser;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,7 +121,18 @@ public class TalkController {
             return null;
         if (type.equals("description")) {
             talkService.editTalkDescription(talkId, updateValue);
-        }
+        } else if(type.equals("venue")){
+            talkService.editTalkVenue(talkId, updateValue);
+        } else if(type.equals("date")){
+            DateTime newdate = new DateParser(updateValue,"00:00 AM").convertToDateTime();
+            newdate = talk.getDateTime().withDate( newdate.getYear(), newdate.getMonthOfYear(), newdate.getDayOfMonth());
+            talkService.editTalkDateTime(talkId, newdate);
+        } else if(type.equals("time")){
+            DateTime newdate = new DateParser("01/10/2001",updateValue).convertToDateTime();
+            newdate = talk.getDateTime().withTime(newdate.getHourOfDay(), newdate.getMinuteOfHour(), newdate.getSecondOfMinute(), newdate.getMillisOfSecond());
+            talkService.editTalkDateTime(talkId, newdate);
+        } else
+            return null;
 
         ModelAndView message = new ModelAndView("message");
         message.addObject("status",updateValue);

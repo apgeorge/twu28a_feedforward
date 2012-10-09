@@ -67,4 +67,12 @@ public class TalkService {
     public int editTalkDescription(int talkId, String editted_description) {
         return talkMapper.editTalkDescription(talkId, editted_description);
     }
+
+    public int editTalkVenue(int talkId, String newVenue) {
+        return talkMapper.editTalkVenue(talkId, newVenue);
+    }
+
+    public int editTalkDateTime(int talkId, DateTime updateDateTime) {
+        return  talkMapper.editTalkDateTime(talkId, updateDateTime);
+    }
 }

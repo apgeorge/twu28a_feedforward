@@ -88,7 +88,7 @@ task generateTemplateFilesProduction(type: Copy) {
 
 jettyRun{
     jettyRun.httpPort = 9091
-    contextPath = 'twu'
+    contextPath = ''
 }
 
 task jettyRunDev(dependsOn: [generateTemplateFilesDEV, jettyRun])

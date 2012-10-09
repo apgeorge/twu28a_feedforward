@@ -198,5 +198,31 @@ public class TalkMapperTest extends IntegrationTest {
 
     }
 
+    @Test
+    public void shouldEditVenueOfTalk(){
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(1), testClock.now());
+
+        talkMapper.insert(firstTalk);
+        int talkId = talkMapper.getLastId();
+
+        assertThat(talkMapper.editTalkVenue(talkId, "New Venue"), is(1));
+
+    }
+
+
+    @Test
+    public void shouldEditDateTimeOfTalk(){
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now().plusHours(1), testClock.now());
+
+        talkMapper.insert(firstTalk);
+        int talkId = talkMapper.getLastId();
+
+        assertThat(talkMapper.editTalkDateTime(talkId, DateTime.now()), is(1));
+
+    }
 
 }

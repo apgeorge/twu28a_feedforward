@@ -4,6 +4,8 @@ import com.sun.security.auth.UserPrincipal;
 import com.thoughtworks.twu.domain.Presentation;
 import com.thoughtworks.twu.domain.Talk;
 import com.thoughtworks.twu.service.TalkService;
+import com.thoughtworks.twu.utils.DateParser;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -179,4 +181,44 @@ public class TalkControllerTest {
        assertThat((String)modelAndView.getModel().get("status"), is("Edited desc"));
    }
 
+
+    @Test
+    public void shouldEditVenueOfTalk(){
+        int talkId = 42;
+        Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), "venue", null, null);
+        when(talkService.getTalk(talkId)).thenReturn(talk);
+        when(talkService.editTalkVenue(talkId, "Edited venue")).thenReturn(1);
+        ModelAndView modelAndView = talkController.editTalkDetails(request, "venue", talkId, "Edited venue");
+        assertThat((String)modelAndView.getModel().get("status"), is("Edited venue"));
+    }
+
+    @Test
+    public void shouldEditDateOfTalk(){
+        int talkId = 42;
+        Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), "venue", DateTime.now(), null);
+        DateTime now = DateTime.now();
+
+        when(talkService.getTalk(talkId)).thenReturn(talk);
+        when(talkService.editTalkDateTime(talkId, now)).thenReturn(1);
+        ModelAndView modelAndView = talkController.editTalkDetails(request, "date", talkId, "10/04/2010");
+
+
+        assertThat((String)modelAndView.getModel().get("status"), is("10/04/2010"));
+    }
+
+
+    @Test
+    public void shouldEditTimeOfTalk(){
+        int talkId = 42;
+        Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), "venue", DateTime.now(), null);
+        DateTime now = new DateParser("11/11/2001","10:10 AM").convertToDateTime();
+
+
+        when(talkService.getTalk(talkId)).thenReturn(talk);
+        when(talkService.editTalkDateTime(talkId, now)).thenReturn(1);
+        ModelAndView modelAndView = talkController.editTalkDetails(request, "time", talkId, "10:10 AM");
+
+
+        assertThat((String)modelAndView.getModel().get("status"), is("10:10 AM"));
+    }
 }

@@ -61,4 +61,10 @@ public interface TalkMapper {
 
     @Update("UPDATE presentation SET description=#{newDescription} WHERE id=(SELECT presentation_id FROM talk WHERE talk_id=#{talkId})")
     int editTalkDescription(@Param("talkId") int talkId, @Param("newDescription") String newDescription);
+
+    @Update("UPDATE talk SET venue=#{newVenue} WHERE talk_id=#{talkId}")
+    int editTalkVenue(@Param("talkId") int talkId, @Param("newVenue") String newVenue);
+
+    @Update("UPDATE talk SET time_of_talk=#{newDateTime} WHERE talk_id=#{talkId}")
+    int editTalkDateTime(@Param("talkId") int talkId, @Param("newDateTime") DateTime newDateTime);
 }
