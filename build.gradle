@@ -91,6 +91,11 @@ jettyRun{
     contextPath = ''
 }
 
+jettyRunWar{
+    jettyRun.httpPort = 8080
+    contextPath = ''
+}
+
 task jettyRunDev(dependsOn: [generateTemplateFilesDEV, jettyRun])
 
 test {
