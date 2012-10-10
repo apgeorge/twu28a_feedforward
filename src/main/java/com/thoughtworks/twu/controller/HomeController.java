@@ -33,7 +33,7 @@ public class HomeController {
     public ModelAndView logoutPage(HttpServletRequest httpServletRequest) throws IOException {
         String serverName = httpServletRequest.getServerName();
         String cas;
-        if (serverName.contains(".135")) cas = "cas";
+        if (serverName.contains(".thoughtworks.com")) cas = "cas";
         else cas = "castest";
         ModelAndView modelAndView = new ModelAndView("redirect:http://"+cas+".thoughtworks.com/cas/logout");
         httpServletRequest.getSession().invalidate();
