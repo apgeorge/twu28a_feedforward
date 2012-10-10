@@ -92,7 +92,7 @@ jettyRun{
 }
 
 jettyRunWar{
-    httpPort = 80
+    httpPort = 8080
     deamon = true
     contextPath = ''
 }
