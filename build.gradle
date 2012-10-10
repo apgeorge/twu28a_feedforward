@@ -87,12 +87,13 @@ task generateTemplateFilesProduction(type: Copy) {
 
 
 jettyRun{
-    jettyRun.httpPort = 9091
+    httpPort = 9091
     contextPath = ''
 }
 
 jettyRunWar{
-    jettyRun.httpPort = 8080
+    httpPort = 80
+    deamon = true
     contextPath = ''
 }
 
