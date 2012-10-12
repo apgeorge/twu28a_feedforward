@@ -64,15 +64,22 @@ public class TalkService {
         return (talk.isMyTalk(username));
     }
 
-    public int editTalkDescription(int talkId, String editted_description) {
-        return talkMapper.editTalkDescription(talkId, editted_description);
+    public int editTalkDescription(int talkId, String edited_description) {
+        updateLastModified(talkId);
+        return talkMapper.editTalkDescription(talkId, edited_description);
     }
 
     public int editTalkVenue(int talkId, String newVenue) {
+        updateLastModified(talkId);
         return talkMapper.editTalkVenue(talkId, newVenue);
     }
 
     public int editTalkDateTime(int talkId, DateTime updateDateTime) {
+        updateLastModified(talkId);
         return  talkMapper.editTalkDateTime(talkId, updateDateTime);
+    }
+
+    private int updateLastModified(int talkId){
+        return talkMapper.updateLastModified(talkId,clock.now());
     }
 }

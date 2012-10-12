@@ -67,4 +67,7 @@ public interface TalkMapper {
 
     @Update("UPDATE talk SET time_of_talk=#{newDateTime} WHERE talk_id=#{talkId}")
     int editTalkDateTime(@Param("talkId") int talkId, @Param("newDateTime") DateTime newDateTime);
+
+    @Update("UPDATE talk SET last_modified_at=#{newLastModified} WHERE talk_id=#{talkId}")
+    int updateLastModified(@Param("talkId") int talkId,@Param("newLastModified") DateTime newLastModified);
 }
