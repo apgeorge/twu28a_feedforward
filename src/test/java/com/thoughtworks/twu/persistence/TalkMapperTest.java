@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -225,4 +226,16 @@ public class TalkMapperTest extends IntegrationTest {
 
     }
 
+    @Test
+    public void shouldDeleteTalk() throws Exception {
+        presentationMapper.insertPresentation(presentation);
+        Presentation presentationWithID = presentationMapper.getPresentation(presentation.getTitle(), presentation.getOwner());
+        Talk firstTalk = new Talk(presentationWithID, "Pune Office", new ApplicationClock().now(), testClock.now());
+
+        talkMapper.insert(firstTalk);
+        int talkid = talkMapper.getLastId();
+
+        assertThat(talkMapper.deleteTalk(talkid),is(1));
+        assertNull(talkMapper.getTalk(talkid));
+    }
 }

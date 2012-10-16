@@ -24,6 +24,7 @@ public class TalkControllerTest {
     private TalkController talkController;
     TalkService talkService;
     private MockHttpServletRequest request;
+    int talkId = 42;
 
     @Before
     public void setUp() {
@@ -36,7 +37,6 @@ public class TalkControllerTest {
 
     @Test
     public void shouldReturnTalkDetailsViewForAnId() {
-        int talkId = 42;
         Talk talk = new Talk(new Presentation(null, null, "test.twu"), null, null, null);
         when(talkService.getTalk(talkId)).thenReturn(talk);
 
@@ -135,7 +135,6 @@ public class TalkControllerTest {
 
         Talk talk = new Talk(new Presentation(null, null, "test.twu"), null, null, null);
         when(talkService.isUpcomingTalk(talk)).thenReturn(true);
-        int talkId = 1;
         when(talkService.getTalk(talkId)).thenReturn(talk);
         ModelAndView modelAndView = talkController.getTalkDetails(request, talkId);
         assertThat(modelAndView.getViewName(), is("talk_details"));
@@ -173,7 +172,6 @@ public class TalkControllerTest {
 
    @Test
     public void shouldEditDescriptionOfTalk(){
-       int talkId = 42;
        Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), null, null, null);
        when(talkService.getTalk(talkId)).thenReturn(talk);
        when(talkService.editTalkDescription(talkId, "Edited desc")).thenReturn(1);
@@ -184,7 +182,6 @@ public class TalkControllerTest {
 
     @Test
     public void shouldEditVenueOfTalk(){
-        int talkId = 42;
         Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), "venue", null, null);
         when(talkService.getTalk(talkId)).thenReturn(talk);
         when(talkService.editTalkVenue(talkId, "Edited venue")).thenReturn(1);
@@ -194,7 +191,6 @@ public class TalkControllerTest {
 
     @Test
     public void shouldEditDateOfTalk(){
-        int talkId = 42;
         Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), "venue", DateTime.now(), null);
         DateTime now = DateTime.now();
 
@@ -209,7 +205,6 @@ public class TalkControllerTest {
 
     @Test
     public void shouldEditTimeOfTalk(){
-        int talkId = 42;
         Talk talk = new Talk(new Presentation(null, "desc", "test.twu"), "venue", DateTime.now(), null);
         DateTime now = new DateParser("11/11/2001","10:10 AM").convertToDateTime();
 
@@ -220,5 +215,14 @@ public class TalkControllerTest {
 
 
         assertThat((String)modelAndView.getModel().get("status"), is("10:10 AM"));
+    }
+
+    @Test
+    public void shouldDeleteTalk() throws Exception {
+        when(talkService.deleteTalk(talkId)).thenReturn(1);
+        ModelAndView modelAndView = talkController.deleteTalk(talkId);
+
+        assertThat((String)modelAndView.getModel().get("status"),is("talkWithId"+talkId+"Deleted"));
+
     }
 }

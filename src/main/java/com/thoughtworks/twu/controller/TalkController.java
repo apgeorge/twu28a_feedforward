@@ -140,5 +140,18 @@ public class TalkController {
     }
 
 
+    public ModelAndView deleteTalk(int talkId) {
+        talkService.deleteTalk(talkId);
+        int resultOfDeletion;
+        ModelAndView modelAndView = new ModelAndView("message");
+        resultOfDeletion = talkService.deleteTalk(talkId);
+        if(resultOfDeletion == 0){
+            addFailureMessageToModelAndView(modelAndView);
+        }
+        else{
+        modelAndView.addObject("status","talkWithId"+talkId+"Deleted");
+        }
+        return modelAndView;
 
+    }
 }

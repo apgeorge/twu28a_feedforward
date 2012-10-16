@@ -70,4 +70,8 @@ public interface TalkMapper {
 
     @Update("UPDATE talk SET last_modified_at=#{newLastModified} WHERE talk_id=#{talkId}")
     int updateLastModified(@Param("talkId") int talkId,@Param("newLastModified") DateTime newLastModified);
+
+    @Delete("DELETE FROM talk WHERE talk_id=#{talkId}")
+    int deleteTalk(int talkId);
+
 }

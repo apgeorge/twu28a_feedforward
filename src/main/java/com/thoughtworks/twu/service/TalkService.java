@@ -82,4 +82,8 @@ public class TalkService {
     private int updateLastModified(int talkId){
         return talkMapper.updateLastModified(talkId,clock.now());
     }
+
+    public int deleteTalk(int talkId) {
+       return talkMapper.deleteTalk(talkId);
+    }
 }

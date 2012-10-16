@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -155,10 +156,15 @@ public class TalkServiceTest {
         assertThat(talkService.editTalkDateTime(talkId, now), is(1));
     }
 
+    @Test
+    public void shouldDeleteTalk() throws Exception {
+        int talkId = 1;
+        when(mockTalkMapper.deleteTalk(talkId)).thenReturn(1);
+        when(mockTalkMapper.getTalk(talkId)).thenReturn(null);
 
-
-
-
+        assertThat(talkService.deleteTalk(talkId),is(1));
+        assertNull(talkService.getTalk(talkId));
+    }
 }
 
 
